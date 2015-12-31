@@ -40,11 +40,12 @@ namespace HorizontalDiffusionSAStages
     };
 }
 
-HorizontalDiffusionSA::HorizontalDiffusionSA() : stencils_(N_HORIDIFF_VARS) 
+HorizontalDiffusionSA::HorizontalDiffusionSA() : stencils_(N_HORIDIFF_VARS), haloUpdates_(N_HORIDIFF_VARS)
 {
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
-        stencils_[c] = new Stencil();    
+        stencils_[c] = new Stencil();
+        haloUpdates_[c]= new HaloUpdateManager<true, false>();
     }
         
 }
@@ -54,6 +55,8 @@ HorizontalDiffusionSA::~HorizontalDiffusionSA()
     {
         assert(stencils_[c]);
         delete stencils_[c];
+        assert(haloUpdates_[c]);
+        delete haloUpdates_[c];
     }    
 }
 
@@ -69,6 +72,8 @@ void HorizontalDiffusionSA::ResetMeters()
 void HorizontalDiffusionSA::Init(
         HoriDiffRepository& horiDiffRepository, CommunicationConfiguration& comm)
 {
+
+    pCommunicationConfiguration_ = &comm;
     // store pointers to the repositories
     pHoriDiffRepository_ = &horiDiffRepository;
 
@@ -100,6 +105,15 @@ void HorizontalDiffusionSA::Init(
                 )
             )
         );
+
+        assert(haloUpdates_[c]);
+        assert(pCommunicationConfiguration_);
+        haloUpdates_[c]->Init("HaloUpdate", *pCommunicationConfiguration_);
+        IJBoundary innerBoundary, outerBoundary;
+        innerBoundary.Init(0, 0, 0, 0);
+        outerBoundary.Init(-1, 1, -1, 1);
+        haloUpdates_[c]->AddJob(horiDiffRepository.u_out(c), innerBoundary, outerBoundary);
+
    }
 }
 
@@ -112,3 +126,11 @@ void HorizontalDiffusionSA::Apply()
     }
 }
 
+void HorizontalDiffusionSA::Apply(IJBoundary ijBoundary)
+{
+    for(int c=0; c < N_HORIDIFF_VARS; ++c)
+    {
+        assert(stencils_[c]);
+        stencils_[c]->Apply(ijBoundary);
+    }
+}

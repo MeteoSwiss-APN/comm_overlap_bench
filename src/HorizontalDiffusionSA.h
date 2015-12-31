@@ -4,6 +4,7 @@
 #include "HoriDiffRepository.h"
 #include "CommunicationConfiguration.h"
 #include "Stencil.h"
+#include "HaloUpdateManager.h"
 
 /**
 * @class HorizontalDiffusionSA
@@ -30,11 +31,40 @@ public:
     */
     void Apply();
 
+    void Apply(IJBoundary );
 
     void ResetMeters();
+
+    void StartHalos()
+    {
+        for(int c=0; c < N_HORIDIFF_VARS; ++c)
+        {
+            assert(haloUpdates_[c]);
+            haloUpdates_[c]->Start();
+        }
+    }
+
+    void WaitHalos()
+    {
+        for(int c=0; c < N_HORIDIFF_VARS; ++c)
+        {
+            assert(haloUpdates_[c]);
+            haloUpdates_[c]->Wait();
+        }
+
+    }
+    void ApplyHalos()
+    {
+        StartHalos();
+        WaitHalos();
+    }
+
 private:
     std::vector<Stencil*> stencils_;
 
+    std::vector<HaloUpdateManager<true, false>*> haloUpdates_;
+
+    CommunicationConfiguration* pCommunicationConfiguration_;
     HoriDiffRepository *pHoriDiffRepository_;
 };
 

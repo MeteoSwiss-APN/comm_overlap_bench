@@ -16,6 +16,7 @@ public:
     static Options& getInstance(); 
 
     IJKSize domain_;
+    bool sync_;
 }; 
 
   

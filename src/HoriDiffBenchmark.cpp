@@ -7,6 +7,7 @@
 #include "Definitions.h"
 #include "UnittestEnvironment.h"
 #include "HaloUpdateManager.h"
+#include "Options.h"
 
 #ifdef __CUDA_BACKEND__
 #include "cuda_profiler_api.h"
@@ -42,14 +43,13 @@ TEST_F(HoriDiffBenchmark, SingleVar)
     HorizontalDiffusionSA horizontalDiffusionSA;
     horizontalDiffusionSA.Init(*pRepository_, UnittestEnvironment::getInstance().communicationConfiguration());
 
-    HaloUpdateManager<true, false> haloUpdate;
-    haloUpdate.Init("HaloUpdate", UnittestEnvironment::getInstance().communicationConfiguration());
-    IJBoundary innerBoundary, outerBoundary;
-    innerBoundary.Init(0, 0, 0, 0);
-    outerBoundary.Init(-1, 1, -1, 1);
-    haloUpdate.AddJob(pRepository_->u_out(0), innerBoundary, outerBoundary);
-
+    IJBoundary applyB;
+    applyB.Init(-1,1,-1,1);
+    horizontalDiffusionSA.Apply(applyB);
+//    horizontalDiffusionSA.ApplyHalos();
+    pRepository_->Swap();
     horizontalDiffusionSA.Apply();
+
     IJKRealField& outField = pRepository_->u_out(0);
     IJKRealField& refField = pRepository_->refField();
 
@@ -67,10 +67,17 @@ TEST_F(HoriDiffBenchmark, SingleVar)
 #endif
     for(int i=0; i < cNumBenchmarkRepetitions; ++i) {
         // flush cache between calls to horizontal diffusion stencil
+        if(i!=0 && !Options::getInstance().sync_)
+            horizontalDiffusionSA.WaitHalos();
         horizontalDiffusionSA.Apply();
-        haloUpdate.Start();
-        haloUpdate.Wait();
+        if(!Options::getInstance().sync_)
+            horizontalDiffusionSA.StartHalos();
+        else
+            horizontalDiffusionSA.ApplyHalos();
+        pRepository_->Swap();
+        horizontalDiffusionSA.Apply();
     }
+    horizontalDiffusionSA.WaitHalos();
 #ifdef __CUDA_BACKEND__
     cudaProfilerStop();
 #endif

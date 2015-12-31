@@ -28,35 +28,19 @@ void HoriDiffReference::Generate() {
     #pragma omp for nowait
     for(int k=boundary.kMinusOffset(); k < domain.kSize() + boundary.kPlusOffset(); ++k)
     {
-        for(int i=0; i < domain.iSize(); ++i) {
-            for(int j=0; j < domain.jSize(); ++j)
-            {
-                refField(i,j,k) = sourceField(i-1,j,k) + sourceField(i+1,j,k) + sourceField(i,j-1,k) + sourceField(i,j+1,k) - 4.0*sourceField(i,j,k);
-            }
-        }
-/*        for(int i=-1; i < domain.iSize()+1; ++i) {
+        for(int i=-1; i < domain.iSize()+1; ++i) {
             for(int j=-1; j < domain.jSize()+1; ++j)
             {
-                double fieldFlux = sourceField(i+1,j,k) - sourceField(i,j,k);
-                flux_x(i,j,k) = lap(i+1,j,k) - lap(i,j,k);
-                if(flux_x(i,j,k) * (fieldFlux) > 0) {
-                    flux_x(i,j,k) = 0;
-                }
-                fieldFlux = sourceField(i,j+1,k) - sourceField(i,j,k);
-                flux_y(i,j,k) = crlato(i,j,k)*(lap(i,j+1,k) - lap(i,j,k));
-                if(flux_y(i,j,k) * (fieldFlux) > 0) {
-                    flux_y(i,j,k) = 0;
-                }
+                lap(i,j,k) = sourceField(i-1,j,k) + sourceField(i+1,j,k) + sourceField(i,j-1,k) + sourceField(i,j+1,k) - 4.0*sourceField(i,j,k);
             }
         }
         for(int i=0; i < domain.iSize(); ++i) {
             for(int j=0; j < domain.jSize(); ++j)
             {
-                refField(i,j,k) = sourceField(i,j,k) + (flux_x(i-1,j,k) - flux_x(i,j,k) +
-                        flux_y(i,j-1,k) - flux_y(i,j,k))*hdmaskvel(i,j,k);
+                refField(i,j,k) = lap(i-1,j,k) + lap(i+1,j,k) + lap(i,j-1,k) + lap(i,j+1,k) - 4.0*lap(i,j,k);
             }
         }
-*/
+
     }
 
 }

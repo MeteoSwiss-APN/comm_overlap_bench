@@ -56,14 +56,6 @@ public:
     */
     const IJKSize& calculationDomain() const { return calculationDomain_; }
 
-//    // prognostic variables
-//    SwapDataField<IJKRealField>& u() { return u_; }
-//    IJKRealField& u_in() { return u_.in(); }
-//    IJKRealField& u_out() { return u_.out(); }
-//    SwapDataField<IJKRealField>& v() { return v_; }
-//    IJKRealField& v_in() { return v_.in(); }
-//    IJKRealField& v_out() { return v_.out(); }
-
     IJKRealField& u_in(int idx) {
         assert(idx < N_HORIDIFF_VARS);
         assert(horiDiffFields_[idx]);
@@ -73,6 +65,20 @@ public:
         assert(idx < N_HORIDIFF_VARS);
         assert(horiDiffFields_[idx]);
         return horiDiffFields_[idx]->out();
+    }
+
+    SwapDataField<IJKRealField>& u(const int idx)
+    {
+        assert(idx < N_HORIDIFF_VARS);
+        return *(horiDiffFields_[idx]);
+    }
+
+    void Swap()
+    {
+        for(size_t i=0; i < N_HORIDIFF_VARS; ++i)
+        {
+            u(i).Swap();
+        }
     }
 
     std::vector< boost::shared_ptr< SwapDataField<IJKRealField> > >& horiDiffFields() { return horiDiffFields_; }
