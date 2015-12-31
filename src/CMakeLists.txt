@@ -31,7 +31,7 @@ if( CUDA_BACKEND )
         ${SOURCES}
         OPTIONS "${HORIDIFF_NVCC_FLAGS}"
     )
-    target_link_libraries( StandaloneStencilsCUDA ${STELLA_LIBRARIES} )
+    target_link_libraries( StandaloneStencilsCUDA ${STELLA_LIBRARIES} ${Boost_LIBRARIES})
 
     install( TARGETS StandaloneStencilsCUDA DESTINATION bin/ )
 else()

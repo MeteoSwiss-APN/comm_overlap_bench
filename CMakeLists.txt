@@ -9,7 +9,7 @@ project( hori_diff_tests )
 enable_language( CXX )
 
 # BOOST
-find_package(Boost 1.43.0)
+find_package(Boost 1.43.0 COMPONENTS system timer REQUIRED)
 if (Boost_FOUND)
     include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 endif()

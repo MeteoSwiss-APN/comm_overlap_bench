@@ -2,7 +2,7 @@
 
 //TODO mark these in namespace
 const int cCacheFlusherSize = 1024*1024*21;
-const int cNumBenchmarkRepetitions = 10;
+const int cNumBenchmarkRepetitions = 1000;
 #define N_HORIDIFF_VARS 4
 #define ISIZE 128
 #define JSIZE 129

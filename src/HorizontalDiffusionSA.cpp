@@ -111,7 +111,7 @@ void HorizontalDiffusionSA::Init(
         haloUpdates_[c]->Init("HaloUpdate", *pCommunicationConfiguration_);
         IJBoundary innerBoundary, outerBoundary;
         innerBoundary.Init(0, 0, 0, 0);
-        outerBoundary.Init(-1, 1, -1, 1);
+        outerBoundary.Init(-3, 3, -3, 3);
         haloUpdates_[c]->AddJob(horiDiffRepository.u_out(c), innerBoundary, outerBoundary);
 
    }

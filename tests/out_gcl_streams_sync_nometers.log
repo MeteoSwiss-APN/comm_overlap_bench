@@ -1,0 +1,622 @@
++ module list -l
+++ /usr/Modules/3.2.10/bin/modulecmd bash list -l
+- Package -----------------------------+- Versions -+- Last mod. ------
+Currently Loaded Modulefiles:
+craype-haswell                                       2015/03/24 17:08:24
+craype-network-infiniband                            2015/03/24 17:08:24
+cudatoolkit/7.0.28                                   2015/11/11  8:34:25
+mvapich2gdr_gnu/2.1_cuda_7.0                         2015/10/20 15:06:46
+binutils/2.25                                        2015/11/02 16:45:51
+GCC/4.9.3-binutils-2.25                              2015/11/02 17:02:06
+cray-libsci_acc/3.3.0                                2015/10/06 14:51:04
+MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25                2015/11/04  8:21:38
+OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25              2015/11/02 17:15:57
+gmvapich2/15.11                                      2015/11/04  8:21:41
+FFTW/3.3.4-gmvapich2-15.11                           2015/11/04 10:33:09
+ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLA              2015/11/04 10:36:51
+gmvolf/15.11                                         2015/11/04 10:36:51
+bzip2/.1.0.6-gmvolf-15.11                            2015/11/04 10:55:08
+zlib/.1.2.8-gmvolf-15.11                             2015/11/04 10:41:47
+ncurses/.5.9-gmvolf-15.11                            2015/11/04 10:41:03
+libreadline/.6.3-gmvolf-15.11                        2015/11/04 10:48:27
+Tcl/.8.6.3-gmvolf-15.11                              2015/11/04 10:54:04
+SQLite/.3.8.8.1-gmvolf-15.11                         2015/11/04 10:54:43
+Python/2.7.10-gmvolf-15.11                           2015/11/04 11:10:01
+Boost/1.49.0-gmvolf-15.11-Python-2.7.10              2015/11/04 12:35:09
++ eval
++ ldd
+ldd: missing file arguments
+Try `ldd --help' for more information.
++ export GCLOCK=875
++ GCLOCK=875
++ export CUDA_AUTO_BOOST=0
++ CUDA_AUTO_BOOST=0
++ export OMP_NUM_THREADS=1
++ OMP_NUM_THREADS=1
++ export MALLOC_MMAP_MAX_=0
++ MALLOC_MMAP_MAX_=0
++ export MALLOC_TRIM_THRESHOLD_=536870912
++ MALLOC_TRIM_THRESHOLD_=536870912
++ export G2G=1
++ G2G=1
++ export MV2_USE_GPUDIRECT=0
++ MV2_USE_GPUDIRECT=0
++ srun -n 32 ../install/bin/StandaloneStencilsCUDA 128 128 80 --sync
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+/scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/../install/bin/StandaloneStencilsCUDA
+128
+128
+80
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+
+[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar[----------] 1 test from HoriDiffBenchmark[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+
+
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark[----------] 1 test from HoriDiffBenchmark[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] [----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+1 test from HoriDiffBenchmark
+[ RUN      ] [----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+
+[ RUN      ] HoriDiffBenchmark.SingleVar
+
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+NUMRAN 32
+ELAPSED TIME : 0.11169 +- + 0.621863
+[       OK ] HoriDiffBenchmark.SingleVar (3703 ms)
+[----------] 1 test from HoriDiffBenchmark (3703 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3704 ms)
+[----------] 1 test from HoriDiffBenchmark (3704 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3705 ms)
+[----------] 1 test from HoriDiffBenchmark (3705 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3704 ms)
+[----------] 1 test from HoriDiffBenchmark (3704 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3708 ms)
+[----------] 1 test from HoriDiffBenchmark (3708 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3710 ms)
+[----------] 1 test from HoriDiffBenchmark (3710 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3712 ms)
+[----------] 1 test from HoriDiffBenchmark (3712 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3711 ms)
+[----------] 1 test from HoriDiffBenchmark (3711 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3711 ms)
+[----------] 1 test from HoriDiffBenchmark (3711 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3712 ms)
+[----------] 1 test from HoriDiffBenchmark (3712 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3712 ms)
+[----------] 1 test from HoriDiffBenchmark (3712 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3713 ms)
+[----------] 1 test from HoriDiffBenchmark (3713 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3713 ms)
+[----------] 1 test from HoriDiffBenchmark (3713 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3713 ms)
+[----------] 1 test from HoriDiffBenchmark (3713 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3713 ms)
+[----------] 1 test from HoriDiffBenchmark (3713 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3713 ms)
+[----------] 1 test from HoriDiffBenchmark (3713 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3713 ms)
+[----------] 1 test from HoriDiffBenchmark (3713 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3713 ms)
+[----------] 1 test from HoriDiffBenchmark (3713 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar[       OK ] HoriDiffBenchmark.SingleVar (3714 ms)
+[----------] 1 test from HoriDiffBenchmark (3714 ms total)
+
+[----------] Global test environment tear-down
+ (3714 ms)
+[----------] 1 test from HoriDiffBenchmark (3714 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar[       OK ] HoriDiffBenchmark.SingleVar (3714 ms)
+[----------] 1 test from HoriDiffBenchmark (3714 ms total)
+
+[----------] Global test environment tear-down
+ (3714 ms)
+[----------] 1 test from HoriDiffBenchmark (3714 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3714 ms)
+[----------] 1 test from HoriDiffBenchmark (3714 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar[       OK ] HoriDiffBenchmark.SingleVar (3713 ms)
+[----------] 1 test from HoriDiffBenchmark (3713 ms total)
+
+[----------] Global test environment tear-down
+ (3714 ms)
+[----------] 1 test from HoriDiffBenchmark (3714 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3714 ms)
+[       OK ] HoriDiffBenchmark.SingleVar[----------] 1 test from HoriDiffBenchmark (3714 ms total)
+
+[----------] Global test environment tear-down
+ (3714 ms)
+[----------] 1 test from HoriDiffBenchmark (3714 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar[       OK ] HoriDiffBenchmark.SingleVar (3715 ms)
+ (3715 ms)
+[----------] 1 test from HoriDiffBenchmark (3715 ms total)
+
+[----------] Global test environment tear-down
+[----------] 1 test from HoriDiffBenchmark (3715 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3715 ms)
+[----------] 1 test from HoriDiffBenchmark (3715 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3715 ms)
+[----------] 1 test from HoriDiffBenchmark (3715 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (3715 ms)
+[----------] 1 test from HoriDiffBenchmark (3715 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (8504 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8516 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8566 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8515 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8578 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8499 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8571 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8533 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8503 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8533 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8500 ms total)
+[  PASSED  ] 1 test.
+[==========] [==========] 1 test from 1 test case ran.1 test from 1 test case ran. (8527 ms total)
+[  PASSED  ] 1 test.
+ (8539 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8520 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8505 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8521 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8502 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8522 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8502 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8535 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran.[==========] 1 test from 1 test case ran. (6486 ms total)
+[  PASSED  ] 1 test.
+[==========]  (6654 ms total)
+[  PASSED  ] 1 test.
+1 test from 1 test case ran. (8534 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8535 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (6458 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8584 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8585 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8596 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8582 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8583 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (8585 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (6557 ms total)
+[  PASSED  ] 1 test.
