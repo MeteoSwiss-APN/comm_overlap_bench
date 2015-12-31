@@ -34,14 +34,16 @@ if( CUDA_BACKEND )
     target_link_libraries( StandaloneStencilsCUDA ${STELLA_LIBRARIES} )
 
     install( TARGETS StandaloneStencilsCUDA DESTINATION bin/ )
+else()
+    add_executable(
+        StandaloneStencils 
+        ${X86_SOURCES}
+        ${SOURCES}
+    )
+    target_link_libraries( StandaloneStencils ${STELLA_LIBRARIES} )
+
+    install( TARGETS StandaloneStencils DESTINATION bin/ )
+ 
 endif()
 
-add_executable(
-    StandaloneStencils 
-    ${X86_SOURCES}
-    ${SOURCES}
-)
-target_link_libraries( StandaloneStencils ${STELLA_LIBRARIES} )
 
-install( TARGETS StandaloneStencils DESTINATION bin/ )
- 
