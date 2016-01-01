@@ -17,6 +17,7 @@ public:
 
     IJKSize domain_;
     bool sync_;
+    bool nocomm_;
 }; 
 
   

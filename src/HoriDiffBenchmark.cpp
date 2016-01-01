@@ -73,17 +73,21 @@ TEST_F(HoriDiffBenchmark, SingleVar)
 
     for(int i=0; i < cNumBenchmarkRepetitions; ++i) {
         // flush cache between calls to horizontal diffusion stencil
-        if(i!=0 && !Options::getInstance().sync_)
+        if(i!=0 && !Options::getInstance().sync_ && !Options::getInstance().nocomm_)
             horizontalDiffusionSA.WaitHalos();
         horizontalDiffusionSA.Apply();
-        if(!Options::getInstance().sync_)
-            horizontalDiffusionSA.StartHalos();
-        else
-            horizontalDiffusionSA.ApplyHalos();
+        if(!Options::getInstance().nocomm_){
+            if(!Options::getInstance().sync_)
+                horizontalDiffusionSA.StartHalos();
+            else
+                horizontalDiffusionSA.ApplyHalos();
+        }
         pRepository_->Swap();
         horizontalDiffusionSA.Apply();
     }
-    horizontalDiffusionSA.WaitHalos();
+    if(!Options::getInstance().nocomm_){
+        horizontalDiffusionSA.WaitHalos();
+    }
 
     cpu_timer.stop();
     boost::timer::cpu_times elapsed = cpu_timer.elapsed();

@@ -66,11 +66,13 @@ int main(int argc, char **argv)
     int jSize = parseIntOption(argc, argv, "--je", 128);
     int kSize = parseIntOption(argc, argv, "--ke", 60);
     bool sync = parseBoolOption(argc, argv, "--sync");
+    bool nocomm = parseBoolOption(argc, argv, "--nocomm");
 
     IJKSize domain;
     domain.Init(iSize, jSize, kSize);
     Options::getInstance().domain_ = domain;
     Options::getInstance().sync_ = sync;
+    Options::getInstance().nocomm_ = nocomm;
 
     // register environment
     testing::AddGlobalTestEnvironment(&UnittestEnvironment::getInstance());
