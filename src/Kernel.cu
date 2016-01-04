@@ -16,7 +16,10 @@ void cukernel(Real* in, Real* out, const int kSize, const int iStride, const int
         out[ipos*iStride + jpos*jStride + k*kStride] = (pow(in[ipos*iStride + jpos*jStride + k*kStride] *in[ipos*iStride + jpos*jStride + k*kStride], 3.5) +
             pow(in[ipos*iStride + jpos*jStride + (k+1)*kStride], 2.3) - 
             pow(in[ipos*iStride + jpos*jStride + (k-1)*kStride], 1.3)
-        );
+        )
+        + out[(ipos+1)*iStride + jpos*jStride + k*kStride] + out[(ipos-1)*iStride + jpos*jStride + k*kStride] + 
+        out[ipos*iStride + (jpos+1)*jStride + k*kStride] + out[ipos*iStride + (jpos-1)*jStride + k*kStride]
+        ;
 
       
     }

@@ -43,14 +43,14 @@ public:
             if(Options::getInstance().nogcl_)
             {
                 MPI_Isend(sendWBuff_[c], commSize_, MPITYPE, neighbours_[0],1, MPI_COMM_WORLD, &requestNull);
-                MPI_Isend(sendNBuff_[c], commSize_, MPITYPE, neighbours_[1],1, MPI_COMM_WORLD, &requestNull);
-                MPI_Isend(sendEBuff_[c], commSize_, MPITYPE, neighbours_[2],1, MPI_COMM_WORLD, &requestNull);
-                MPI_Isend(sendSBuff_[c], commSize_, MPITYPE, neighbours_[3],1, MPI_COMM_WORLD, &requestNull);
+                MPI_Isend(sendNBuff_[c], commSize_, MPITYPE, neighbours_[1],3, MPI_COMM_WORLD, &requestNull);
+                MPI_Isend(sendEBuff_[c], commSize_, MPITYPE, neighbours_[2],5, MPI_COMM_WORLD, &requestNull);
+                MPI_Isend(sendSBuff_[c], commSize_, MPITYPE, neighbours_[3],7, MPI_COMM_WORLD, &requestNull);
 
-                MPI_Irecv(recWBuff_[c], commSize_, MPITYPE, neighbours_[0],1, MPI_COMM_WORLD, &(reqs_[c*4]));
-                MPI_Irecv(recNBuff_[c], commSize_, MPITYPE, neighbours_[1],1, MPI_COMM_WORLD, &(reqs_[c*4+1]));
+                MPI_Irecv(recWBuff_[c], commSize_, MPITYPE, neighbours_[0],5, MPI_COMM_WORLD, &(reqs_[c*4]));
+                MPI_Irecv(recNBuff_[c], commSize_, MPITYPE, neighbours_[1],7, MPI_COMM_WORLD, &(reqs_[c*4+1]));
                 MPI_Irecv(recEBuff_[c], commSize_, MPITYPE, neighbours_[2],1, MPI_COMM_WORLD, &(reqs_[c*4+2]));
-                MPI_Irecv(recSBuff_[c], commSize_, MPITYPE, neighbours_[3],1, MPI_COMM_WORLD, &(reqs_[c*4+3]));
+                MPI_Irecv(recSBuff_[c], commSize_, MPITYPE, neighbours_[3],3, MPI_COMM_WORLD, &(reqs_[c*4+3]));
             }
             else {
 

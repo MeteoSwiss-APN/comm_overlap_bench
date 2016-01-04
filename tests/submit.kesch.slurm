@@ -6,7 +6,7 @@
 #SBATCH --output=out.log
 #SBATCH --time=00:30:00
 #SBATCH --gres=gpu:16
-#SBATCH --partition=normal
+#SBATCH --partition=dev
 #SBATCH --account=s83
 
 ########################################################
@@ -25,6 +25,6 @@ export MALLOC_TRIM_THRESHOLD_=536870912
 export G2G=1
 export MV2_USE_GPUDIRECT=0 #with this perf are ok
 
-srun -n 32 ../install/bin/StandaloneStencilsCUDA 128 128 80 --nocomm  --nostella
+srun -n 32 ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --nogcl --sync
 
 ########################################################
