@@ -62,7 +62,8 @@ TEST_F(HoriDiffBenchmark, SingleVar)
     checkBoundary.Init(0, 0, 0, 0, 0, 0);
     FieldCollection collection;
     collection.AddOutputReference("field", outField, refField, *pMetric_, checkBoundary);
-    ASSERT_TRUE(collection.Verify());
+    if(!Options::getInstance().nostella_)
+        ASSERT_TRUE(collection.Verify());
 
     horizontalDiffusionSA.Apply();
     horizontalDiffusionSA.ResetMeters();

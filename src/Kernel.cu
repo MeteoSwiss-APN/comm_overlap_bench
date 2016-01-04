@@ -7,10 +7,22 @@ void cukernel(Real* in, Real* out, const int kSize, const int iStride, const int
     int ipos = blockIdx.x * 32 + threadIdx.x;
     int jpos = blockIdx.y * 8 + threadIdx.y;
 
-    for(int k=0; k < kSize; ++k)
+
+    out[ipos*iStride + jpos*jStride] = (pow(in[ipos*iStride + jpos*jStride] *in[ipos*iStride + jpos*jStride], 3.5) +
+            pow(in[ipos*iStride + jpos*jStride + kStride], 2.3)
+        );
+    for(int k=1; k < kSize-1; ++k)
     {
-        out[ipos*iStride + jpos*jStride + k*kStride] = in[ipos*iStride + jpos*jStride + k*kStride];
+        out[ipos*iStride + jpos*jStride + k*kStride] = (pow(in[ipos*iStride + jpos*jStride + k*kStride] *in[ipos*iStride + jpos*jStride + k*kStride], 3.5) +
+            pow(in[ipos*iStride + jpos*jStride + (k+1)*kStride], 2.3) - 
+            pow(in[ipos*iStride + jpos*jStride + (k-1)*kStride], 1.3)
+        );
+
+      
     }
+    out[ipos*iStride + jpos*jStride + (kSize-1)*kStride] = (pow(in[ipos*iStride + jpos*jStride + (kSize-1)*kStride] *in[ipos*iStride + jpos*jStride + (kSize-1)*kStride], 3.5) -
+            pow(in[ipos*iStride + jpos*jStride + (kSize-2)*kStride], 1.3)
+        );
 
 }
 
@@ -30,6 +42,6 @@ void launch_kernel(IJKSize domain, Real* in, Real* out)
     const int iStride = 1;
     const int jStride = domain.iSize()+cNumBoundaryLines*2;
     const int kStride = (domain.jSize()+cNumBoundaryLines*2)* jStride;
-    cukernel<<<blocks, threads>>>(in, out, iStride, jStride, kStride);
+    cukernel<<<blocks, threads>>>(in, out, domain.kSize(), iStride, jStride, kStride);
 }
 
