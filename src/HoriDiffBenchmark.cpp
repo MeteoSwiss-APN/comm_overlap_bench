@@ -87,7 +87,7 @@ TEST_F(HoriDiffBenchmark, SingleVar)
         pRepository_->Swap();
         horizontalDiffusionSA.Apply();
     }
-    if(!Options::getInstance().nocomm_){
+    if(!Options::getInstance().nocomm_ && !Options::getInstance().sync_){
         horizontalDiffusionSA.WaitHalos();
     }
 
