@@ -19,6 +19,7 @@ public:
     bool sync_;
     bool nocomm_;
     bool nostella_;
+    bool nogcl_;
 }; 
 
   

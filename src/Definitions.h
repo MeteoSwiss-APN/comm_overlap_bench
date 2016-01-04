@@ -10,6 +10,8 @@ const int cNumBenchmarkRepetitions = 1000;
 #define PI ((Real)3.14159265358979323846) // pi
 #ifdef SINGLEPRECISION
     typedef float Real;
+    #define MPITYPE MPI_FLOAT
 #else
     typedef double Real;
+    #define MPITYPE MPI_DOUBLE
 #endif

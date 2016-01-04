@@ -5,6 +5,7 @@
 #include "CommunicationConfiguration.h"
 #include "Stencil.h"
 #include "HaloUpdateManager.h"
+#include "Options.h"
 
 /**
 * @class HorizontalDiffusionSA
@@ -39,8 +40,23 @@ public:
     {
         for(int c=0; c < N_HORIDIFF_VARS; ++c)
         {
-            assert(haloUpdates_[c]);
-            haloUpdates_[c]->Start();
+            if(Options::getInstance().nogcl_)
+            {
+                MPI_Isend(sendWBuff_[c], commSize_, MPITYPE, neighbours_[0],1, MPI_COMM_WORLD, &requestNull);
+                MPI_Isend(sendNBuff_[c], commSize_, MPITYPE, neighbours_[1],1, MPI_COMM_WORLD, &requestNull);
+                MPI_Isend(sendEBuff_[c], commSize_, MPITYPE, neighbours_[2],1, MPI_COMM_WORLD, &requestNull);
+                MPI_Isend(sendSBuff_[c], commSize_, MPITYPE, neighbours_[3],1, MPI_COMM_WORLD, &requestNull);
+
+                MPI_Irecv(recWBuff_[c], commSize_, MPITYPE, neighbours_[0],1, MPI_COMM_WORLD, &(reqs_[c*4]));
+                MPI_Irecv(recNBuff_[c], commSize_, MPITYPE, neighbours_[1],1, MPI_COMM_WORLD, &(reqs_[c*4+1]));
+                MPI_Irecv(recEBuff_[c], commSize_, MPITYPE, neighbours_[2],1, MPI_COMM_WORLD, &(reqs_[c*4+2]));
+                MPI_Irecv(recSBuff_[c], commSize_, MPITYPE, neighbours_[3],1, MPI_COMM_WORLD, &(reqs_[c*4+3]));
+            }
+            else {
+
+                assert(haloUpdates_[c]);
+                haloUpdates_[c]->Start();
+            }
         }
     }
 
@@ -48,8 +64,18 @@ public:
     {
         for(int c=0; c < N_HORIDIFF_VARS; ++c)
         {
-            assert(haloUpdates_[c]);
-            haloUpdates_[c]->Wait();
+            if(Options::getInstance().nogcl_)
+            {
+                MPI_Wait(&(reqs_[c*4]), &(status_[0]));
+                MPI_Wait(&(reqs_[c*4+1]), &(status_[1]));
+                MPI_Wait(&(reqs_[c*4+2]), &(status_[2]));
+                MPI_Wait(&(reqs_[c*4+3]), &(status_[3]));
+            }
+            else {
+
+                assert(haloUpdates_[c]);
+                haloUpdates_[c]->Wait();
+            }
         }
 
     }
@@ -61,6 +87,24 @@ public:
 
 private:
     std::vector<Stencil*> stencils_;
+    int commSize_;
+    int cartSizes_[2];
+    int neighbours_[4];
+    MPI_Request requestNull;
+    MPI_Request *reqs_;
+    MPI_Status status_[4];
+    int numRanks_;
+    int rankId_;
+
+    std::vector<double*> recWBuff_;
+    std::vector<double*> recNBuff_;
+    std::vector<double*> recEBuff_;
+    std::vector<double*> recSBuff_;
+
+    std::vector<double*> sendWBuff_;
+    std::vector<double*> sendNBuff_;
+    std::vector<double*> sendEBuff_;
+    std::vector<double*> sendSBuff_;
 
     std::vector<HaloUpdateManager<true, false>*> haloUpdates_;
 

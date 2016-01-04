@@ -42,7 +42,9 @@ namespace HorizontalDiffusionSAStages
     };
 }
 
-HorizontalDiffusionSA::HorizontalDiffusionSA() : stencils_(N_HORIDIFF_VARS), haloUpdates_(N_HORIDIFF_VARS)
+HorizontalDiffusionSA::HorizontalDiffusionSA() : stencils_(N_HORIDIFF_VARS), haloUpdates_(N_HORIDIFF_VARS),
+    recWBuff_(N_HORIDIFF_VARS), recNBuff_(N_HORIDIFF_VARS), recEBuff_(N_HORIDIFF_VARS), recSBuff_(N_HORIDIFF_VARS),
+    sendWBuff_(N_HORIDIFF_VARS), sendNBuff_(N_HORIDIFF_VARS), sendEBuff_(N_HORIDIFF_VARS), sendSBuff_(N_HORIDIFF_VARS)
 {
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
@@ -74,6 +76,58 @@ void HorizontalDiffusionSA::ResetMeters()
 void HorizontalDiffusionSA::Init(
         HoriDiffRepository& horiDiffRepository, CommunicationConfiguration& comm)
 {
+
+    MPI_Comm_size(MPI_COMM_WORLD, &numRanks_);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rankId_);
+
+    bool found=false;
+    for(int i=sqrt(numRanks_); i > 0; --i)
+    {
+        if(numRanks_ % i == 0) {
+            found = true;
+            cartSizes_[0] = i;
+            cartSizes_[1] = numRanks_ / i;
+            break;
+        }
+    }
+    if(!found) std::cout<< "ERROR: Could not apply a domain decomposition" << std::endl;
+
+    if(rankId_ % cartSizes_[0] == 0)
+        neighbours_[0] = rankId_ + cartSizes_[0]-1;
+    else
+        neighbours_[0] = rankId_ -1;
+
+    if(rankId_ < cartSizes_[0])
+        neighbours_[1] = rankId_ + (cartSizes_[1]-1)*cartSizes_[0];
+    else
+        neighbours_[1] = rankId_ - cartSizes_[0];
+
+    if((rankId_+1) % cartSizes_[0] == 0)
+        neighbours_[2] = rankId_ - (cartSizes_[0]-1);
+    else
+        neighbours_[2] = rankId_+1;
+
+    if(rankId_ >= (cartSizes_[1]-1)*cartSizes_[0] )
+        neighbours_[3] = (rankId_ + cartSizes_[0] ) - cartSizes_[0]*cartSizes_[1];
+    else
+        neighbours_[3] =rankId_ + cartSizes_[0];
+
+    commSize_ = (horiDiffRepository.calculationDomain().iSize()+cNumBoundaryLines*2)*3;
+
+    for(int c=0; c < N_HORIDIFF_VARS; ++c)
+    {
+        cudaMalloc(&(sendWBuff_[c]), sizeof(Real)*commSize_);
+        cudaMalloc(&(sendNBuff_[c]), sizeof(Real)*commSize_);
+        cudaMalloc(&(sendEBuff_[c]), sizeof(Real)*commSize_);
+        cudaMalloc(&(sendSBuff_[c]), sizeof(Real)*commSize_);
+
+        cudaMalloc(&(recWBuff_[c]), sizeof(Real)*commSize_);
+        cudaMalloc(&(recNBuff_[c]), sizeof(Real)*commSize_);
+        cudaMalloc(&(recEBuff_[c]), sizeof(Real)*commSize_);
+        cudaMalloc(&(recSBuff_[c]), sizeof(Real)*commSize_);
+    }
+
+    reqs_ = (MPI_Request*)malloc((N_HORIDIFF_VARS)*sizeof(MPI_Request)*4);
 
     pCommunicationConfiguration_ = &comm;
     // store pointers to the repositories

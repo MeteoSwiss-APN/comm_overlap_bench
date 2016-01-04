@@ -68,6 +68,7 @@ int main(int argc, char **argv)
     bool sync = parseBoolOption(argc, argv, "--sync");
     bool nocomm = parseBoolOption(argc, argv, "--nocomm");
     bool nostella = parseBoolOption(argc, argv, "--nostella");
+    bool nogcl = parseBoolOption(argc, argv, "--nogcl");
 
     IJKSize domain;
     domain.Init(iSize, jSize, kSize);
@@ -75,6 +76,7 @@ int main(int argc, char **argv)
     Options::getInstance().sync_ = sync;
     Options::getInstance().nocomm_ = nocomm;
     Options::getInstance().nostella_ = nostella;
+    Options::getInstance().nogcl_ = nogcl;
 
     // register environment
     testing::AddGlobalTestEnvironment(&UnittestEnvironment::getInstance());
