@@ -129,6 +129,8 @@ std::cout << "NUMRAN " << num_ranks<<std::endl;
     cudaProfilerStop();
 #endif
 
+    MPI_Finalize();
+
 //    std::cout << horizontalDiffusionSA.stencil().performanceMeter().ToString() << std::endl;
 }
 
