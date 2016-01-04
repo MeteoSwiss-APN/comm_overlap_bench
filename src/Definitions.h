@@ -8,3 +8,8 @@ const int cNumBenchmarkRepetitions = 1000;
 #define JSIZE 129
 #define KSIZE 60
 #define PI ((Real)3.14159265358979323846) // pi
+#ifdef SINGLEPRECISION
+    typedef float Real;
+#else
+    typedef double Real;
+#endif

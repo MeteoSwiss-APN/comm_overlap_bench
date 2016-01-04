@@ -67,17 +67,17 @@ int main(int argc, char **argv)
     int kSize = parseIntOption(argc, argv, "--ke", 60);
     bool sync = parseBoolOption(argc, argv, "--sync");
     bool nocomm = parseBoolOption(argc, argv, "--nocomm");
+    bool nostella = parseBoolOption(argc, argv, "--nostella");
 
     IJKSize domain;
     domain.Init(iSize, jSize, kSize);
     Options::getInstance().domain_ = domain;
     Options::getInstance().sync_ = sync;
     Options::getInstance().nocomm_ = nocomm;
+    Options::getInstance().nostella_ = nostella;
 
     // register environment
     testing::AddGlobalTestEnvironment(&UnittestEnvironment::getInstance());
 
     return RUN_ALL_TESTS();
 }
-
-  

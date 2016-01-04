@@ -4,6 +4,8 @@
 #include "MathFunctions.h"
 #include "HorizontalDiffusionFunctions.h"
 #include "HorizontalDiffusionSA.h"
+#include "Kernel.h"
+#include "Options.h"
 
 // define parameter enum
 enum
@@ -121,8 +123,18 @@ void HorizontalDiffusionSA::Apply()
 {
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
-        assert(stencils_[c]);
-        stencils_[c]->Apply();
+        if(Options::getInstance().nostella_)
+        {
+            launch_kernel(
+                        pHoriDiffRepository_->calculationDomain(),
+                        pHoriDiffRepository_->u_in(c).storage().pStorageBase(),
+                        pHoriDiffRepository_->u_out(c).storage().pStorageBase());
+        }
+        else
+        {
+            assert(stencils_[c]);
+            stencils_[c]->Apply();
+        }
     }
 }
 

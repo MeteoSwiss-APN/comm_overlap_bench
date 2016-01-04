@@ -10,6 +10,7 @@
 #include "UnittestEnvironment.h"
 #include "HaloUpdateManager.h"
 #include "Options.h"
+#include "mpi.h"
 
 #ifdef __CUDA_BACKEND__
 #include "cuda_profiler_api.h"

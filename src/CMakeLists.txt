@@ -1,10 +1,12 @@
 set( 
     SOURCES
     "CacheFlush.h"
+    "Definitions.h"
     "HoriDiffRepository.h"
     "HoriDiffBenchmark.cpp"
     "HoriDiffRepository.cpp"
     "HoriDiffReference.cpp"
+    "Kernel.h"
     "Options.cpp"
     "UnittestEnvironment.cpp"
     "TestMain.cpp"
@@ -21,6 +23,7 @@ set(
 set(
     CUDA_SOURCES
     "HorizontalDiffusionSA.cu"
+    "Kernel.cu"
 )
 
 #cuda and non cuda compilation
