@@ -96,15 +96,15 @@ private:
     int numRanks_;
     int rankId_;
 
-    std::vector<double*> recWBuff_;
-    std::vector<double*> recNBuff_;
-    std::vector<double*> recEBuff_;
-    std::vector<double*> recSBuff_;
+    std::vector<Real*> recWBuff_;
+    std::vector<Real*> recNBuff_;
+    std::vector<Real*> recEBuff_;
+    std::vector<Real*> recSBuff_;
 
-    std::vector<double*> sendWBuff_;
-    std::vector<double*> sendNBuff_;
-    std::vector<double*> sendEBuff_;
-    std::vector<double*> sendSBuff_;
+    std::vector<Real*> sendWBuff_;
+    std::vector<Real*> sendNBuff_;
+    std::vector<Real*> sendEBuff_;
+    std::vector<Real*> sendSBuff_;
 
     std::vector<HaloUpdateManager<true, false>*> haloUpdates_;
 
