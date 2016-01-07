@@ -20,6 +20,7 @@ public:
     bool nocomm_;
     bool nostella_;
     bool nogcl_;
+    int nHaloUpdates_;
 }; 
 
   

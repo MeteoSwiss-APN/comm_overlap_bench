@@ -66,6 +66,7 @@ TEST_F(HoriDiffBenchmark, SingleVar)
         ASSERT_TRUE(collection.Verify());
 
     horizontalDiffusionSA.Apply();
+    cudaDeviceSynchronize();
     horizontalDiffusionSA.ResetMeters();
 #ifdef __CUDA_BACKEND__
     cudaProfilerStart();
@@ -74,22 +75,35 @@ TEST_F(HoriDiffBenchmark, SingleVar)
     cpu_timer.start();
 
     for(int i=0; i < cNumBenchmarkRepetitions; ++i) {
+        int numGPU;
+        cudaGetDeviceCount(&numGPU);
         // flush cache between calls to horizontal diffusion stencil
-        if(i!=0 && !Options::getInstance().sync_ && !Options::getInstance().nocomm_)
-            horizontalDiffusionSA.WaitHalos();
-        horizontalDiffusionSA.Apply();
-        if(!Options::getInstance().nocomm_){
-            if(!Options::getInstance().sync_)
-                horizontalDiffusionSA.StartHalos();
-            else
-                horizontalDiffusionSA.ApplyHalos();
+        if(i!=0 && !Options::getInstance().sync_ && !Options::getInstance().nocomm_) {
+            for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
+                horizontalDiffusionSA.WaitHalos(c);
+            }
         }
-        pRepository_->Swap();
         horizontalDiffusionSA.Apply();
+
+        for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
+            if(!Options::getInstance().nocomm_){
+                if(!Options::getInstance().sync_)
+                    horizontalDiffusionSA.StartHalos(c);
+                else
+                    horizontalDiffusionSA.ApplyHalos(c);
+            }
+            pRepository_->Swap();
+            horizontalDiffusionSA.Apply();
+        }
     }
     if(!Options::getInstance().nocomm_ && !Options::getInstance().sync_){
-        horizontalDiffusionSA.WaitHalos();
+        for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
+            horizontalDiffusionSA.WaitHalos(c);
+        }
     }
+#ifdef __CUDA_BACKEND__
+    cudaProfilerStop();
+#endif
 
     cpu_timer.stop();
     boost::timer::cpu_times elapsed = cpu_timer.elapsed();
@@ -125,9 +139,6 @@ std::cout << "NUMRAN " << num_ranks<<std::endl;
     }
 //    std::cout <<"ELAPSED TIME : " << total_time << std::endl;
 
-#ifdef __CUDA_BACKEND__
-    cudaProfilerStop();
-#endif
 
     MPI_Finalize();
 

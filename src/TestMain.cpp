@@ -52,6 +52,25 @@ bool parseBoolOption(int argc, char **argv, std::string option)
 // override main in order to read further program arguments
 int main(int argc, char **argv) 
 {
+    const char* env_p = std::getenv("SLURM_PROCID");
+    if(!env_p) {
+        std::cout << "SLURM_PROCID not set" << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    int numGPU;
+    cudaError_t error = cudaGetDeviceCount(&numGPU);
+    if(error)  {
+        std::cout << "CUDA ERROR " << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    error = cudaSetDevice(atoi(env_p)%numGPU);
+    if(error)  {
+        std::cout << "CUDA ERROR " << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     std::cout << "HP2CDycoreUnittest\n\n";
     std::cout << "usage: HP2CDycoreUnittest -p <dataPath>" << "\n";
     for(int i=0; i < argc; ++i)
@@ -69,6 +88,7 @@ int main(int argc, char **argv)
     bool nocomm = parseBoolOption(argc, argv, "--nocomm");
     bool nostella = parseBoolOption(argc, argv, "--nostella");
     bool nogcl = parseBoolOption(argc, argv, "--nogcl");
+    int nHaloUpdates = parseIntOption(argc, argv, "--nh", 2);
 
     IJKSize domain;
     domain.Init(iSize, jSize, kSize);
@@ -77,6 +97,7 @@ int main(int argc, char **argv)
     Options::getInstance().nocomm_ = nocomm;
     Options::getInstance().nostella_ = nostella;
     Options::getInstance().nogcl_ = nogcl;
+    Options::getInstance().nHaloUpdates_ = nHaloUpdates;
 
     // register environment
     testing::AddGlobalTestEnvironment(&UnittestEnvironment::getInstance());
