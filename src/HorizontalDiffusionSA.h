@@ -55,6 +55,16 @@ public:
                 MPI_Isend(sendEBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[2],5, MPI_COMM_WORLD, &requestNull);
                 MPI_Isend(sendSBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[3],7, MPI_COMM_WORLD, &requestNull);
 
+#ifdef VERBOSE
+int rank;
+MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+std::cout << "Sending at " << rank << " with size " << commSize_ << " to " << neighbours_[0] << std::endl;
+std::cout << "Sending at " << rank << " with size " << commSize_ << " to " << neighbours_[1] << std::endl;
+std::cout << "Sending at " << rank << " with size " << commSize_ << " to " << neighbours_[2] << std::endl;
+std::cout << "Sending at " << rank << " with size " << commSize_ << " to " << neighbours_[3] << std::endl;
+
+#endif
+
            }
             else {
 

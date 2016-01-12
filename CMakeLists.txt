@@ -44,6 +44,11 @@ if( SINGLEPRECISION )
   add_definitions( -DSINGLEPRECISION )
 endif()
 
+set (VERBOSE "OFF" CACHE BOOL "VERBOSE")
+if(VERBOSE)
+    add_definitions(-DVERBOSE)
+endif()
+
 # Search for INSTALL_DIR env variable
 if( NOT EXISTS "$ENV{INSTALL_DIR}" )
     set (STELLA_INSTALL_ENV "/" )

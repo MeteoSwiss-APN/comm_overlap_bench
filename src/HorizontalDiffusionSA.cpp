@@ -123,7 +123,7 @@ void HorizontalDiffusionSA::Init(
     else
         neighbours_[3] =rankId_ + cartSizes_[0];
 
-    commSize_ = (horiDiffRepository.calculationDomain().iSize()+cNumBoundaryLines*2)*3;
+    commSize_ = (horiDiffRepository.calculationDomain().iSize())*3*horiDiffRepository.calculationDomain().kSize();
 
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
@@ -180,7 +180,6 @@ void HorizontalDiffusionSA::Init(
         innerBoundary.Init(0, 0, 0, 0);
         outerBoundary.Init(-3, 3, -3, 3);
         assert(pCommunicationConfiguration_);
-
         for(int h=0; h < N_CONCURRENT_HALOS; ++h) {
             assert(haloUpdates_[c*N_CONCURRENT_HALOS+h]);
             haloUpdates_[c*N_CONCURRENT_HALOS+h]->Init("HaloUpdate", *pCommunicationConfiguration_);

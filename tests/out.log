@@ -42,499 +42,615 @@ Try `ldd --help' for more information.
 + export MV2_USE_GPUDIRECT=0
 + MV2_USE_GPUDIRECT=0
 + srun -n 32 bash ./wrap.sh
-nvprof_file1
-nvprof_file6
-nvprof_file7
-nvprof_file4
-nvprof_file5
 nvprof_file3
-nvprof_file2
-nvprof_file26
+nvprof_file13
 nvprof_file29
+nvprof_file5
+nvprof_file15
+nvprof_file4
+nvprof_file2
+nvprof_file7
+nvprof_file6
+nvprof_file1
 nvprof_file31
-nvprof_file28
-nvprof_file27
-nvprof_file30
-nvprof_file25
-nvprof_file22
+nvprof_file14
 nvprof_file9
-nvprof_file23
-nvprof_file18
+nvprof_file10
+nvprof_file30
+nvprof_file12
+nvprof_file11
+nvprof_file28
+nvprof_file26
+nvprof_file25
+nvprof_file27
 nvprof_file21
+nvprof_file22
+nvprof_file23
+nvprof_file17
 nvprof_file19
 nvprof_file20
-nvprof_file17
-nvprof_file13
-nvprof_file14
-nvprof_file15
-nvprof_file10
-nvprof_file11
-nvprof_file12
+nvprof_file18
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+nvprof_file16
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+nvprof_file8
 nvprof_file0
 nvprof_file24
-nvprof_file16
-==67218== NVPROF is profiling process 67218, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==67220== NVPROF is profiling process 67220, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==67222== NVPROF is profiling process 67222, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==67229== NVPROF is profiling process 67229, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==67216== NVPROF is profiling process 67216, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==67224== NVPROF is profiling process 67224, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-nvprof_file8
-==67237== NVPROF is profiling process 67237, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==67227== NVPROF is profiling process 67227, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==74920== NVPROF is profiling process 74920, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==74933== NVPROF is profiling process 74933, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==74924== NVPROF is profiling process 74924, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==74922== NVPROF is profiling process 74922, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==74926== NVPROF is profiling process 74926, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==74931== NVPROF is profiling process 74931, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==74929== NVPROF is profiling process 74929, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==74940== NVPROF is profiling process 74940, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==12468== NVPROF is profiling process 12468, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==12466== NVPROF is profiling process 12466, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==12464== NVPROF is profiling process 12464, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==12471== NVPROF is profiling process 12471, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==12462== NVPROF is profiling process 12462, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==12473== NVPROF is profiling process 12473, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==12458== NVPROF is profiling process 12458, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==12460== NVPROF is profiling process 12460, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==108654== NVPROF is profiling process 108654, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==108664== NVPROF is profiling process 108664, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==108656== NVPROF is profiling process 108656, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==108660== NVPROF is profiling process 108660, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==108658== NVPROF is profiling process 108658, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==108652== NVPROF is profiling process 108652, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==108662== NVPROF is profiling process 108662, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
-==108666== NVPROF is profiling process 108666, command: ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --sync --nh 2
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128
+--ke
+80
+--nostella
+--nh
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
+1
+--nogcl
+--sync
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
 ../install/bin/StandaloneStencilsCUDA
+--ie
 128
+--je
 128
+--ke
 80
 --nostella
---sync
 --nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
+1
+--nogcl
 --sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
-128
-128
-80
---nostella
---sync
---nh
-2
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 [----------] 1 test from HoriDiffBenchmark
 [----------] 1 test from HoriDiffBenchmark
-[----------] 1 test from HoriDiffBenchmark
-[ RUN      ] HoriDiffBenchmark.SingleVar
 [ RUN      ] HoriDiffBenchmark.SingleVar
 [ RUN      ] HoriDiffBenchmark.SingleVar
 [----------] 1 test from HoriDiffBenchmark
 [----------] 1 test from HoriDiffBenchmark
 [----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark[----------] 1 test from HoriDiffBenchmark[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+
+[----------] 1 test from HoriDiffBenchmark
+
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
 [----------] 1 test from HoriDiffBenchmark
 [----------] 1 test from HoriDiffBenchmark
 [----------] 1 test from HoriDiffBenchmark[----------] 1 test from HoriDiffBenchmark
 [ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+
+[----------] 1 test from HoriDiffBenchmark[ RUN      ] HoriDiffBenchmark.SingleVar
 [ RUN      ] HoriDiffBenchmark.SingleVar
 [----------] 1 test from HoriDiffBenchmark
 
@@ -543,57 +659,220 @@ usage: HP2CDycoreUnittest -p <dataPath>
 [----------] 1 test from HoriDiffBenchmark
 [ RUN      ] HoriDiffBenchmark.SingleVar
 [ RUN      ] HoriDiffBenchmark.SingleVar
-[----------] 1 test from HoriDiffBenchmark
-[----------] 1 test from HoriDiffBenchmark
 [ RUN      ] HoriDiffBenchmark.SingleVar
-[----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark[ RUN      ] HoriDiffBenchmark.SingleVar
 [----------] 1 test from HoriDiffBenchmark
 [ RUN      ] HoriDiffBenchmark.SingleVar
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[----------] 1 test from HoriDiffBenchmark
-[----------] 1 test from HoriDiffBenchmark
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[----------] 1 test from HoriDiffBenchmark
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[----------] 1 test from HoriDiffBenchmark
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[----------] 1 test from HoriDiffBenchmark
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[----------] 1 test from HoriDiffBenchmark[----------] 1 test from HoriDiffBenchmark
-
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[----------] 1 test from HoriDiffBenchmark
-[----------] 1 test from HoriDiffBenchmark[----------] 1 test from HoriDiffBenchmark
-[----------] 1 test from HoriDiffBenchmark
-[----------] 1 test from HoriDiffBenchmark
 
 [----------] 1 test from HoriDiffBenchmark
+[----------] 1 test from HoriDiffBenchmark
+[ RUN      ] [----------] 1 test from HoriDiffBenchmark
 [ RUN      ] HoriDiffBenchmark.SingleVar
 [ RUN      ] HoriDiffBenchmark.SingleVar
 [ RUN      ] HoriDiffBenchmark.SingleVar
 [ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+[ RUN      ] HoriDiffBenchmark.SingleVar
+
 [ RUN      ] HoriDiffBenchmark.SingleVar
 [----------] 1 test from HoriDiffBenchmark
 [ RUN      ] HoriDiffBenchmark.SingleVar
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[----------] 1 test from HoriDiffBenchmark
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[----------] 1 test from HoriDiffBenchmark
-[ RUN      ] HoriDiffBenchmark.SingleVar
-[keschcn-0002:mpi_rank_0][error_sighandler] Caught error: Segmentation fault (signal 11)
-==67237== Generated result file: /scratch-shared/mch/scratch/cosuna/hori_diff_tests/tests/nvprof_file0
-======== Error: Application received signal 139
-srun: error: keschcn-0002: task 0: Exited with exit code 15
-srun: Terminating job step 193446.0
-slurmstepd: *** STEP 193446.0 ON keschcn-0002 CANCELLED AT 2016-01-07T13:38:13 ***
-srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
-srun: error: keschcn-0002: tasks 1-7: Killed
-srun: error: keschcn-0003: tasks 8-15: Killed
-srun: error: keschcn-0004: tasks 16-23: Killed
-srun: error: keschcn-0005: tasks 24-31: Killed
+NUMRAN 32
+ELAPSED TIME : 0.00303391 +- + 0.0168921
+[       OK ] HoriDiffBenchmark.SingleVar (402 ms)
+[----------] 1 test from HoriDiffBenchmark (402 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (401 ms)
+[----------] 1 test from HoriDiffBenchmark (401 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (404 ms)
+[----------] 1 test from HoriDiffBenchmark (404 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (403 ms)
+[----------] 1 test from HoriDiffBenchmark (403 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (404 ms)
+[----------] 1 test from HoriDiffBenchmark (404 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (405 ms)
+[----------] 1 test from HoriDiffBenchmark (405 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (406 ms)
+[----------] 1 test from HoriDiffBenchmark (406 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (406 ms)
+[----------] 1 test from HoriDiffBenchmark (406 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (407 ms)
+[----------] 1 test from HoriDiffBenchmark (407 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (408 ms)
+[----------] 1 test from HoriDiffBenchmark (408 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (408 ms)
+[----------] 1 test from HoriDiffBenchmark (408 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (407 ms)
+[----------] 1 test from HoriDiffBenchmark (408 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (408 ms)
+[----------] 1 test from HoriDiffBenchmark (408 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (409 ms)
+[----------] 1 test from HoriDiffBenchmark (409 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (408 ms)
+[----------] 1 test from HoriDiffBenchmark (409 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (409 ms)
+[----------] 1 test from HoriDiffBenchmark (410 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (409 ms)
+[----------] 1 test from HoriDiffBenchmark (409 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (410 ms)
+[----------] 1 test from HoriDiffBenchmark (410 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (410 ms)
+[----------] 1 test from HoriDiffBenchmark (410 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (409 ms)
+[       OK ] HoriDiffBenchmark.SingleVar[----------] 1 test from HoriDiffBenchmark (409 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (409 ms)
+ (410 ms)
+[       OK ] HoriDiffBenchmark.SingleVar[----------] 1 test from HoriDiffBenchmark (410 ms total)
+
+[----------] Global test environment tear-down
+ (410 ms)
+[----------] 1 test from HoriDiffBenchmark (410 ms total)
+
+[----------] Global test environment tear-down
+[----------] 1 test from HoriDiffBenchmark (410 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (410 ms)
+[----------] 1 test from HoriDiffBenchmark (410 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar[       OK ] HoriDiffBenchmark.SingleVar (411 ms)
+[----------] 1 test from HoriDiffBenchmark (411 ms total)
+
+[----------] Global test environment tear-down
+ (410 ms)
+[----------] 1 test from HoriDiffBenchmark (410 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (411 ms)
+[----------] 1 test from HoriDiffBenchmark (411 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (411 ms)
+[----------] 1 test from HoriDiffBenchmark (412 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (447 ms)
+[----------] 1 test from HoriDiffBenchmark (447 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (451 ms)
+[----------] 1 test from HoriDiffBenchmark (451 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (3546 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3204 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3298 ms total)
+[  PASSED  ] 1 test.
+[       OK ] HoriDiffBenchmark.SingleVar (454 ms)
+[----------] 1 test from HoriDiffBenchmark (455 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] HoriDiffBenchmark.SingleVar (455 ms)
+[==========] 1 test from 1 test case ran. (3189 ms total)
+[  PASSED  ] 1 test.
+[----------] 1 test from HoriDiffBenchmark (455 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (3290 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3289 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3193 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3202 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (1556 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3207 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3212 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3925 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3197 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3297 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3220 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3214 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3609 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3609 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3347 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3347 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3547 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3438 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3440 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3455 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3355 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (4008 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3478 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (3474 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (4139 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (2554 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (2452 ms total)
+[  PASSED  ] 1 test.
+[==========] 1 test from 1 test case ran. (2548 ms total)
+[  PASSED  ] 1 test.
