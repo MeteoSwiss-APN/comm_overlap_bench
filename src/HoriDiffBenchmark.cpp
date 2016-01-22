@@ -74,7 +74,7 @@ TEST_F(HoriDiffBenchmark, SingleVar)
 
     cpu_timer.start();
 
-    for(int i=0; i < cNumBenchmarkRepetitions; ++i) {
+    for(int i=0; i < Options::getInstance().nRep_; ++i) {
         int numGPU;
         cudaGetDeviceCount(&numGPU);
         // flush cache between calls to horizontal diffusion stencil
@@ -83,7 +83,8 @@ TEST_F(HoriDiffBenchmark, SingleVar)
                 horizontalDiffusionSA.WaitHalos(c);
             }
         }
-        horizontalDiffusionSA.Apply();
+        if(!Options::getInstance().nocomp_)
+            horizontalDiffusionSA.Apply();
 
         for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
             if(!Options::getInstance().nocomm_){
@@ -93,7 +94,8 @@ TEST_F(HoriDiffBenchmark, SingleVar)
                     horizontalDiffusionSA.ApplyHalos(c);
             }
             pRepository_->Swap();
-            horizontalDiffusionSA.Apply();
+            if(!Options::getInstance().nocomp_)
+                horizontalDiffusionSA.Apply();
         }
     }
     if(!Options::getInstance().nocomm_ && !Options::getInstance().sync_){
@@ -101,6 +103,7 @@ TEST_F(HoriDiffBenchmark, SingleVar)
             horizontalDiffusionSA.WaitHalos(c);
         }
     }
+    cudaDeviceSynchronize();
 #ifdef __CUDA_BACKEND__
     cudaProfilerStop();
 #endif
@@ -115,11 +118,12 @@ TEST_F(HoriDiffBenchmark, SingleVar)
     MPI_Comm_rank(MPI_COMM_WORLD, &rank_id);
     std::vector<double> total_time_g(num_ranks);
 
-    MPI_Gather(&total_time, 1, MPI_DOUBLE, &total_time_g[0], num_ranks, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    MPI_Gather(&total_time, 1, MPI_DOUBLE, &(total_time_g[0]), 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     if(rank_id==0) {
         double avg = 0.0;
         double rms = 0.0;
+        total_time_g[3] = 5;
         for(int i=0; i < num_ranks; ++i)
         {
             avg += total_time_g[i];
@@ -130,19 +134,15 @@ TEST_F(HoriDiffBenchmark, SingleVar)
             rms += (total_time_g[i]-avg)*(total_time_g[i]-avg);
         }
 
-
-std::cout << "NUMRAN " << num_ranks<<std::endl;
         rms /= (double)num_ranks;
         rms = std::sqrt(rms);
 
         std::cout <<"ELAPSED TIME : " << avg << " +- + " << rms << std::endl;
     }
-//    std::cout <<"ELAPSED TIME : " << total_time << std::endl;
 
 
     MPI_Finalize();
 
-//    std::cout << horizontalDiffusionSA.stencil().performanceMeter().ToString() << std::endl;
 }
 
 

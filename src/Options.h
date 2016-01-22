@@ -18,9 +18,11 @@ public:
     IJKSize domain_;
     bool sync_;
     bool nocomm_;
+    bool nocomp_;
     bool nostella_;
     bool nogcl_;
     int nHaloUpdates_;
+    int nRep_;
 }; 
 
   

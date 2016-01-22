@@ -40,6 +40,8 @@ public:
 
     void StartHalos(const int index)
     {
+
+        cudaDeviceSynchronize();
         assert(index < N_CONCURRENT_HALOS);
         for(int c=0; c < N_HORIDIFF_VARS; ++c)
         {

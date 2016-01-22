@@ -86,18 +86,22 @@ int main(int argc, char **argv)
     int kSize = parseIntOption(argc, argv, "--ke", 60);
     bool sync = parseBoolOption(argc, argv, "--sync");
     bool nocomm = parseBoolOption(argc, argv, "--nocomm");
+    bool nocomp = parseBoolOption(argc, argv, "--nocomp");
     bool nostella = parseBoolOption(argc, argv, "--nostella");
     bool nogcl = parseBoolOption(argc, argv, "--nogcl");
     int nHaloUpdates = parseIntOption(argc, argv, "--nh", 2);
+    int nRep = parseIntOption(argc, argv, "-n", cNumBenchmarkRepetitions);
 
     IJKSize domain;
     domain.Init(iSize, jSize, kSize);
     Options::getInstance().domain_ = domain;
     Options::getInstance().sync_ = sync;
     Options::getInstance().nocomm_ = nocomm;
+    Options::getInstance().nocomp_ = nocomp;
     Options::getInstance().nostella_ = nostella;
     Options::getInstance().nogcl_ = nogcl;
     Options::getInstance().nHaloUpdates_ = nHaloUpdates;
+    Options::getInstance().nRep_ = nRep;
 
     // register environment
     testing::AddGlobalTestEnvironment(&UnittestEnvironment::getInstance());
