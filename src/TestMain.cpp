@@ -91,6 +91,7 @@ int main(int argc, char **argv)
     bool nogcl = parseBoolOption(argc, argv, "--nogcl");
     int nHaloUpdates = parseIntOption(argc, argv, "--nh", 2);
     int nRep = parseIntOption(argc, argv, "-n", cNumBenchmarkRepetitions);
+    bool inOrder = parseBoolOption(argc, argv, "--inorder");
 
     IJKSize domain;
     domain.Init(iSize, jSize, kSize);
@@ -102,6 +103,7 @@ int main(int argc, char **argv)
     Options::getInstance().nogcl_ = nogcl;
     Options::getInstance().nHaloUpdates_ = nHaloUpdates;
     Options::getInstance().nRep_ = nRep;
+    Options::getInstance().inOrder_ = inOrder;
 
     // register environment
     testing::AddGlobalTestEnvironment(&UnittestEnvironment::getInstance());

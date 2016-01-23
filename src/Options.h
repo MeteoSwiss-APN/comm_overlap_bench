@@ -23,6 +23,7 @@ public:
     bool nogcl_;
     int nHaloUpdates_;
     int nRep_;
+    bool inOrder_;
 }; 
 
   

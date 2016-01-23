@@ -78,27 +78,50 @@ TEST_F(HoriDiffBenchmark, SingleVar)
         int numGPU;
         cudaGetDeviceCount(&numGPU);
         // flush cache between calls to horizontal diffusion stencil
-        if(i!=0 && !Options::getInstance().sync_ && !Options::getInstance().nocomm_) {
+        if(i!=0 && !Options::getInstance().sync_ && !Options::getInstance().nocomm_ && !Options::getInstance().inOrder_) {
             for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
                 horizontalDiffusionSA.WaitHalos(c);
             }
         }
-        if(!Options::getInstance().nocomp_)
+        if(!Options::getInstance().nocomp_) {
             horizontalDiffusionSA.Apply();
+        }
 
-        for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
-            if(!Options::getInstance().nocomm_){
-                if(!Options::getInstance().sync_)
-                    horizontalDiffusionSA.StartHalos(c);
-                else
-                    horizontalDiffusionSA.ApplyHalos(c);
+        if(Options::getInstance().inOrder_) {
+            for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
+                if(!Options::getInstance().nocomm_){
+                    if(!Options::getInstance().sync_)
+                        horizontalDiffusionSA.StartHalos(c);
+                    else
+                        horizontalDiffusionSA.ApplyHalos(c);
+                }
+                pRepository_->Swap();
+                
+                if(!Options::getInstance().nocomp_)
+                    horizontalDiffusionSA.Apply();
+
+                if(!Options::getInstance().nocomm_){
+                    if(!Options::getInstance().sync_)
+                        horizontalDiffusionSA.WaitHalos(c);
+                }
             }
-            pRepository_->Swap();
-            if(!Options::getInstance().nocomp_)
-                horizontalDiffusionSA.Apply();
+
+        }
+        else {
+            for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
+                if(!Options::getInstance().nocomm_){
+                    if(!Options::getInstance().sync_)
+                        horizontalDiffusionSA.StartHalos(c);
+                    else
+                        horizontalDiffusionSA.ApplyHalos(c);
+                }
+                pRepository_->Swap();
+                if(!Options::getInstance().nocomp_)
+                    horizontalDiffusionSA.Apply();
+            }
         }
     }
-    if(!Options::getInstance().nocomm_ && !Options::getInstance().sync_){
+    if(!Options::getInstance().nocomm_ && !Options::getInstance().sync_ && !Options::getInstance().inOrder_){
         for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
             horizontalDiffusionSA.WaitHalos(c);
         }
