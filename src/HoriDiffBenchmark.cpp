@@ -33,6 +33,18 @@ protected:
         ref_.Init(*pRepository_);
         ref_.Generate();
         pMetric_ = &UnittestEnvironment::getInstance().metric();
+        std::cout << "CONFIGURATION " << std::endl;
+        std::cout << "====================================" << std::endl;
+        std::cout << "Domain : [" << Options::getInstance().domain_.iSize() << "," << Options::getInstance().domain_.jSize() << "," <<Options::getInstance().domain_.kSize() << "]" << std::endl;
+        std::cout << "Sync? : " << Options::getInstance().sync_ << std::endl;
+        std::cout << "NoComm? : " << Options::getInstance().nocomm_ << std::endl;
+        std::cout << "NoComp? : " << Options::getInstance().nocomp_ << std::endl;
+        std::cout << "NoStella? : " << Options::getInstance().nostella_ << std::endl;
+        std::cout << "NoGCL? : " << Options::getInstance().nogcl_ << std::endl;
+        std::cout << "Number Halo Exchanges : " << Options::getInstance().nHaloUpdates_ << std::endl;
+        std::cout << "Number benchmark repetitions : " << Options::getInstance().nRep_ << std::endl;
+        std::cout << "In Order halo exchanges? : " << Options::getInstance().inOrder_ << std::endl;
+
     }
 };
 
