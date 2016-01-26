@@ -1,6 +1,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <cmath>
+#include <boost/lexical_cast.hpp>
 #include <boost/timer/timer.hpp>
 #include "gtest/gtest.h"
 #include "CacheFlush.h"
@@ -16,40 +17,132 @@
 #include "cuda_profiler_api.h"
 #endif
 
-class HoriDiffBenchmark : public ::testing::Test
+// method parsing a string option
+int parseIntOption(int argc, char **argv, std::string option, int defaultValue)
 {
-protected:
-
-    // references for quick access
-    HoriDiffRepository* pRepository_;
-    IJKSize domain_;
-    HoriDiffReference ref_;
-    const ErrorMetric* pMetric_;
-
-    virtual void SetUp()
+    int result = defaultValue;
+    for(int i = 0; i < argc; ++i)
     {
-        pRepository_ = &UnittestEnvironment::getInstance().repository();
-        domain_ = UnittestEnvironment::getInstance().calculationDomain();
-        ref_.Init(*pRepository_);
-        ref_.Generate();
-        pMetric_ = &UnittestEnvironment::getInstance().metric();
-        std::cout << "CONFIGURATION " << std::endl;
-        std::cout << "====================================" << std::endl;
-        std::cout << "Domain : [" << Options::getInstance().domain_.iSize() << "," << Options::getInstance().domain_.jSize() << "," <<Options::getInstance().domain_.kSize() << "]" << std::endl;
-        std::cout << "Sync? : " << Options::getInstance().sync_ << std::endl;
-        std::cout << "NoComm? : " << Options::getInstance().nocomm_ << std::endl;
-        std::cout << "NoComp? : " << Options::getInstance().nocomp_ << std::endl;
-        std::cout << "NoStella? : " << Options::getInstance().nostella_ << std::endl;
-        std::cout << "NoGCL? : " << Options::getInstance().nogcl_ << std::endl;
-        std::cout << "Number Halo Exchanges : " << Options::getInstance().nHaloUpdates_ << std::endl;
-        std::cout << "Number benchmark repetitions : " << Options::getInstance().nRep_ << std::endl;
-        std::cout << "In Order halo exchanges? : " << Options::getInstance().inOrder_ << std::endl;
-
+        if(argv[i] == option && i+1 < argc)
+        {
+            result = boost::lexical_cast<int>(argv[i+1]);
+            break;
+        }
     }
-};
+    return result;
+}
 
-TEST_F(HoriDiffBenchmark, SingleVar)
+// method parsing a string option
+std::string parseStringOption(int argc, char **argv, std::string option, std::string defaultValue)
 {
+    std::string result = defaultValue;
+    for(int i = 0; i < argc; ++i)
+    {
+        if(argv[i] == option && i+1 < argc)
+        {
+            result = argv[i+1];
+            break;
+        }
+    }
+    return result;
+}
+
+// method parsing a boolean option
+bool parseBoolOption(int argc, char **argv, std::string option)
+{
+    bool result = false;
+    for(int i = 0; i < argc; ++i)
+    {
+        if(argv[i] == option)
+        {
+            result = true;
+            break;
+        }
+    }
+    return result;
+}
+
+void readOptions(int argc, char** argv)
+{
+    std::cout << "HP2CDycoreUnittest\n\n";
+    std::cout << "usage: HP2CDycoreUnittest -p <dataPath>" << "\n";
+    for(int i=0; i < argc; ++i)
+        std::cout << std::string(argv[i]) << std::endl;
+
+    // parse additional command options
+    int iSize = parseIntOption(argc, argv, "--ie", 128);
+    int jSize = parseIntOption(argc, argv, "--je", 128);
+    int kSize = parseIntOption(argc, argv, "--ke", 60);
+    bool sync = parseBoolOption(argc, argv, "--sync");
+    bool nocomm = parseBoolOption(argc, argv, "--nocomm");
+    bool nocomp = parseBoolOption(argc, argv, "--nocomp");
+    bool nostella = parseBoolOption(argc, argv, "--nostella");
+    bool nogcl = parseBoolOption(argc, argv, "--nogcl");
+    int nHaloUpdates = parseIntOption(argc, argv, "--nh", 2);
+    int nRep = parseIntOption(argc, argv, "-n", cNumBenchmarkRepetitions);
+    bool inOrder = parseBoolOption(argc, argv, "--inorder");
+
+    IJKSize domain;
+    domain.Init(iSize, jSize, kSize);
+    Options::getInstance().domain_ = domain;
+    Options::getInstance().sync_ = sync;
+    Options::getInstance().nocomm_ = nocomm;
+    Options::getInstance().nocomp_ = nocomp;
+    Options::getInstance().nostella_ = nostella;
+    Options::getInstance().nogcl_ = nogcl;
+    Options::getInstance().nHaloUpdates_ = nHaloUpdates;
+    Options::getInstance().nRep_ = nRep;
+    Options::getInstance().inOrder_ = inOrder;
+
+}
+
+void setupDevice()
+{
+    const char* env_p = std::getenv("SLURM_PROCID");
+    if(!env_p) {
+        std::cout << "SLURM_PROCID not set" << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    int numGPU;
+    cudaError_t error = cudaGetDeviceCount(&numGPU);
+    if(error)  {
+        std::cout << "CUDA ERROR " << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    error = cudaSetDevice(atoi(env_p)%numGPU);
+    if(error)  {
+        std::cout << "CUDA ERROR " << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+}
+
+int main(int argc, char** argv)
+{
+
+    readOptions(argc, argv);
+    setupDevice();
+
+    HoriDiffRepository* pRepository_ = &UnittestEnvironment::getInstance().repository();
+    IJKSize domain_ = UnittestEnvironment::getInstance().calculationDomain();
+    HoriDiffReference ref_;
+    ref_.Init(*pRepository_);
+    ref_.Generate();
+    const ErrorMetric* pMetric_ = &UnittestEnvironment::getInstance().metric();
+
+    std::cout << "CONFIGURATION " << std::endl;
+    std::cout << "====================================" << std::endl;
+    std::cout << "Domain : [" << Options::getInstance().domain_.iSize() << "," << Options::getInstance().domain_.jSize() << "," <<Options::getInstance().domain_.kSize() << "]" << std::endl;
+    std::cout << "Sync? : " << Options::getInstance().sync_ << std::endl;
+    std::cout << "NoComm? : " << Options::getInstance().nocomm_ << std::endl;
+    std::cout << "NoComp? : " << Options::getInstance().nocomp_ << std::endl;
+    std::cout << "NoStella? : " << Options::getInstance().nostella_ << std::endl;
+    std::cout << "NoGCL? : " << Options::getInstance().nogcl_ << std::endl;
+    std::cout << "Number Halo Exchanges : " << Options::getInstance().nHaloUpdates_ << std::endl;
+    std::cout << "Number benchmark repetitions : " << Options::getInstance().nRep_ << std::endl;
+    std::cout << "In Order halo exchanges? : " << Options::getInstance().inOrder_ << std::endl;
 
     boost::timer::cpu_timer cpu_timer;
     // set up cache flusher for x86
@@ -72,10 +165,6 @@ TEST_F(HoriDiffBenchmark, SingleVar)
     // we only verify the stencil once (before starting the real benchmark)
     IJKBoundary checkBoundary;
     checkBoundary.Init(0, 0, 0, 0, 0, 0);
-    FieldCollection collection;
-    collection.AddOutputReference("field", outField, refField, *pMetric_, checkBoundary);
-    if(!Options::getInstance().nostella_)
-        ASSERT_TRUE(collection.Verify());
 
     horizontalDiffusionSA.Apply();
     cudaDeviceSynchronize();
@@ -179,5 +268,3 @@ TEST_F(HoriDiffBenchmark, SingleVar)
     MPI_Finalize();
 
 }
-
-

@@ -9,7 +9,6 @@ set(
     "Kernel.h"
     "Options.cpp"
     "UnittestEnvironment.cpp"
-    "TestMain.cpp"
     "HorizontalDiffusionSA.h"
     "UnittestEnvironment.h"
     "Options.h"

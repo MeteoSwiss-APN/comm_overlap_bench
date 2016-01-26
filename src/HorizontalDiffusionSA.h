@@ -6,6 +6,7 @@
 #include "Stencil.h"
 #include "HaloUpdateManager.h"
 #include "Options.h"
+#include "cuda_runtime.h"
 
 #define N_CONCURRENT_HALOS 2
 

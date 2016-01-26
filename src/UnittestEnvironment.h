@@ -7,9 +7,8 @@
 #include "HoriDiffRepository.h"
 #include "CommunicationConfiguration.h"
 
-class UnittestEnvironment : public testing::Environment /* singleton */
+class UnittestEnvironment
 {
-    virtual ~UnittestEnvironment() {}
 private:
     UnittestEnvironment() : pRepository_(0)
     {
