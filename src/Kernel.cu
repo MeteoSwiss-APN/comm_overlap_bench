@@ -29,7 +29,7 @@ void cukernel(Real* in, Real* out, const int kSize, const int iStride, const int
 
 }
 
-void launch_kernel(IJKSize domain, Real* in, Real* out)
+void launch_kernel(IJKSize domain, Real* in, Real* out, cudaStream_t& stream)
 {
     dim3 threads, blocks;
     threads.x = 32;
@@ -45,6 +45,6 @@ void launch_kernel(IJKSize domain, Real* in, Real* out)
     const int iStride = 1;
     const int jStride = domain.iSize()+cNumBoundaryLines*2;
     const int kStride = (domain.jSize()+cNumBoundaryLines*2)* jStride;
-    cukernel<<<blocks, threads>>>(in, out, domain.kSize(), iStride, jStride, kStride);
+    cukernel<<<blocks, threads,0,stream>>>(in, out, domain.kSize(), iStride, jStride, kStride);
 }
 

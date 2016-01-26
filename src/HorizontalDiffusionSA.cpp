@@ -42,26 +42,37 @@ namespace HorizontalDiffusionSAStages
     };
 }
 
-HorizontalDiffusionSA::HorizontalDiffusionSA() : stencils_(N_HORIDIFF_VARS), haloUpdates_(N_HORIDIFF_VARS),
-    recWBuff_(N_HORIDIFF_VARS), recNBuff_(N_HORIDIFF_VARS), recEBuff_(N_HORIDIFF_VARS), recSBuff_(N_HORIDIFF_VARS),
-    sendWBuff_(N_HORIDIFF_VARS), sendNBuff_(N_HORIDIFF_VARS), sendEBuff_(N_HORIDIFF_VARS), sendSBuff_(N_HORIDIFF_VARS)
+HorizontalDiffusionSA::HorizontalDiffusionSA() : stencils_(N_HORIDIFF_VARS), haloUpdates_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
+    recWBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), recNBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), recEBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), recSBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
+    sendWBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), sendNBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), sendEBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), sendSBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS)
 {
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
         stencils_[c] = new Stencil();
+    }
+
+    for(int c=0; c < N_HORIDIFF_VARS*N_CONCURRENT_HALOS; ++c)
+    {
         haloUpdates_[c]= new HaloUpdateManager<true, false>();
     }
-        
+    cudaStreamCreate(&kernelStream_);
+
 }
 HorizontalDiffusionSA::~HorizontalDiffusionSA() 
 {
-    for(int c=0; c < N_HORIDIFF_VARS; ++c)
+    for(int c=0; c < N_CONCURRENT_HALOS; ++c)
     {
         assert(stencils_[c]);
         delete stencils_[c];
+    } 
+
+    for(int c=0; c < N_HORIDIFF_VARS*N_CONCURRENT_HALOS; ++c)
+    {
         assert(haloUpdates_[c]);
         delete haloUpdates_[c];
     }    
+    cudaStreamDestroy(kernelStream_);
+
 }
 
 void HorizontalDiffusionSA::ResetMeters()
@@ -112,22 +123,25 @@ void HorizontalDiffusionSA::Init(
     else
         neighbours_[3] =rankId_ + cartSizes_[0];
 
-    commSize_ = (horiDiffRepository.calculationDomain().iSize()+cNumBoundaryLines*2)*3;
+    commSize_ = (horiDiffRepository.calculationDomain().iSize())*3*horiDiffRepository.calculationDomain().kSize();
 
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
-        cudaMalloc(&(sendWBuff_[c]), sizeof(Real)*commSize_);
-        cudaMalloc(&(sendNBuff_[c]), sizeof(Real)*commSize_);
-        cudaMalloc(&(sendEBuff_[c]), sizeof(Real)*commSize_);
-        cudaMalloc(&(sendSBuff_[c]), sizeof(Real)*commSize_);
+        for(int h=0; h < N_CONCURRENT_HALOS; ++h)
+        {
+            cudaMalloc(&(sendWBuff_[c*N_CONCURRENT_HALOS+h]), sizeof(Real)*commSize_);
+            cudaMalloc(&(sendNBuff_[c*N_CONCURRENT_HALOS+h]), sizeof(Real)*commSize_);
+            cudaMalloc(&(sendEBuff_[c*N_CONCURRENT_HALOS+h]), sizeof(Real)*commSize_);
+            cudaMalloc(&(sendSBuff_[c*N_CONCURRENT_HALOS+h]), sizeof(Real)*commSize_);
 
-        cudaMalloc(&(recWBuff_[c]), sizeof(Real)*commSize_);
-        cudaMalloc(&(recNBuff_[c]), sizeof(Real)*commSize_);
-        cudaMalloc(&(recEBuff_[c]), sizeof(Real)*commSize_);
-        cudaMalloc(&(recSBuff_[c]), sizeof(Real)*commSize_);
+            cudaMalloc(&(recWBuff_[c*N_CONCURRENT_HALOS+h]), sizeof(Real)*commSize_);
+            cudaMalloc(&(recNBuff_[c*N_CONCURRENT_HALOS+h]), sizeof(Real)*commSize_);
+            cudaMalloc(&(recEBuff_[c*N_CONCURRENT_HALOS+h]), sizeof(Real)*commSize_);
+            cudaMalloc(&(recSBuff_[c*N_CONCURRENT_HALOS+h]), sizeof(Real)*commSize_);
+        }
     }
 
-    reqs_ = (MPI_Request*)malloc((N_HORIDIFF_VARS)*sizeof(MPI_Request)*4);
+    reqs_ = (MPI_Request*)malloc(N_HORIDIFF_VARS*N_CONCURRENT_HALOS*sizeof(MPI_Request)*4);
 
     pCommunicationConfiguration_ = &comm;
     // store pointers to the repositories
@@ -162,13 +176,15 @@ void HorizontalDiffusionSA::Init(
             )
         );
 
-        assert(haloUpdates_[c]);
-        assert(pCommunicationConfiguration_);
-        haloUpdates_[c]->Init("HaloUpdate", *pCommunicationConfiguration_);
         IJBoundary innerBoundary, outerBoundary;
         innerBoundary.Init(0, 0, 0, 0);
         outerBoundary.Init(-3, 3, -3, 3);
-        haloUpdates_[c]->AddJob(horiDiffRepository.u_out(c), innerBoundary, outerBoundary);
+        assert(pCommunicationConfiguration_);
+        for(int h=0; h < N_CONCURRENT_HALOS; ++h) {
+            assert(haloUpdates_[c*N_CONCURRENT_HALOS+h]);
+            haloUpdates_[c*N_CONCURRENT_HALOS+h]->Init("HaloUpdate", *pCommunicationConfiguration_);
+            haloUpdates_[c*N_CONCURRENT_HALOS+h]->AddJob(horiDiffRepository.u_out(c), innerBoundary, outerBoundary);
+        }
 
    }
 }
@@ -182,7 +198,9 @@ void HorizontalDiffusionSA::Apply()
             launch_kernel(
                         pHoriDiffRepository_->calculationDomain(),
                         pHoriDiffRepository_->u_in(c).storage().pStorageBase(),
-                        pHoriDiffRepository_->u_out(c).storage().pStorageBase());
+                        pHoriDiffRepository_->u_out(c).storage().pStorageBase(),
+                        kernelStream_            
+            );
         }
         else
         {

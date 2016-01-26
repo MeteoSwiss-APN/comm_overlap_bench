@@ -7,6 +7,8 @@
 #include "HaloUpdateManager.h"
 #include "Options.h"
 
+#define N_CONCURRENT_HALOS 2
+
 /**
 * @class HorizontalDiffusionSA
 * Class holding the horizontal diffusion stencil for u and v
@@ -36,53 +38,68 @@ public:
 
     void ResetMeters();
 
-    void StartHalos()
+    void StartHalos(const int index)
     {
+
+        cudaDeviceSynchronize();
+        assert(index < N_CONCURRENT_HALOS);
         for(int c=0; c < N_HORIDIFF_VARS; ++c)
         {
             if(Options::getInstance().nogcl_)
             {
-                MPI_Isend(sendWBuff_[c], commSize_, MPITYPE, neighbours_[0],1, MPI_COMM_WORLD, &requestNull);
-                MPI_Isend(sendNBuff_[c], commSize_, MPITYPE, neighbours_[1],3, MPI_COMM_WORLD, &requestNull);
-                MPI_Isend(sendEBuff_[c], commSize_, MPITYPE, neighbours_[2],5, MPI_COMM_WORLD, &requestNull);
-                MPI_Isend(sendSBuff_[c], commSize_, MPITYPE, neighbours_[3],7, MPI_COMM_WORLD, &requestNull);
+                MPI_Irecv(recWBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[0],5, MPI_COMM_WORLD, &(reqs_[c*4*N_CONCURRENT_HALOS+index]));
+                MPI_Irecv(recNBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[1],7, MPI_COMM_WORLD, &(reqs_[(c*4+1)*N_CONCURRENT_HALOS+index]));
+                MPI_Irecv(recEBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[2],1, MPI_COMM_WORLD, &(reqs_[(c*4+2)*N_CONCURRENT_HALOS+index]));
+                MPI_Irecv(recSBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[3],3, MPI_COMM_WORLD, &(reqs_[(c*4+3)*N_CONCURRENT_HALOS+index]));
+ 
+                MPI_Isend(sendWBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[0],1, MPI_COMM_WORLD, &requestNull);
+                MPI_Isend(sendNBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[1],3, MPI_COMM_WORLD, &requestNull);
+                MPI_Isend(sendEBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[2],5, MPI_COMM_WORLD, &requestNull);
+                MPI_Isend(sendSBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[3],7, MPI_COMM_WORLD, &requestNull);
 
-                MPI_Irecv(recWBuff_[c], commSize_, MPITYPE, neighbours_[0],5, MPI_COMM_WORLD, &(reqs_[c*4]));
-                MPI_Irecv(recNBuff_[c], commSize_, MPITYPE, neighbours_[1],7, MPI_COMM_WORLD, &(reqs_[c*4+1]));
-                MPI_Irecv(recEBuff_[c], commSize_, MPITYPE, neighbours_[2],1, MPI_COMM_WORLD, &(reqs_[c*4+2]));
-                MPI_Irecv(recSBuff_[c], commSize_, MPITYPE, neighbours_[3],3, MPI_COMM_WORLD, &(reqs_[c*4+3]));
-            }
+#ifdef VERBOSE
+int rank;
+MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+std::cout << "Sending at " << rank << " with size " << commSize_ << " to " << neighbours_[0] << std::endl;
+std::cout << "Sending at " << rank << " with size " << commSize_ << " to " << neighbours_[1] << std::endl;
+std::cout << "Sending at " << rank << " with size " << commSize_ << " to " << neighbours_[2] << std::endl;
+std::cout << "Sending at " << rank << " with size " << commSize_ << " to " << neighbours_[3] << std::endl;
+
+#endif
+
+           }
             else {
 
-                assert(haloUpdates_[c]);
-                haloUpdates_[c]->Start();
+                assert(haloUpdates_[c*N_CONCURRENT_HALOS+index]);
+                haloUpdates_[c*N_CONCURRENT_HALOS+index]->Start();
             }
         }
     }
 
-    void WaitHalos()
+    void WaitHalos(const int index)
     {
+        assert(index < N_CONCURRENT_HALOS);
         for(int c=0; c < N_HORIDIFF_VARS; ++c)
         {
             if(Options::getInstance().nogcl_)
             {
-                MPI_Wait(&(reqs_[c*4]), &(status_[0]));
-                MPI_Wait(&(reqs_[c*4+1]), &(status_[1]));
-                MPI_Wait(&(reqs_[c*4+2]), &(status_[2]));
-                MPI_Wait(&(reqs_[c*4+3]), &(status_[3]));
+                MPI_Wait(&(reqs_[c*4*N_CONCURRENT_HALOS+index]), &(status_[0*N_CONCURRENT_HALOS+index]));
+                MPI_Wait(&(reqs_[(c*4+1)*N_CONCURRENT_HALOS+index]), &(status_[1*N_CONCURRENT_HALOS+index]));
+                MPI_Wait(&(reqs_[(c*4+2)*N_CONCURRENT_HALOS+index]), &(status_[2*N_CONCURRENT_HALOS+index]));
+                MPI_Wait(&(reqs_[(c*4+3)*N_CONCURRENT_HALOS+index]), &(status_[3*N_CONCURRENT_HALOS+index]));
             }
             else {
 
-                assert(haloUpdates_[c]);
-                haloUpdates_[c]->Wait();
+                assert(haloUpdates_[c*N_CONCURRENT_HALOS+index]);
+                haloUpdates_[c*N_CONCURRENT_HALOS+index]->Wait();
             }
         }
 
     }
-    void ApplyHalos()
+    void ApplyHalos(const int i)
     {
-        StartHalos();
-        WaitHalos();
+        StartHalos(i);
+        WaitHalos(i);
     }
 
 private:
@@ -92,7 +109,7 @@ private:
     int neighbours_[4];
     MPI_Request requestNull;
     MPI_Request *reqs_;
-    MPI_Status status_[4];
+    MPI_Status status_[4*N_CONCURRENT_HALOS];
     int numRanks_;
     int rankId_;
 
@@ -110,6 +127,7 @@ private:
 
     CommunicationConfiguration* pCommunicationConfiguration_;
     HoriDiffRepository *pHoriDiffRepository_;
+    cudaStream_t kernelStream_;
 };
 
   

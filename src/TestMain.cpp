@@ -52,6 +52,25 @@ bool parseBoolOption(int argc, char **argv, std::string option)
 // override main in order to read further program arguments
 int main(int argc, char **argv) 
 {
+    const char* env_p = std::getenv("SLURM_PROCID");
+    if(!env_p) {
+        std::cout << "SLURM_PROCID not set" << std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    int numGPU;
+    cudaError_t error = cudaGetDeviceCount(&numGPU);
+    if(error)  {
+        std::cout << "CUDA ERROR " << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    error = cudaSetDevice(atoi(env_p)%numGPU);
+    if(error)  {
+        std::cout << "CUDA ERROR " << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     std::cout << "HP2CDycoreUnittest\n\n";
     std::cout << "usage: HP2CDycoreUnittest -p <dataPath>" << "\n";
     for(int i=0; i < argc; ++i)
@@ -67,16 +86,22 @@ int main(int argc, char **argv)
     int kSize = parseIntOption(argc, argv, "--ke", 60);
     bool sync = parseBoolOption(argc, argv, "--sync");
     bool nocomm = parseBoolOption(argc, argv, "--nocomm");
+    bool nocomp = parseBoolOption(argc, argv, "--nocomp");
     bool nostella = parseBoolOption(argc, argv, "--nostella");
     bool nogcl = parseBoolOption(argc, argv, "--nogcl");
+    int nHaloUpdates = parseIntOption(argc, argv, "--nh", 2);
+    int nRep = parseIntOption(argc, argv, "-n", cNumBenchmarkRepetitions);
 
     IJKSize domain;
     domain.Init(iSize, jSize, kSize);
     Options::getInstance().domain_ = domain;
     Options::getInstance().sync_ = sync;
     Options::getInstance().nocomm_ = nocomm;
+    Options::getInstance().nocomp_ = nocomp;
     Options::getInstance().nostella_ = nostella;
     Options::getInstance().nogcl_ = nogcl;
+    Options::getInstance().nHaloUpdates_ = nHaloUpdates;
+    Options::getInstance().nRep_ = nRep;
 
     // register environment
     testing::AddGlobalTestEnvironment(&UnittestEnvironment::getInstance());
