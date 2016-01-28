@@ -98,11 +98,19 @@ void readOptions(int argc, char** argv)
 
 void setupDevice()
 {
+#ifdef MVAPICH2
     const char* env_p = std::getenv("SLURM_PROCID");
     if(!env_p) {
         std::cout << "SLURM_PROCID not set" << std::endl;
         exit (EXIT_FAILURE);
     }
+#else
+    const char* env_p = std::getenv("OMPI_COMM_WORLD_RANK");
+    if(!env_p) {
+        std::cout << "OMPI_COMM_WORLD_RANK not set" << std::endl;
+        exit (EXIT_FAILURE);
+    }
+#endif
 
     int numGPU;
     cudaError_t error = cudaGetDeviceCount(&numGPU);
@@ -122,12 +130,19 @@ void setupDevice()
 int main(int argc, char** argv)
 {
 
+    MPI_Init(&argc, &argv);
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     readOptions(argc, argv);
     setupDevice();
 
+
     HoriDiffRepository* pRepository_ = &UnittestEnvironment::getInstance().repository();
+
     IJKSize domain_ = UnittestEnvironment::getInstance().calculationDomain();
+
     HoriDiffReference ref_;
+
     ref_.Init(*pRepository_);
     ref_.Generate();
     const ErrorMetric* pMetric_ = &UnittestEnvironment::getInstance().metric();
@@ -143,6 +158,23 @@ int main(int argc, char** argv)
     std::cout << "Number Halo Exchanges : " << Options::getInstance().nHaloUpdates_ << std::endl;
     std::cout << "Number benchmark repetitions : " << Options::getInstance().nRep_ << std::endl;
     std::cout << "In Order halo exchanges? : " << Options::getInstance().inOrder_ << std::endl;
+
+    int deviceId;
+    if( cudaGetDevice(&deviceId) != cudaSuccess)
+    {
+        std::cerr << cudaGetErrorString(cudaGetLastError()) << std::endl;
+    }
+    std::cout << "Device ID :" << deviceId << std::endl;
+    const char* env_p = std::getenv("SLURM_PROCID");
+    std::cout << "SLURM_PROCID :" << env_p << std::endl;
+    env_p = std::getenv("OMPI_COMM_WORLD_RANK");
+    std::cout << "OMPI_COMM_WORLD_RANK :" << env_p<< std::endl;
+
+#ifdef MVAPICH2
+    std::cout << "Compiled for mvapich2" << std::endl;
+#else
+    std::cout << "Compiled for openmpi" << std::endl;
+#endif
 
     boost::timer::cpu_timer cpu_timer;
     // set up cache flusher for x86

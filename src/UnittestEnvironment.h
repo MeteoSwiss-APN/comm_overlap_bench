@@ -12,6 +12,7 @@ class UnittestEnvironment
 private:
     UnittestEnvironment() : pRepository_(0)
     {
+        SetUp();
     }
 
     UnittestEnvironment(const UnittestEnvironment&): pRepository_(0)

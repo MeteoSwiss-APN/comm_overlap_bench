@@ -14,8 +14,6 @@ UnittestEnvironment& UnittestEnvironment::getInstance()
 
 void UnittestEnvironment::SetUp()
 {
-    try
-    {
         // make sure the repository is null
         assert(!pRepository_);
         pRepository_ = new HoriDiffRepository();
@@ -47,15 +45,10 @@ void UnittestEnvironment::SetUp()
         subdomainPosition_[2] = cNumBoundaryLines+calculationDomain_.iSize();
         subdomainPosition_[3] = cNumBoundaryLines+calculationDomain_.jSize();
         // Initialize the halo update configuration
+        
+        MPI_Fint fcommWorld = MPI_Comm_c2f(MPI_COMM_WORLD);
         communicationConfiguration_.Init(true, true, false, false, false, false,
-            globalDomainSize, 1, subdomainPosition_);
-    }
-    catch(const std::exception& ex)
-    {
-        std::cerr << "Error: testing environment not setup correctly:\n";
-        std::cerr << ex.what() << "\n";
-        ASSERT_TRUE(false);
-    }
+            globalDomainSize, 1, subdomainPosition_, fcommWorld);
 }
 
 
