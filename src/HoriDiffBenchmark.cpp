@@ -172,7 +172,7 @@ int main(int argc, char** argv)
 
     std::cout << "Compiled for mvapich2" << std::endl;
 #else
-    env_p = std::getenv("OMPI_COMM_WORLD_RANK");
+    const char* env_p = std::getenv("OMPI_COMM_WORLD_RANK");
     std::cout << "OMPI_COMM_WORLD_RANK :" << env_p<< std::endl;
     std::cout << "Compiled for openmpi" << std::endl;
 #endif
