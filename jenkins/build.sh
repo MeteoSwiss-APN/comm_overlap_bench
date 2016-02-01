@@ -211,6 +211,7 @@ cmakeConfigure()
                "-DENABLE_PERFORMANCE_METERS=${enable_meters}"
                "-DGCL=${enable_gcl}"
                "-DENABLE_OPENMP=${dycore_openmp}"
+               "-DHORIDIFF_CUDA_COMPUTE_CAPABILITY=${NVIDIA_CUDA_ARCH}"
     )
     if [ ! -z "${stella_directory}" ] ; then
         CMAKEARGS+=("-DSTELLA_DIR=${stella_directory}"
@@ -292,7 +293,7 @@ buildLibrary()
         local enable_single=OFF
     fi
     test -n "${ENABLE_GCL}" || ENABLE_GCL="ON"
-    test -n "${ENABLE_PERFORMANCE_METERS}" || ENABLE_PERFORMANCE_METERS="ON"
+    test -n "${ENABLE_PERFORMANCE_METERS}" || ENABLE_PERFORMANCE_METERS="OFF"
 
     # set backends
     if [ "${target}" == "gpu" ] ; then

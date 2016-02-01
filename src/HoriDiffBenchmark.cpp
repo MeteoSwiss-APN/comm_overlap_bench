@@ -165,14 +165,15 @@ int main(int argc, char** argv)
         std::cerr << cudaGetErrorString(cudaGetLastError()) << std::endl;
     }
     std::cout << "Device ID :" << deviceId << std::endl;
-    const char* env_p = std::getenv("SLURM_PROCID");
-    std::cout << "SLURM_PROCID :" << env_p << std::endl;
-    env_p = std::getenv("OMPI_COMM_WORLD_RANK");
-    std::cout << "OMPI_COMM_WORLD_RANK :" << env_p<< std::endl;
 
 #ifdef MVAPICH2
+    const char* env_p = std::getenv("SLURM_PROCID");
+    std::cout << "SLURM_PROCID :" << env_p << std::endl;
+
     std::cout << "Compiled for mvapich2" << std::endl;
 #else
+    env_p = std::getenv("OMPI_COMM_WORLD_RANK");
+    std::cout << "OMPI_COMM_WORLD_RANK :" << env_p<< std::endl;
     std::cout << "Compiled for openmpi" << std::endl;
 #endif
 
