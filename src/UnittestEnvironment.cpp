@@ -46,9 +46,8 @@ void UnittestEnvironment::SetUp()
         subdomainPosition_[3] = cNumBoundaryLines+calculationDomain_.jSize();
         // Initialize the halo update configuration
         
-        MPI_Fint fcommWorld = MPI_Comm_c2f(MPI_COMM_WORLD);
         communicationConfiguration_.Init(true, true, false, false, false, false,
-            globalDomainSize, 1, subdomainPosition_, fcommWorld);
+            globalDomainSize, 1, subdomainPosition_);
 }
 
 
