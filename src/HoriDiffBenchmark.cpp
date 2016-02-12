@@ -145,7 +145,6 @@ int main(int argc, char** argv)
 
     ref_.Init(*pRepository_);
     ref_.Generate();
-    const ErrorMetric* pMetric_ = &UnittestEnvironment::getInstance().metric();
 
     std::cout << "CONFIGURATION " << std::endl;
     std::cout << "====================================" << std::endl;
