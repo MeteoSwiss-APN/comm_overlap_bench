@@ -28,12 +28,6 @@ void UnittestEnvironment::SetUp()
         pRepository_->AllocateDataFields();
         pRepository_->SetInitalValues();
 
-        // verification objects
-#ifdef SINGLEPRECISION
-        metric_.Init(1e-6);
-#else
-        metric_.Init(1e-12);
-#endif
         IJKSize globalDomainSize;
         globalDomainSize.Init(calculationDomain_.iSize() + cNumBoundaryLines*2,
             calculationDomain_.jSize() + cNumBoundaryLines*2,
