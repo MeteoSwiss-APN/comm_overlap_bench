@@ -4,7 +4,6 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/timer/timer.hpp>
 #include "gtest/gtest.h"
-#include "CacheFlush.h"
 #include "HorizontalDiffusionSA.h"
 #include "HoriDiffReference.h"
 #include "Definitions.h"
@@ -145,8 +144,6 @@ int main(int argc, char** argv)
     std::cout << "In Order halo exchanges? : " << Options::getInstance().inOrder_ << std::endl;
 
     boost::timer::cpu_timer cpu_timer;
-    // set up cache flusher for x86
-    CacheFlush cacheFlusher(cCacheFlusherSize);
 
     // generate a reference field that contain the output of a horizontal diffusion operator
     HorizontalDiffusionSA horizontalDiffusionSA;
