@@ -44,6 +44,13 @@ if( SINGLEPRECISION )
   add_definitions( -DSINGLEPRECISION )
 endif()
 
+set( MPI_VENDOR "mvapich2" CACHE STRING "mpi vendor" )
+if( MPI_VENDOR STREQUAL "mvapich2")
+    add_definitions ( -DMVAPICH2 )
+elseif( NOT MPI_VENDOR STREQUAL "openmpi" )
+    message([FATA_ERROR] "mpi vendor not known")
+endif()
+
 set (VERBOSE "OFF" CACHE BOOL "VERBOSE")
 if(VERBOSE)
     add_definitions(-DVERBOSE)

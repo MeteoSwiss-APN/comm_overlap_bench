@@ -47,7 +47,7 @@ parseOptions()
     nthreads=4
 
     # process command line options
-    while getopts ":4bc:dehi:ls:t:z" opt
+    while getopts ":4bc:dehi:ls:t:zo" opt
     do
         case $opt in
         4) single=ON ;;
@@ -61,11 +61,15 @@ parseOptions()
         s) stelladir=$OPTARG ;;
         t) target=$OPTARG ;;
         z) cleanup=ON ;;
+        o) openmpi=ON ;;
         \?) showUsage; exitError 301 ${LINENO} "invalid command line option (-${OPTARG})" ;;
         :) showUsage; exitError 302 ${LINENO} "command line option (-${OPTARG}) requires argument" ;;
         esac
     done
+}
 
+checkOptions()
+{
     # check that everything is set
     test -n "${compiler}" || exitError 303 ${LINENO} "Option <compiler> is not set"
     test -n "${debug}" || exitError 304 ${LINENO} "Option <debug> is not set"
@@ -198,6 +202,11 @@ cmakeConfigure()
     # setup default testdata location
     #test -n "${DYCORE_TESTDATA}" || DYCORE_TESTDATA=${base_path}/build/testdata
 
+    MPI_VENDOR="mvapich2"
+    if [ "${openmpi}" == "ON" ]; then
+        MPI_VENDOR="openmpi"
+    fi
+
     # construct cmake arguments
     local CMAKEARGS=(..
                "-DDYCORE_EXECUTE_PREFIX=${DYCORE_EXECUTE_PREFIX}"
@@ -211,6 +220,8 @@ cmakeConfigure()
                "-DENABLE_PERFORMANCE_METERS=${enable_meters}"
                "-DGCL=${enable_gcl}"
                "-DENABLE_OPENMP=${dycore_openmp}"
+               "-DHORIDIFF_CUDA_COMPUTE_CAPABILITY=${NVIDIA_CUDA_ARCH}"
+               "-DMPI_VENDOR=${MPI_VENDOR}"
     )
     if [ ! -z "${stella_directory}" ] ; then
         CMAKEARGS+=("-DSTELLA_DIR=${stella_directory}"
@@ -292,7 +303,7 @@ buildLibrary()
         local enable_single=OFF
     fi
     test -n "${ENABLE_GCL}" || ENABLE_GCL="ON"
-    test -n "${ENABLE_PERFORMANCE_METERS}" || ENABLE_PERFORMANCE_METERS="ON"
+    test -n "${ENABLE_PERFORMANCE_METERS}" || ENABLE_PERFORMANCE_METERS="OFF"
 
     # set backends
     if [ "${target}" == "gpu" ] ; then
@@ -395,11 +406,20 @@ if [ ! -f ${envloc}/env/machineEnvironment.sh ] ; then
 fi
 . ${envloc}/env/machineEnvironment.sh
 
-# load machine dependent functions
-if [ ! -f ${envloc}/env/env.${host}.sh ] ; then
-    exitError 1202 ${LINENO} "could not find ${envloc}/env/env.${host}.sh"
+# parse command line options (pass all of them to function)
+parseOptions $*
+
+envfile=${envloc}/env/env.${host}.sh
+if [ "${openmpi}" == "ON" ]; then
+    envfile="${envfile}.openmpi"
 fi
-. ${envloc}/env/env.${host}.sh
+# load machine dependent functions
+if [ ! -f ${envfile} ] ; then
+    exitError 1202 ${LINENO} "could not find ${envfile}"
+fi
+. ${envfile}
+
+checkOptions()
 
 # load module tools
 if [ ! -f ${envloc}/env/moduleTools.sh ] ; then
@@ -412,9 +432,6 @@ base_path=$(pwd) # get working base directory
 
 # setup default options (from env/env.${host}.sh)
 setupDefaults
-
-# parse command line options (pass all of them to function)
-parseOptions $*
 
 # test environment (if requested)
 testEnvironment
