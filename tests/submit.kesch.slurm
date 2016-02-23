@@ -31,7 +31,5 @@ export MV2_SMP_EAGER_THRESHOLD=0
 
 
 srun -n 32 bash ./wrap.sh 
-#echo nvprof_file$SLURM_PROCID;  ../install/bin/StandaloneStencilsCUDA 128 128 80 --nostella --nogcl --sync 
-#srun -n 32 nvprof 
 
 ########################################################
