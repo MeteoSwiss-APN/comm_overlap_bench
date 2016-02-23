@@ -28,7 +28,7 @@ else()
 endif( ENABLE_OPENMP )
 
 # CUDA
-set( CUDA_BACKEND "OFF" CACHE BOOL "Compile CUDA version" )
+set( CUDA_BACKEND "ON" CACHE BOOL "Compile CUDA version" )
 if( CUDA_BACKEND )
     find_package( CUDA 5.0 )
     set(CUDA_SEPARABLE_COMPILATION ON CACHE BOOL "" FORCE)
@@ -36,6 +36,8 @@ if( CUDA_BACKEND )
     set(HORIDIFF_CUDA_COMPUTE_CAPABILITY "sm_35" CACHE STRING "Compute capability for CUDA" )
     set(HORIDIFF_NVCC_FLAGS "-arch=${HORIDIFF_CUDA_COMPUTE_CAPABILITY}" ) # -Xptxas -abi=no
     set( ENABLE_OPENMP OFF CACHE BOOL "" FORCE)
+else()
+    message(FATAL_ERROR "Only cuda compilation is supported")
 endif()
 
 # Single precision
@@ -336,13 +338,8 @@ endif( GCL )
 set ( ENABLE_PERFORMANCE_METERS "OFF" CACHE BOOL "Enable availability of meters for measurement of performance" )
 if ( ENABLE_PERFORMANCE_METERS )
     add_definitions ( -DENABLE_PERFORMANCE_METERS )
+    message(WARNING "Performance Meters synchronize Host and GPU streams, therefore they affect overlap of comm/comp. We recommend to deactivate these meters, unless you know what you are doing.")
 endif( ENABLE_PERFORMANCE_METERS )
-
-# Caching
-set ( ENABLE_CACHING "ON" CACHE BOOL "Enable software-managed caching" )
-if ( ENABLE_CACHING )
-    add_definitions ( -DENABLE_CACHING )
-endif( ENABLE_CACHING )
 
 # CUDA streams
 set ( ENABLE_CUDA_STREAMS "ON" CACHE BOOL "Enable usage of CUDA streams" )
