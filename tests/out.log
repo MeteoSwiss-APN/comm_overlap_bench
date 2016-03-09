@@ -5,44 +5,18 @@
 ++ module load craype-network-infiniband
 +++ /usr/Modules/3.2.10/bin/modulecmd bash load craype-network-infiniband
 ++ eval
-++ export PE_CRAY_FIXED_PKGCONFIG_PATH=/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/
-++ PE_CRAY_FIXED_PKGCONFIG_PATH=/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/
-++ export PE_GNU_FIXED_PKGCONFIG_PATH=/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/
-++ PE_GNU_FIXED_PKGCONFIG_PATH=/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/
-++ export PKG_CONFIG_PATH=/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/
-++ PKG_CONFIG_PATH=/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/
-++ export CRAY_LD_LIBRARY_PATH=/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/
-++ CRAY_LD_LIBRARY_PATH=/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/
-++ export LD_LIBRARY_PATH=/opt/cray/lib64:/usr/lib64:/users/cosuna:/users/cosuna:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/
-++ LD_LIBRARY_PATH=/opt/cray/lib64:/usr/lib64:/users/cosuna:/users/cosuna:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/
-++ export PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/ibutils/bin:/opt/local/munge/default/bin:/opt/slurm/default/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin
-++ PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/ibutils/bin:/opt/local/munge/default/bin:/opt/slurm/default/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin
-++ export FORTRAN_SYSTEM_MODULES=/scratch/cosuna/openmpi/lib/libmpi_mpifh.so:/scratch/cosuna/openmpi/lib/libmpi_mpifh.so:/scratch/cosuna/openmpi/lib/libmpi_mpifh.so:/scratch/cosuna/openmpi/lib/libmpi_mpifh.so:/scratch/cosuna/openmpi/lib/libmpi_mpifh.so:
-++ FORTRAN_SYSTEM_MODULES=/scratch/cosuna/openmpi/lib/libmpi_mpifh.so:/scratch/cosuna/openmpi/lib/libmpi_mpifh.so:/scratch/cosuna/openmpi/lib/libmpi_mpifh.so:/scratch/cosuna/openmpi/lib/libmpi_mpifh.so:/scratch/cosuna/openmpi/lib/libmpi_mpifh.so:
-++ module load cudatoolkit/7.0.28
-+++ /usr/Modules/3.2.10/bin/modulecmd bash load cudatoolkit/7.0.28
-++ eval LD_LIBRARY_PATH=/opt/cray/lib64:/usr/lib64:/users/cosuna:/users/cosuna:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/lib64 ';export' 'LD_LIBRARY_PATH;PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/ibutils/bin:/opt/local/munge/default/bin:/opt/slurm/default/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/bin:/global/opt/nvidia/cudatoolkit/7.0.28/bin:/global/opt/nvidia/cudatoolkit/7.0.28/jre/bin' ';export' 'PATH;PKG_CONFIG_PATH=/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/pkgconfig' ';export' 'PKG_CONFIG_PATH;'
-+++ LD_LIBRARY_PATH=/opt/cray/lib64:/usr/lib64:/users/cosuna:/users/cosuna:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/lib64
-+++ export LD_LIBRARY_PATH
-+++ PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/ibutils/bin:/opt/local/munge/default/bin:/opt/slurm/default/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/bin:/global/opt/nvidia/cudatoolkit/7.0.28/bin:/global/opt/nvidia/cudatoolkit/7.0.28/jre/bin
-+++ export PATH
-+++ PKG_CONFIG_PATH=/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/pkgconfig
-+++ export PKG_CONFIG_PATH
+++ module load mvapich2gdr_gnu/2.1_cuda_7.0
++++ /usr/Modules/3.2.10/bin/modulecmd bash load mvapich2gdr_gnu/2.1_cuda_7.0
+++ eval
 ++ module load GCC/4.9.3-binutils-2.25
 +++ /usr/Modules/3.2.10/bin/modulecmd bash load GCC/4.9.3-binutils-2.25
-++ eval LD_LIBRARY_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib/gcc/x86_64-unknown-linux-gnu/4.9.3:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib64:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/lib:/opt/cray/lib64:/usr/lib64:/users/cosuna:/users/cosuna:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/lib64 ';export' 'LD_LIBRARY_PATH;PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/ibutils/bin:/opt/local/munge/default/bin:/opt/slurm/default/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/bin:/global/opt/nvidia/cudatoolkit/7.0.28/bin:/global/opt/nvidia/cudatoolkit/7.0.28/jre/bin' ';export' 'PATH;'
-+++ LD_LIBRARY_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib/gcc/x86_64-unknown-linux-gnu/4.9.3:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib64:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/lib:/opt/cray/lib64:/usr/lib64:/users/cosuna:/users/cosuna:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/lib64
-+++ export LD_LIBRARY_PATH
-+++ PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/ibutils/bin:/opt/local/munge/default/bin:/opt/slurm/default/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/bin:/global/opt/nvidia/cudatoolkit/7.0.28/bin:/global/opt/nvidia/cudatoolkit/7.0.28/jre/bin
-+++ export PATH
+++ eval
 ++ module load cray-libsci_acc/3.3.0
 +++ /usr/Modules/3.2.10/bin/modulecmd bash load cray-libsci_acc/3.3.0
-++ eval CRAY_LD_LIBRARY_PATH=/opt/cray/gcc-libs:/opt/cray/libsci_acc/3.3.0/CRAY/8.3/x86_64/lib:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/ ';export' 'CRAY_LD_LIBRARY_PATH;'
-+++ CRAY_LD_LIBRARY_PATH=/opt/cray/gcc-libs:/opt/cray/libsci_acc/3.3.0/CRAY/8.3/x86_64/lib:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/
-+++ export CRAY_LD_LIBRARY_PATH
+++ eval
 + module load Boost/1.49.0-gmvolf-15.11-Python-2.7.10
 ++ /usr/Modules/3.2.10/bin/modulecmd bash load Boost/1.49.0-gmvolf-15.11-Python-2.7.10
-+ eval CPATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/include ';export' 'CPATH;EBDEVELBOOST=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/easybuild/Boost-1.49.0-gmvolf-15.11-Python-2.7.10-easybuild-devel' ';export' 'EBDEVELBOOST;EBDEVELBZIP2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/easybuild/bzip2-.1.0.6-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELBZIP2;EBDEVELFFTW=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/easybuild/FFTW-3.3.4-gmvapich2-15.11-easybuild-devel' ';export' 'EBDEVELFFTW;EBDEVELGMVAPICH2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/gmvapich2/15.11/easybuild/gmvapich2-15.11-easybuild-devel' ';export' 'EBDEVELGMVAPICH2;EBDEVELGMVOLF=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/gmvolf/15.11/easybuild/gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELGMVOLF;EBDEVELLIBREADLINE=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/easybuild/libreadline-.6.3-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELLIBREADLINE;EBDEVELMVAPICH2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/easybuild/MVAPICH2-2.2a-GCC-4.9.3-binutils-2.25-easybuild-devel' ';export' 'EBDEVELMVAPICH2;EBDEVELNCURSES=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/easybuild/ncurses-.5.9-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELNCURSES;EBDEVELOPENBLAS=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/easybuild/OpenBLAS-0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0-easybuild-devel' ';export' 'EBDEVELOPENBLAS;EBDEVELPYTHON=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/easybuild/Python-2.7.10-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELPYTHON;EBDEVELSCALAPACK=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/easybuild/ScaLAPACK-2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0-easybuild-devel' ';export' 'EBDEVELSCALAPACK;EBDEVELSQLITE=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/easybuild/SQLite-.3.8.8.1-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELSQLITE;EBDEVELTCL=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/easybuild/Tcl-.8.6.3-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELTCL;EBDEVELZLIB=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/easybuild/zlib-.1.2.8-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELZLIB;EBEXTSLISTPYTHON=setuptools-17.1.1,pip-7.0.3,nose-1.3.7,numpy-1.9.2,scipy-0.15.1,Cython-0.22,six-1.9.0,virtualenv-13.0.3,pandas-0.16.2' ';export' 'EBEXTSLISTPYTHON;EBROOTBOOST=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10' ';export' 'EBROOTBOOST;EBROOTBZIP2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11' ';export' 'EBROOTBZIP2;EBROOTFFTW=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11' ';export' 'EBROOTFFTW;EBROOTGMVAPICH2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/gmvapich2/15.11' ';export' 'EBROOTGMVAPICH2;EBROOTGMVOLF=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/gmvolf/15.11' ';export' 'EBROOTGMVOLF;EBROOTLIBREADLINE=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11' ';export' 'EBROOTLIBREADLINE;EBROOTMVAPICH2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25' ';export' 'EBROOTMVAPICH2;EBROOTNCURSES=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11' ';export' 'EBROOTNCURSES;EBROOTOPENBLAS=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0' ';export' 'EBROOTOPENBLAS;EBROOTPYTHON=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11' ';export' 'EBROOTPYTHON;EBROOTSCALAPACK=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0' ';export' 'EBROOTSCALAPACK;EBROOTSQLITE=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11' ';export' 'EBROOTSQLITE;EBROOTTCL=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11' ';export' 'EBROOTTCL;EBROOTZLIB=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11' ';export' 'EBROOTZLIB;EBVERSIONBOOST=1.49.0' ';export' 'EBVERSIONBOOST;EBVERSIONBZIP2=1.0.6' ';export' 'EBVERSIONBZIP2;EBVERSIONFFTW=3.3.4' ';export' 'EBVERSIONFFTW;EBVERSIONGMVAPICH2=15.11' ';export' 'EBVERSIONGMVAPICH2;EBVERSIONGMVOLF=15.11' ';export' 'EBVERSIONGMVOLF;EBVERSIONLIBREADLINE=6.3' ';export' 'EBVERSIONLIBREADLINE;EBVERSIONMVAPICH2=2.2a' ';export' 'EBVERSIONMVAPICH2;EBVERSIONNCURSES=5.9' ';export' 'EBVERSIONNCURSES;EBVERSIONOPENBLAS=0.2.13' ';export' 'EBVERSIONOPENBLAS;EBVERSIONPYTHON=2.7.10' ';export' 'EBVERSIONPYTHON;EBVERSIONSCALAPACK=2.0.2' ';export' 'EBVERSIONSCALAPACK;EBVERSIONSQLITE=3.8.8.1' ';export' 'EBVERSIONSQLITE;EBVERSIONTCL=8.6.3' ';export' 'EBVERSIONTCL;EBVERSIONZLIB=1.2.8' ';export' 'EBVERSIONZLIB;LD_LIBRARY_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib/gcc/x86_64-unknown-linux-gnu/4.9.3:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib64:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/lib:/opt/cray/lib64:/usr/lib64:/users/cosuna:/users/cosuna:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/lib64' ';export' 'LD_LIBRARY_PATH;LIBRARY_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib64:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/lib:/opt/local/slurm/default/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/lib64' ';export' 'LIBRARY_PATH;LOADEDMODULES=craype-haswell:craype-network-infiniband:cudatoolkit/7.0.28:mvapich2gdr_gnu/2.1_cuda_7.0:binutils/2.25:GCC/4.9.3-binutils-2.25:cray-libsci_acc/3.3.0:MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25:OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0:gmvapich2/15.11:FFTW/3.3.4-gmvapich2-15.11:ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0:gmvolf/15.11:bzip2/.1.0.6-gmvolf-15.11:zlib/.1.2.8-gmvolf-15.11:ncurses/.5.9-gmvolf-15.11:libreadline/.6.3-gmvolf-15.11:Tcl/.8.6.3-gmvolf-15.11:SQLite/.3.8.8.1-gmvolf-15.11:Python/2.7.10-gmvolf-15.11:Boost/1.49.0-gmvolf-15.11-Python-2.7.10' ';export' 'LOADEDMODULES;MANPATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/share/man:/opt/cray/libsci_acc/3.3.0/man:/opt/cray/man/csmlversion:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/share/man:/opt/local/munge/default/share/man::/opt/slurm/default/share/man:/global/opt/nvidia/cudatoolkit/7.0.28/doc/man' ';export' 'MANPATH;PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/ibutils/bin:/opt/local/munge/default/bin:/opt/slurm/default/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/bin:/global/opt/nvidia/cudatoolkit/7.0.28/bin:/global/opt/nvidia/cudatoolkit/7.0.28/jre/bin' ';export' 'PATH;PKG_CONFIG_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/lib/pkgconfig:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/pkgconfig' ';export' 'PKG_CONFIG_PATH;_LMFILES_=/opt/cray/craype/default/modulefiles/craype-haswell:/opt/cray/craype/default/modulefiles/craype-network-infiniband:/opt/modulefiles/cudatoolkit/7.0.28:/global/modules/mvapich2gdr_gnu/2.1_cuda_7.0:/apps/escha/UES/easybuild/modulefiles/binutils/2.25:/apps/escha/UES/easybuild/modulefiles/GCC/4.9.3-binutils-2.25:/opt/cray/modulefiles/cray-libsci_acc/3.3.0:/apps/escha/UES/easybuild/modulefiles/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25:/apps/escha/UES/easybuild/modulefiles/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0:/apps/escha/UES/easybuild/modulefiles/gmvapich2/15.11:/apps/escha/UES/easybuild/modulefiles/FFTW/3.3.4-gmvapich2-15.11:/apps/escha/UES/easybuild/modulefiles/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0:/apps/escha/UES/easybuild/modulefiles/gmvolf/15.11:/apps/escha/UES/easybuild/modulefiles/bzip2/.1.0.6-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/zlib/.1.2.8-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/ncurses/.5.9-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/libreadline/.6.3-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/Tcl/.8.6.3-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/SQLite/.3.8.8.1-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/Python/2.7.10-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/Boost/1.49.0-gmvolf-15.11-Python-2.7.10' ';export' '_LMFILES_;'
++ eval CPATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/include ';export' 'CPATH;EBDEVELBOOST=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/easybuild/Boost-1.49.0-gmvolf-15.11-Python-2.7.10-easybuild-devel' ';export' 'EBDEVELBOOST;EBDEVELBZIP2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/easybuild/bzip2-.1.0.6-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELBZIP2;EBDEVELFFTW=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/easybuild/FFTW-3.3.4-gmvapich2-15.11-easybuild-devel' ';export' 'EBDEVELFFTW;EBDEVELGMVAPICH2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/gmvapich2/15.11/easybuild/gmvapich2-15.11-easybuild-devel' ';export' 'EBDEVELGMVAPICH2;EBDEVELGMVOLF=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/gmvolf/15.11/easybuild/gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELGMVOLF;EBDEVELLIBREADLINE=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/easybuild/libreadline-.6.3-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELLIBREADLINE;EBDEVELMVAPICH2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/easybuild/MVAPICH2-2.2a-GCC-4.9.3-binutils-2.25-easybuild-devel' ';export' 'EBDEVELMVAPICH2;EBDEVELNCURSES=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/easybuild/ncurses-.5.9-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELNCURSES;EBDEVELOPENBLAS=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/easybuild/OpenBLAS-0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0-easybuild-devel' ';export' 'EBDEVELOPENBLAS;EBDEVELPYTHON=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/easybuild/Python-2.7.10-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELPYTHON;EBDEVELSCALAPACK=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/easybuild/ScaLAPACK-2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0-easybuild-devel' ';export' 'EBDEVELSCALAPACK;EBDEVELSQLITE=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/easybuild/SQLite-.3.8.8.1-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELSQLITE;EBDEVELTCL=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/easybuild/Tcl-.8.6.3-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELTCL;EBDEVELZLIB=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/easybuild/zlib-.1.2.8-gmvolf-15.11-easybuild-devel' ';export' 'EBDEVELZLIB;EBEXTSLISTPYTHON=setuptools-17.1.1,pip-7.0.3,nose-1.3.7,numpy-1.9.2,scipy-0.15.1,Cython-0.22,six-1.9.0,virtualenv-13.0.3,pandas-0.16.2' ';export' 'EBEXTSLISTPYTHON;EBROOTBOOST=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10' ';export' 'EBROOTBOOST;EBROOTBZIP2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11' ';export' 'EBROOTBZIP2;EBROOTFFTW=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11' ';export' 'EBROOTFFTW;EBROOTGMVAPICH2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/gmvapich2/15.11' ';export' 'EBROOTGMVAPICH2;EBROOTGMVOLF=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/gmvolf/15.11' ';export' 'EBROOTGMVOLF;EBROOTLIBREADLINE=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11' ';export' 'EBROOTLIBREADLINE;EBROOTMVAPICH2=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25' ';export' 'EBROOTMVAPICH2;EBROOTNCURSES=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11' ';export' 'EBROOTNCURSES;EBROOTOPENBLAS=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0' ';export' 'EBROOTOPENBLAS;EBROOTPYTHON=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11' ';export' 'EBROOTPYTHON;EBROOTSCALAPACK=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0' ';export' 'EBROOTSCALAPACK;EBROOTSQLITE=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11' ';export' 'EBROOTSQLITE;EBROOTTCL=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11' ';export' 'EBROOTTCL;EBROOTZLIB=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11' ';export' 'EBROOTZLIB;EBVERSIONBOOST=1.49.0' ';export' 'EBVERSIONBOOST;EBVERSIONBZIP2=1.0.6' ';export' 'EBVERSIONBZIP2;EBVERSIONFFTW=3.3.4' ';export' 'EBVERSIONFFTW;EBVERSIONGMVAPICH2=15.11' ';export' 'EBVERSIONGMVAPICH2;EBVERSIONGMVOLF=15.11' ';export' 'EBVERSIONGMVOLF;EBVERSIONLIBREADLINE=6.3' ';export' 'EBVERSIONLIBREADLINE;EBVERSIONMVAPICH2=2.2a' ';export' 'EBVERSIONMVAPICH2;EBVERSIONNCURSES=5.9' ';export' 'EBVERSIONNCURSES;EBVERSIONOPENBLAS=0.2.13' ';export' 'EBVERSIONOPENBLAS;EBVERSIONPYTHON=2.7.10' ';export' 'EBVERSIONPYTHON;EBVERSIONSCALAPACK=2.0.2' ';export' 'EBVERSIONSCALAPACK;EBVERSIONSQLITE=3.8.8.1' ';export' 'EBVERSIONSQLITE;EBVERSIONTCL=8.6.3' ';export' 'EBVERSIONTCL;EBVERSIONZLIB=1.2.8' ';export' 'EBVERSIONZLIB;LD_LIBRARY_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib/gcc/x86_64-unknown-linux-gnu/4.9.3:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib64:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/lib:/opt/mvapich2/gdr/2.1/cuda7.0/gnu/lib64:/opt/cray/lib64:/usr/lib64:/users/cosuna:/users/cosuna:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/lib64' ';export' 'LD_LIBRARY_PATH;LIBRARY_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib64:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/lib:/opt/local/slurm/default/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/lib64' ';export' 'LIBRARY_PATH;LOADEDMODULES=craype-haswell:craype-network-infiniband:cudatoolkit/7.0.28:mvapich2gdr_gnu/2.1_cuda_7.0:binutils/2.25:GCC/4.9.3-binutils-2.25:cray-libsci_acc/3.3.0:MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25:OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0:gmvapich2/15.11:FFTW/3.3.4-gmvapich2-15.11:ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0:gmvolf/15.11:bzip2/.1.0.6-gmvolf-15.11:zlib/.1.2.8-gmvolf-15.11:ncurses/.5.9-gmvolf-15.11:libreadline/.6.3-gmvolf-15.11:Tcl/.8.6.3-gmvolf-15.11:SQLite/.3.8.8.1-gmvolf-15.11:Python/2.7.10-gmvolf-15.11:Boost/1.49.0-gmvolf-15.11-Python-2.7.10' ';export' 'LOADEDMODULES;MANPATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/share/man:/opt/cray/libsci_acc/3.3.0/man:/opt/cray/man/csmlversion:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/share/man:/opt/local/munge/default/share/man::/opt/slurm/default/share/man:/global/opt/nvidia/cudatoolkit/7.0.28/doc/man' ';export' 'MANPATH;PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/bin:/opt/mvapich2/gdr/2.1/cuda7.0/gnu/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/ibutils/bin:/opt/local/munge/default/bin:/opt/slurm/default/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/bin:/global/opt/nvidia/cudatoolkit/7.0.28/bin:/global/opt/nvidia/cudatoolkit/7.0.28/jre/bin' ';export' 'PATH;PKG_CONFIG_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/lib/pkgconfig:/opt/mvapich2/gdr/2.1/cuda7.0/gnu/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/pkgconfig' ';export' 'PKG_CONFIG_PATH;_LMFILES_=/opt/cray/craype/default/modulefiles/craype-haswell:/opt/cray/craype/default/modulefiles/craype-network-infiniband:/opt/modulefiles/cudatoolkit/7.0.28:/global/modules/mvapich2gdr_gnu/2.1_cuda_7.0:/apps/escha/UES/easybuild/modulefiles/binutils/2.25:/apps/escha/UES/easybuild/modulefiles/GCC/4.9.3-binutils-2.25:/opt/cray/modulefiles/cray-libsci_acc/3.3.0:/apps/escha/UES/easybuild/modulefiles/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25:/apps/escha/UES/easybuild/modulefiles/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0:/apps/escha/UES/easybuild/modulefiles/gmvapich2/15.11:/apps/escha/UES/easybuild/modulefiles/FFTW/3.3.4-gmvapich2-15.11:/apps/escha/UES/easybuild/modulefiles/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0:/apps/escha/UES/easybuild/modulefiles/gmvolf/15.11:/apps/escha/UES/easybuild/modulefiles/bzip2/.1.0.6-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/zlib/.1.2.8-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/ncurses/.5.9-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/libreadline/.6.3-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/Tcl/.8.6.3-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/SQLite/.3.8.8.1-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/Python/2.7.10-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/Boost/1.49.0-gmvolf-15.11-Python-2.7.10' ';export' '_LMFILES_;'
 ++ CPATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/include:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/include
 ++ export CPATH
 ++ EBDEVELBOOST=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/easybuild/Boost-1.49.0-gmvolf-15.11-Python-2.7.10-easybuild-devel
@@ -131,7 +105,7 @@
 ++ export EBVERSIONTCL
 ++ EBVERSIONZLIB=1.2.8
 ++ export EBVERSIONZLIB
-++ LD_LIBRARY_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib/gcc/x86_64-unknown-linux-gnu/4.9.3:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib64:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/lib:/opt/cray/lib64:/usr/lib64:/users/cosuna:/users/cosuna:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/scratch/cosuna/openmpi/lib/:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/lib64
+++ LD_LIBRARY_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib/gcc/x86_64-unknown-linux-gnu/4.9.3:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib64:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/lib:/opt/mvapich2/gdr/2.1/cuda7.0/gnu/lib64:/opt/cray/lib64:/usr/lib64:/users/cosuna:/users/cosuna:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/lib64
 ++ export LD_LIBRARY_PATH
 ++ LIBRARY_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib64:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/lib:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/lib:/opt/local/slurm/default/lib64:/global/opt/nvidia/cudatoolkit/7.0.28/lib64
 ++ export LIBRARY_PATH
@@ -139,9 +113,9 @@
 ++ export LOADEDMODULES
 ++ MANPATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/share/man:/opt/cray/libsci_acc/3.3.0/man:/opt/cray/man/csmlversion:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/share/man:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/share/man:/opt/local/munge/default/share/man::/opt/slurm/default/share/man:/global/opt/nvidia/cudatoolkit/7.0.28/doc/man
 ++ export MANPATH
-++ PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/ibutils/bin:/opt/local/munge/default/bin:/opt/slurm/default/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/scratch/cosuna/openmpi/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/bin:/global/opt/nvidia/cudatoolkit/7.0.28/bin:/global/opt/nvidia/cudatoolkit/7.0.28/jre/bin
+++ PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/libreadline/6.3-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/ncurses/5.9-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/bzip2/1.0.6-gmvolf-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/GCC/4.9.3-binutils-2.25/bin:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/binutils/2.25/bin:/opt/mvapich2/gdr/2.1/cuda7.0/gnu/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/ibutils/bin:/opt/local/munge/default/bin:/opt/slurm/default/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/project/c01/cosuna/software/tmux-1.9a/install/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/plugins/org.apache.ant_1.8.3.v201301120609/bin:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/bin:/global/opt/nvidia/cudatoolkit/7.0.28/bin:/global/opt/nvidia/cudatoolkit/7.0.28/jre/bin
 ++ export PATH
-++ PKG_CONFIG_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/lib/pkgconfig:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/scratch/cosuna/openmpi/lib/pkgconfig/:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/pkgconfig
+++ PKG_CONFIG_PATH=/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Python/2.7.10-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/SQLite/3.8.8.1-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/Tcl/8.6.3-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/zlib/1.2.8-gmvolf-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/FFTW/3.3.4-gmvapich2-15.11/lib/pkgconfig:/apps/escha/UES/RH6.6_PE15.09/easybuild/software/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25/lib/pkgconfig:/opt/mvapich2/gdr/2.1/cuda7.0/gnu/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/libnvvp/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/libnsight/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/Debugger/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/extras/CUPTI/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/nvvm/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/lib64/pkgconfig:/global/opt/nvidia/cudatoolkit/7.0.28/pkgconfig
 ++ export PKG_CONFIG_PATH
 ++ _LMFILES_=/opt/cray/craype/default/modulefiles/craype-haswell:/opt/cray/craype/default/modulefiles/craype-network-infiniband:/opt/modulefiles/cudatoolkit/7.0.28:/global/modules/mvapich2gdr_gnu/2.1_cuda_7.0:/apps/escha/UES/easybuild/modulefiles/binutils/2.25:/apps/escha/UES/easybuild/modulefiles/GCC/4.9.3-binutils-2.25:/opt/cray/modulefiles/cray-libsci_acc/3.3.0:/apps/escha/UES/easybuild/modulefiles/MVAPICH2/2.2a-GCC-4.9.3-binutils-2.25:/apps/escha/UES/easybuild/modulefiles/OpenBLAS/0.2.13-GCC-4.9.3-binutils-2.25-LAPACK-3.5.0:/apps/escha/UES/easybuild/modulefiles/gmvapich2/15.11:/apps/escha/UES/easybuild/modulefiles/FFTW/3.3.4-gmvapich2-15.11:/apps/escha/UES/easybuild/modulefiles/ScaLAPACK/2.0.2-gmvapich2-15.11-OpenBLAS-0.2.13-LAPACK-3.5.0:/apps/escha/UES/easybuild/modulefiles/gmvolf/15.11:/apps/escha/UES/easybuild/modulefiles/bzip2/.1.0.6-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/zlib/.1.2.8-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/ncurses/.5.9-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/libreadline/.6.3-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/Tcl/.8.6.3-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/SQLite/.3.8.8.1-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/Python/2.7.10-gmvolf-15.11:/apps/escha/UES/easybuild/modulefiles/Boost/1.49.0-gmvolf-15.11-Python-2.7.10
 ++ export _LMFILES_
@@ -184,43 +158,47 @@ Try `ldd --help' for more information.
 + MALLOC_MMAP_MAX_=0
 + export MALLOC_TRIM_THRESHOLD_=536870912
 + MALLOC_TRIM_THRESHOLD_=536870912
-+ export G2G=0
-+ G2G=0
++ export G2G=1
++ G2G=1
 + export MV2_USE_GPUDIRECT=0
 + MV2_USE_GPUDIRECT=0
-+ mpirun --mca btl_openib_warn_default_gid_prefix 0 --mca btl_smcuda_use_cuda_ipc 0 -x CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 bash ./wrap.sh
-nvprof_file0
-nvprof_file0
-nvprof_file0
-nvprof_file0
-nvprof_file0
-nvprof_file0
-nvprof_file0
-nvprof_file0
-nvprof_file2
-nvprof_file2
-nvprof_file2
-nvprof_file2
-nvprof_file2
-nvprof_file2
-nvprof_file2
-nvprof_file2
++ export MV2_IBA_EAGER_THRESHOLD=0
++ MV2_IBA_EAGER_THRESHOLD=0
++ export MV2_SMP_EAGER_THRESHOLD=0
++ MV2_SMP_EAGER_THRESHOLD=0
++ srun -n 32 bash ./wrap.sh
 nvprof_file1
+nvprof_file21
+nvprof_file2
+nvprof_file3
+nvprof_file4
+nvprof_file5
+nvprof_file6
+nvprof_file7
+nvprof_file28
+nvprof_file13
+nvprof_file20
+nvprof_file22
+nvprof_file23
+nvprof_file18
+nvprof_file17
+nvprof_file19
+nvprof_file30
+nvprof_file31
+nvprof_file29
+nvprof_file25
+nvprof_file26
+nvprof_file27
+nvprof_file14
+nvprof_file15
+nvprof_file11
+nvprof_file12
+nvprof_file10
+nvprof_file9
 nvprof_file0
-nvprof_file1
-nvprof_file0
-nvprof_file1
-nvprof_file0
-nvprof_file1
-nvprof_file0
-nvprof_file1
-nvprof_file0
-nvprof_file1
-nvprof_file0
-nvprof_file1
-nvprof_file0
-nvprof_file1
-nvprof_file0
+nvprof_file16
+nvprof_file24
+nvprof_file8
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -233,8 +211,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -247,8 +223,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -261,8 +235,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -275,8 +247,111 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDAHP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+
+--ie
+128
+--je
+128
+--ke
+80
+--nh
+1
+--ie
+128
+--je
+128
+--ke
+80
+--nh
+1
+--ie
+128
+--je
+128
+--ke
+80
+--nh
+1
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
+--je
+128HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA--ie
+128
+--je
+128
+--ke
+80
+--nh
+1
+
+--ke
+80
+--nh
+1
+
+--ie
+128HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+
+--je
+128
+--ke
+80
+--nh
+1
+--ie
+128
+--je
+128
+--ke
+80
+--nh
+1
+--ie
+128
+--je
+128
+--ke
+80
+--nh
+1
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDAHP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+--ie
+128
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -289,8 +364,93 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
+--je
+128
+--ke
+80
+--nh
+1
+
+--ie
+128
+--je
+128
+--ke
+80
+--nh
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+1
+--ie
+128
+--je
+128
+--ke
+80
+--nh
+1
+../install/bin/StandaloneStencilsCUDAHP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDAHP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+
+
+--ie
+128
+--je
+128
+--ke
+80
+--nh
+--ie
+128
+--je
+128
+--ke
+80
+--nh
+1
+--ie
+128
+--je
+128
+--ke
+80
+--nh1
+
+1
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA
+HP2CDycoreUnittest
+
+usage: HP2CDycoreUnittest -p <dataPath>
+../install/bin/StandaloneStencilsCUDA--ie
+128
+--je
+128
+--ke
+80
+--nh
+1
+
+--ie
+128
+--je
+128
+--ke
+80
+--nh
+1
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -303,8 +463,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -317,8 +475,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -331,8 +487,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -345,8 +499,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -359,8 +511,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -373,8 +523,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -387,8 +535,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -401,8 +547,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -415,8 +559,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -429,8 +571,6 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
 HP2CDycoreUnittest
 
 usage: HP2CDycoreUnittest -p <dataPath>
@@ -443,678 +583,452 @@ usage: HP2CDycoreUnittest -p <dataPath>
 80
 --nh
 1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
-HP2CDycoreUnittest
-
-usage: HP2CDycoreUnittest -p <dataPath>
-../install/bin/StandaloneStencilsCUDA
---ie
-128
---je
-128
---ke
-80
---nh
-1
---nogcl
---nostella
 CONFIGURATION 
 ====================================
 Domain : [128,128,80]
 Sync? : 0
 NoComm? : 0
 NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
+NoStella? : 0
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
 Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :10
-OMPI_COMM_WORLD_RANK :26
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :1
-OMPI_COMM_WORLD_RANK :17
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :4
-OMPI_COMM_WORLD_RANK :20
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :14
-OMPI_COMM_WORLD_RANK :30
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :11
-OMPI_COMM_WORLD_RANK :27
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :5
-OMPI_COMM_WORLD_RANK :21
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :9
-OMPI_COMM_WORLD_RANK :25
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :13
-OMPI_COMM_WORLD_RANK :29
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :12
-OMPI_COMM_WORLD_RANK :28
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :3
-OMPI_COMM_WORLD_RANK :19
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :2
-OMPI_COMM_WORLD_RANK :18
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :7
-OMPI_COMM_WORLD_RANK :23
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :6
-OMPI_COMM_WORLD_RANK :22
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :15
-OMPI_COMM_WORLD_RANK :31
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :8
-OMPI_COMM_WORLD_RANK :24
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
+Number benchmark repetitions : 1000NoGCL? : 0
 Number Halo Exchanges : 1
 Number benchmark repetitions : 1000
 In Order halo exchanges? : 0
 Device ID :0
-OMPI_COMM_WORLD_RANK :16
-Compiled for openmpi
+SLURM_PROCID :19
+Compiled for mvapich2
 CONFIGURATION 
 ====================================
 Domain : [128,128,80]
 Sync? : 0
 NoComm? : 0
 NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :9
-OMPI_COMM_WORLD_RANK :9
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :15
-OMPI_COMM_WORLD_RANK :15
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :13
-OMPI_COMM_WORLD_RANK :13
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :5
-OMPI_COMM_WORLD_RANK :5
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :4
-OMPI_COMM_WORLD_RANK :4
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :12
-OMPI_COMM_WORLD_RANK :12
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :14
-OMPI_COMM_WORLD_RANK :14
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :10
-OMPI_COMM_WORLD_RANK :10
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :2
-OMPI_COMM_WORLD_RANK :2
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :1
-OMPI_COMM_WORLD_RANK :1
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :11
-OMPI_COMM_WORLD_RANK :11
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :8
-OMPI_COMM_WORLD_RANK :8
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :6
-OMPI_COMM_WORLD_RANK :6
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :7
-OMPI_COMM_WORLD_RANK :7
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
-Number Halo Exchanges : 1
-Number benchmark repetitions : 1000
-In Order halo exchanges? : 0
-Device ID :3
-OMPI_COMM_WORLD_RANK :3
-Compiled for openmpi
-CONFIGURATION 
-====================================
-Domain : [128,128,80]
-Sync? : 0
-NoComm? : 0
-NoComp? : 0
-NoStella? : 1
-NoGCL? : 1
+NoStella? : 0
+NoGCL? : 0
 Number Halo Exchanges : 1
 Number benchmark repetitions : 1000
 In Order halo exchanges? : 0
 Device ID :0
-OMPI_COMM_WORLD_RANK :0
-Compiled for openmpi
-ELAPSED TIME : 10.1697 +- + 0.929624
+SLURM_PROCID :4
+Compiled for mvapich2
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :11
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 28
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+CONFIGURATION 
+====================================
+Domain : [80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :15
+Compiled for mvapich2
+SLURM_PROCID :23
+Compiled for mvapich2
+128,128,80]
+Sync? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :1
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [CONFIGURATION 
+====================================
+Domain : [0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 128,128,80]
+Sync? : 
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : SLURM_PROCID :27
+Compiled for mvapich2
+Device ID :0
+SLURM_PROCID :7
+Compiled for mvapich2
+SLURM_PROCID :9
+Compiled for mvapich2
+1000
+In Order halo exchanges? : 0
+Device ID :0
+CONFIGURATION 
+====================================
+Domain : [CONFIGURATION 
+====================================CONFIGURATION 
+====================================
+Domain : [SLURM_PROCID :20
+Compiled for mvapich2
+128,128,80]
+Sync? : 0
+Domain : [128128,128,80]
+Sync? : CONFIGURATION 
+====================================
+Domain : [
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+SLURM_PROCID :25
+Compiled for mvapich2
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :14
+Compiled for mvapich2
+Device ID :0
+SLURM_PROCID :21
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [SLURM_PROCID :3
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : CONFIGURATION 
+====================================
+Domain : [128,128,0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+128,128,80]80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+Device ID :0
+SLURM_PROCID :30
+Compiled for mvapich2
+
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :2
+Compiled for mvapich2
+13
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [CONFIGURATION 
+====================================
+Domain : [CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 00
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :12
+Compiled for mvapich2
+128,128,80]
+Sync? : 
+Device ID :0
+SLURM_PROCID :6
+Compiled for mvapich2
+0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :22
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :5
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :29
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :18
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :16
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :24
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :10
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :0
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :31
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :8
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :17
+Compiled for mvapich2
+CONFIGURATION 
+====================================
+Domain : [128,128,80]
+Sync? : 0
+NoComm? : 0
+NoComp? : 0
+NoStella? : 0
+NoGCL? : 0
+Number Halo Exchanges : 1
+Number benchmark repetitions : 1000
+In Order halo exchanges? : 0
+Device ID :0
+SLURM_PROCID :26
+Compiled for mvapich2
+ELAPSED TIME : 3.70186 +- + 0.233237
