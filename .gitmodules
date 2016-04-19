@@ -1,0 +1,4 @@
+[submodule "jenkins/env"]
+    path = jenkins/env
+    url = git@github.com:C2SM-RCM/buildenv.git
+    branch = master
