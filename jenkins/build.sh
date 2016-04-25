@@ -66,10 +66,7 @@ parseOptions()
         :) showUsage; exitError 302 ${LINENO} "command line option (-${OPTARG}) requires argument" ;;
         esac
     done
-}
 
-checkOptions()
-{
     # check that everything is set
     test -n "${compiler}" || exitError 303 ${LINENO} "Option <compiler> is not set"
     test -n "${debug}" || exitError 304 ${LINENO} "Option <debug> is not set"
@@ -102,17 +99,6 @@ checkOptions()
 
 showBuildConfiguration()
 {
-
-    # check whether SVN is available and this is a checkout
-    which svn &> /dev/null
-    if [ $? -eq 0 ] ; then
-        svn info &> /dev/null
-        if [ $? -eq 0 ] ; then
-            local svn_path=`svn info | grep '^URL' | awk '{print $2}'`
-            local svn_rev=`svn info | grep '^Revision' | awk '{print $2}'`
-        fi
-    fi
-
     # echo configuration to stdout
     echo "============================================================================="
     echo "build ${library}"
@@ -120,12 +106,16 @@ showBuildConfiguration()
     echo "date              : " `date`
     echo "machine           : " ${host}
     echo "user              : " `whoami`
-    if [ -n "${svn_rev}" ] ; then
-        echo "SVN path          : " ${svn_path}
-        echo "SVN revision      : " ${svn_rev}
+    if git_is_repository ; then
+        echo "GIT revision      : " $(git_show_revision)
+        echo "GIT origin        : " $(git_show_origin)
+        echo "GIT branch        : " $(git_show_branch_all)
+        echo "GIT status        : " $(git_show_repository_status)
     else
-        echo "SVN path          : " "(not available)"
-        echo "SVN revision      : " "(not available)"
+        echo "GIT revision      : " "(not available)"
+        echo "GIT origin        : " "(not available)"
+        echo "GIT branch        : " "(not available)"
+        echo "GIT status        : " "(not available)"
     fi
     echo "working in        : " ${base_path}
     echo "target            : " ${target}
@@ -384,30 +374,15 @@ T="$(date +%s)"
 pushd `dirname $0` > /dev/null
 envloc=`/bin/pwd`
 popd > /dev/null
-if [ ! -d ${envloc}/env ] ; then
-  cd ${envloc}
-  svn co svn+ssh://scm.hpcforge.org/var/lib/gforge/chroot/scmrepos/svn/cclm-dev/trunk/env
-  if [ $? -ne 0 ] ; then
-    exitError 1101 ${LINENO} "problem checking out environment files"
-  fi
-  cd -
-else
-  cd ${envloc}/env
-  svn update
-  if [ $? -ne 0 ] ; then
-    exitError 1102 ${LINENO} "problem updating environment files"
-  fi
-  cd -
-fi
+
+# Download the env
+. ${envloc}/env.sh
 
 # setup module environment and default queue
 if [ ! -f ${envloc}/env/machineEnvironment.sh ] ; then
     exitError 1201 ${LINENO} "could not find ${envloc}/env/machineEnvironment.sh"
 fi
 . ${envloc}/env/machineEnvironment.sh
-
-# parse command line options (pass all of them to function)
-parseOptions $*
 
 envfile=${envloc}/env/env.${host}.sh
 if [ "${openmpi}" == "ON" ]; then
@@ -418,8 +393,6 @@ if [ ! -f ${envfile} ] ; then
     exitError 1202 ${LINENO} "could not find ${envfile}"
 fi
 . ${envfile}
-
-checkOptions()
 
 # load module tools
 if [ ! -f ${envloc}/env/moduleTools.sh ] ; then
@@ -432,6 +405,9 @@ base_path=$(pwd) # get working base directory
 
 # setup default options (from env/env.${host}.sh)
 setupDefaults
+
+# parse command line options (pass all of them to function)
+parseOptions $*
 
 # test environment (if requested)
 testEnvironment
