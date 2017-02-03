@@ -1,16 +1,15 @@
 #include <stdexcept>
-#include <sstream>
+#include <iostream>
 #include <cmath>
 #include <boost/lexical_cast.hpp>
 #include <boost/timer/timer.hpp>
-#include "gtest/gtest.h"
 #include "HorizontalDiffusionSA.h"
 #include "HoriDiffReference.h"
 #include "Definitions.h"
-#include "UnittestEnvironment.h"
-#include "HaloUpdateManager.h"
 #include "Options.h"
-#include "mpi.h"
+#include <mpi.h>
+
+#include "IJKSize.h"
 
 #ifdef __CUDA_BACKEND__
 #include "cuda_profiler_api.h"
@@ -61,6 +60,7 @@ bool parseBoolOption(int argc, char **argv, std::string option)
     return result;
 }
 
+
 void readOptions(int argc, char** argv)
 {
     std::cout << "HP2CDycoreUnittest\n\n";
@@ -75,24 +75,21 @@ void readOptions(int argc, char** argv)
     bool sync = parseBoolOption(argc, argv, "--sync");
     bool nocomm = parseBoolOption(argc, argv, "--nocomm");
     bool nocomp = parseBoolOption(argc, argv, "--nocomp");
-    bool nostella = parseBoolOption(argc, argv, "--nostella");
     bool nogcl = parseBoolOption(argc, argv, "--nogcl");
     int nHaloUpdates = parseIntOption(argc, argv, "--nh", 2);
     int nRep = parseIntOption(argc, argv, "-n", cNumBenchmarkRepetitions);
     bool inOrder = parseBoolOption(argc, argv, "--inorder");
 
-    IJKSize domain;
-    domain.Init(iSize, jSize, kSize);
-    Options::getInstance().domain_ = domain;
-    Options::getInstance().sync_ = sync;
-    Options::getInstance().nocomm_ = nocomm;
-    Options::getInstance().nocomp_ = nocomp;
-    Options::getInstance().nostella_ = nostella;
-    Options::getInstance().nogcl_ = nogcl;
-    Options::getInstance().nHaloUpdates_ = nHaloUpdates;
-    Options::getInstance().nRep_ = nRep;
-    Options::getInstance().inOrder_ = inOrder;
-
+    Options::set("isize", iSize);
+    Options::set("jsize", jSize);
+    Options::set("ksize", kSize);
+    Options::set("sync", sync);
+    Options::set("nocomm", nocomm);
+    Options::set("nocomp", nocomp);
+    Options::set("nogcl", nogcl);
+    Options::set("nHaloUpdates", nHaloUpdates);
+    Options::set("nrep", nRep);
+    Options::set("inOrder", inOrder);
 }
 
 void setupDevice()
@@ -136,26 +133,24 @@ int main(int argc, char** argv)
     setupDevice();
 
 
-    HoriDiffRepository* pRepository_ = &UnittestEnvironment::getInstance().repository();
+    IJKSize domain(Options::get<int>("isize"),
+                   Options::get<int>("jsize"),
+                   Options::get<int>("ksize"));
+    auto repository = std::shared_ptr<Repository>(new Repository(domain));
 
-    IJKSize domain_ = UnittestEnvironment::getInstance().calculationDomain();
-
-    HoriDiffReference ref_;
-
-    ref_.Init(*pRepository_);
+    HoriDiffReference ref_(repository);
     ref_.Generate();
 
     std::cout << "CONFIGURATION " << std::endl;
     std::cout << "====================================" << std::endl;
-    std::cout << "Domain : [" << Options::getInstance().domain_.iSize() << "," << Options::getInstance().domain_.jSize() << "," <<Options::getInstance().domain_.kSize() << "]" << std::endl;
-    std::cout << "Sync? : " << Options::getInstance().sync_ << std::endl;
-    std::cout << "NoComm? : " << Options::getInstance().nocomm_ << std::endl;
-    std::cout << "NoComp? : " << Options::getInstance().nocomp_ << std::endl;
-    std::cout << "NoStella? : " << Options::getInstance().nostella_ << std::endl;
-    std::cout << "NoGCL? : " << Options::getInstance().nogcl_ << std::endl;
-    std::cout << "Number Halo Exchanges : " << Options::getInstance().nHaloUpdates_ << std::endl;
-    std::cout << "Number benchmark repetitions : " << Options::getInstance().nRep_ << std::endl;
-    std::cout << "In Order halo exchanges? : " << Options::getInstance().inOrder_ << std::endl;
+    std::cout << "Domain : [" << domain.isize << "," << domain.jsize << "," << domain.ksize << "]" << std::endl;
+    std::cout << "Sync? : " << Options::get<bool>("sync") << std::endl;
+    std::cout << "NoComm? : " << Options::get<bool>("nocomm") << std::endl;
+    std::cout << "NoComp? : " << Options::get<bool>("nocomp") << std::endl;
+    std::cout << "NoGCL? : " << Options::get<bool>("nogcl") << std::endl;
+    std::cout << "Number Halo Exchanges : " << Options::get<int>("nHaloUpdates") << std::endl;
+    std::cout << "Number benchmark repetitions : " << Options::get<int>("nRep") << std::endl;
+    std::cout << "In Order halo exchanges? : " << Options::get<int>("inOrder") << std::endl;
 
     int deviceId;
     if( cudaGetDevice(&deviceId) != cudaSuccess)
@@ -178,81 +173,85 @@ int main(int argc, char** argv)
     boost::timer::cpu_timer cpu_timer;
 
     // generate a reference field that contain the output of a horizontal diffusion operator
-    HorizontalDiffusionSA horizontalDiffusionSA;
-    horizontalDiffusionSA.Init(*pRepository_, UnittestEnvironment::getInstance().communicationConfiguration());
+    HorizontalDiffusionSA horizontalDiffusionSA(repository);
 
-    IJBoundary applyB;
-    applyB.Init(-1,1,-1,1);
-    horizontalDiffusionSA.Apply(applyB);
-//    horizontalDiffusionSA.ApplyHalos();
-    pRepository_->Swap();
-    horizontalDiffusionSA.Apply();
+//    IJBoundary applyB;
+//    applyB.Init(-1,1,-1,1);
+//    horizontalDiffusionSA.Apply(applyB);
+////    horizontalDiffusionSA.ApplyHalos();
+//    pRepository_->Swap();
+//    horizontalDiffusionSA.Apply();
 
-    IJKRealField& outField = pRepository_->u_out(0);
-    IJKRealField& refField = pRepository_->refField();
+//    IJKRealField& outField = pRepository_->u_out(0);
+//    IJKRealField& refField = pRepository_->refField();
 
-    // we only verify the stencil once (before starting the real benchmark)
-    IJKBoundary checkBoundary;
-    checkBoundary.Init(0, 0, 0, 0, 0, 0);
+//    // we only verify the stencil once (before starting the real benchmark)
+//    IJKBoundary checkBoundary;
+//    checkBoundary.Init(0, 0, 0, 0, 0, 0);
 
-    horizontalDiffusionSA.Apply();
+//    horizontalDiffusionSA.Apply();
     cudaDeviceSynchronize();
-    horizontalDiffusionSA.ResetMeters();
+//    horizontalDiffusionSA.ResetMeters();
 #ifdef __CUDA_BACKEND__
     cudaProfilerStart();
 #endif
 
+    bool sync = Options::get<bool>("sync");
+    bool nocomm = Options::get<bool>("nocomm");
+    bool inOrder = Options::get<bool>("inOrder");
+    bool nocomp = Options::get<bool>("nocomp");
+    int nHaloUpdates = Options::get<int>("nHaloUpdates_");
+    int nRep = Options::get<int>("nRep");
     cpu_timer.start();
 
-    for(int i=0; i < Options::getInstance().nRep_; ++i) {
+    for(int i=0; i < nRep; ++i) {
         int numGPU;
         cudaGetDeviceCount(&numGPU);
         // flush cache between calls to horizontal diffusion stencil
-        if(i!=0 && !Options::getInstance().sync_ && !Options::getInstance().nocomm_ && !Options::getInstance().inOrder_) {
-            for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
+        if(i!=0 && !sync && !nocomm && !inOrder) {
+            for(int c=0; c < nHaloUpdates ; ++c) {
                 horizontalDiffusionSA.WaitHalos(c);
             }
         }
-        if(!Options::getInstance().nocomp_) {
+        if(!nocomp) {
             horizontalDiffusionSA.Apply();
         }
 
-        if(Options::getInstance().inOrder_) {
-            for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
-                if(!Options::getInstance().nocomm_){
-                    if(!Options::getInstance().sync_)
+        if(inOrder) {
+            for(int c=0; c < nHaloUpdates; ++c) {
+                if(!nocomm){
+                    if(!sync)
                         horizontalDiffusionSA.StartHalos(c);
                     else
                         horizontalDiffusionSA.ApplyHalos(c);
                 }
-                pRepository_->Swap();
-                
-                if(!Options::getInstance().nocomp_)
+                repository->swap();
+                if(!nocomp)
                     horizontalDiffusionSA.Apply();
 
-                if(!Options::getInstance().nocomm_){
-                    if(!Options::getInstance().sync_)
+                if(!nocomm){
+                    if(!sync)
                         horizontalDiffusionSA.WaitHalos(c);
                 }
             }
 
         }
         else {
-            for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
-                if(!Options::getInstance().nocomm_){
-                    if(!Options::getInstance().sync_)
+            for(int c=0; c < nHaloUpdates ; ++c) {
+                if(!nocomm){
+                    if(!sync)
                         horizontalDiffusionSA.StartHalos(c);
                     else
                         horizontalDiffusionSA.ApplyHalos(c);
                 }
-                pRepository_->Swap();
-                if(!Options::getInstance().nocomp_)
+                repository->swap();
+                if(!nocomp)
                     horizontalDiffusionSA.Apply();
             }
         }
     }
-    if(!Options::getInstance().nocomm_ && !Options::getInstance().sync_ && !Options::getInstance().inOrder_){
-        for(int c=0; c < Options::getInstance().nHaloUpdates_ ; ++c) {
+    if(!nocomm && !sync && !inOrder){
+        for(int c=0; c < nHaloUpdates ; ++c) {
             horizontalDiffusionSA.WaitHalos(c);
         }
     }

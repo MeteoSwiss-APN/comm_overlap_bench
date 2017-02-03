@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Definitions.h"
 #include "IJKSize.h"
+#include "Definitions.h"
 #include <iostream>
 #include <cuda.h>
 

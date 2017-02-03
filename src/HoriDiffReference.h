@@ -6,17 +6,19 @@
  */
 
 #pragma once
-#include "HoriDiffRepository.h"
+#include "Repository.h"
+#include <memory>
+//#include "HoriDiffRepository.h"
 
 class HoriDiffReference {
     DISALLOW_COPY_AND_ASSIGN(HoriDiffReference);
 public:
-    HoriDiffReference() {}
-    void Init(HoriDiffRepository& repository) { pRepository_ = &repository; }
+    HoriDiffReference(std::shared_ptr<Repository> repository):
+        repository_(repository)
+    {}
 
     void Generate();
 private:
-    HoriDiffRepository* pRepository_;
-
+    std::shared_ptr<Repository> repository_;
 };
 

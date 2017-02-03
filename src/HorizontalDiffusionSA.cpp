@@ -1,93 +1,22 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
 
-#include "StencilFramework.h"
-#include "MathFunctions.h"
-#include "HorizontalDiffusionFunctions.h"
 #include "HorizontalDiffusionSA.h"
 #include "Kernel.h"
-#include "Options.h"
 
-// define parameter enum
-enum
+HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> repository):
+  recWBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
+  recNBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
+  recEBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
+  recSBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
+  sendWBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
+  sendNBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
+  sendEBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
+  sendSBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
+  pRepository_(repository)
 {
-    u_in, u_out, lap, hdmaskvel, crlato, crlatu, crlavo, crlavu
-};
-
-namespace HorizontalDiffusionSAStages
-{
-    /**
-    * @struct ULapStage
-    * Corresponds to numeric_utilities.f90 - first loop of lap_4am
-    */
-    template<typename TEnv>
-    struct ULapStage
-    {
-        STENCIL_STAGE(TEnv)
-
-        STAGE_PARAMETER(FullDomain, u_out)
-        STAGE_PARAMETER(FullDomain, u_in)
-        STAGE_PARAMETER(FullDomain, crlato)
-        STAGE_PARAMETER(FullDomain, crlatu)
-        
-        // flops: 6
-        // accesses
-        //    no cache: 2 (u, lap) . crlat are J fields not taken into account
-        //    cache:    1+1/10
-        __ACC__
-        static void Do(Context ctx, FullDomain)
-        {
-            ctx[u_out::Center()] =
-                ctx[Call<Laplacian>::With(u_in::Center(), crlato::Center(), crlatu::Center())];
-        }
-    };
-}
-
-HorizontalDiffusionSA::HorizontalDiffusionSA() : stencils_(N_HORIDIFF_VARS), haloUpdates_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
-    recWBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), recNBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), recEBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), recSBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
-    sendWBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), sendNBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), sendEBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS), sendSBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS)
-{
-    for(int c=0; c < N_HORIDIFF_VARS; ++c)
-    {
-        stencils_[c] = new Stencil();
-    }
-
-    for(int c=0; c < N_HORIDIFF_VARS*N_CONCURRENT_HALOS; ++c)
-    {
-        haloUpdates_[c]= new HaloUpdateManager<true, false>();
-    }
     cudaStreamCreate(&kernelStream_);
 
-}
-HorizontalDiffusionSA::~HorizontalDiffusionSA() 
-{
-    for(int c=0; c < N_CONCURRENT_HALOS; ++c)
-    {
-        assert(stencils_[c]);
-        delete stencils_[c];
-    } 
-
-    for(int c=0; c < N_HORIDIFF_VARS*N_CONCURRENT_HALOS; ++c)
-    {
-        assert(haloUpdates_[c]);
-        delete haloUpdates_[c];
-    }    
-    cudaStreamDestroy(kernelStream_);
-
-}
-
-void HorizontalDiffusionSA::ResetMeters()
-{
-    for(int c=0; c < N_HORIDIFF_VARS; ++c)
-    {
-        assert(stencils_[c]);
-        stencils_[c]->ResetMeters();
-    }    
-
-}
-void HorizontalDiffusionSA::Init(
-        HoriDiffRepository& horiDiffRepository, CommunicationConfiguration& comm)
-{
-
+    const IJKSize& domain = repository->domain;
     MPI_Comm_size(MPI_COMM_WORLD, &numRanks_);
     MPI_Comm_rank(MPI_COMM_WORLD, &rankId_);
 
@@ -123,7 +52,7 @@ void HorizontalDiffusionSA::Init(
     else
         neighbours_[3] =rankId_ + cartSizes_[0];
 
-    commSize_ = (horiDiffRepository.calculationDomain().iSize())*3*horiDiffRepository.calculationDomain().kSize();
+    commSize_ = domain.isize*3*domain.ksize;
 
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
@@ -142,79 +71,32 @@ void HorizontalDiffusionSA::Init(
     }
 
     reqs_ = (MPI_Request*)malloc(N_HORIDIFF_VARS*N_CONCURRENT_HALOS*sizeof(MPI_Request)*4);
+}
+HorizontalDiffusionSA::~HorizontalDiffusionSA() 
+{
+    cudaStreamDestroy(kernelStream_);
 
-    pCommunicationConfiguration_ = &comm;
-    // store pointers to the repositories
-    pHoriDiffRepository_ = &horiDiffRepository;
+}
 
-    using namespace HorizontalDiffusionSAStages;
+void HorizontalDiffusionSA::ResetMeters()
+{
 
-    for(int c=0; c < N_HORIDIFF_VARS; ++c)
-    {
-        assert(stencils_[c]);
-        // init the stencil u
-        StencilCompiler::Build(
-            *(stencils_[c]),
-            "HorizontalDiffusion",
-            horiDiffRepository.calculationDomain(),
-            StencilConfiguration<Real, HorizontalDiffusionSABlockSize>(),
-            pack_parameters(
-                /* output fields */
-                Param<u_out, cInOut, cDataField>(horiDiffRepository.u_out(c)),
-                /* input fields */
-                Param<u_in, cIn, cDataField>(horiDiffRepository.u_in(c)),
-                Param<hdmaskvel, cIn, cDataField>(horiDiffRepository.hdmaskvel()),
-                Param<crlato, cIn, cDataField>(horiDiffRepository.crlato()),
-                Param<crlatu, cIn, cDataField>(horiDiffRepository.crlatu())
-            ),
-            define_loops(
-                define_sweep<cKIncrement>(
-                    define_stages(
-                        StencilStage<ULapStage, IJRange<cIndented,0,0,0,0>, KRange<FullDomain,0,0> >()
-                    )
-                )
-            )
-        );
+}
 
-        IJBoundary innerBoundary, outerBoundary;
-        innerBoundary.Init(0, 0, 0, 0);
-        outerBoundary.Init(-3, 3, -3, 3);
-        assert(pCommunicationConfiguration_);
-        for(int h=0; h < N_CONCURRENT_HALOS; ++h) {
-            assert(haloUpdates_[c*N_CONCURRENT_HALOS+h]);
-            haloUpdates_[c*N_CONCURRENT_HALOS+h]->Init("HaloUpdate", *pCommunicationConfiguration_);
-            haloUpdates_[c*N_CONCURRENT_HALOS+h]->AddJob(horiDiffRepository.u_out(c), innerBoundary, outerBoundary);
-        }
+void HorizontalDiffusionSA::Init(Repository* repo)
+{
 
-   }
 }
 
 void HorizontalDiffusionSA::Apply()
 {
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
-        if(Options::getInstance().nostella_)
-        {
-            launch_kernel(
-                        pHoriDiffRepository_->calculationDomain(),
-                        pHoriDiffRepository_->u_in(c).storage().pStorageBase(),
-                        pHoriDiffRepository_->u_out(c).storage().pStorageBase(),
-                        kernelStream_            
-            );
-        }
-        else
-        {
-            assert(stencils_[c]);
-            stencils_[c]->Apply();
-        }
+          launch_kernel(pRepository_->domain,
+                        pRepository_->in(c).device,
+                        pRepository_->out(c).device,
+                        kernelStream_
+          );
     }
 }
 
-void HorizontalDiffusionSA::Apply(IJBoundary ijBoundary)
-{
-    for(int c=0; c < N_HORIDIFF_VARS; ++c)
-    {
-        assert(stencils_[c]);
-        stencils_[c]->Apply(ijBoundary);
-    }
-}
