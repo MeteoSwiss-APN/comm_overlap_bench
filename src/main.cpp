@@ -4,7 +4,6 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/timer/timer.hpp>
 #include "HorizontalDiffusionSA.h"
-#include "HoriDiffReference.h"
 #include "Definitions.h"
 #include "Options.h"
 #include <mpi.h>
@@ -15,81 +14,26 @@
 #include "cuda_profiler_api.h"
 #endif
 
-// method parsing a string option
-int parseIntOption(int argc, char **argv, std::string option, int defaultValue)
-{
-    int result = defaultValue;
-    for(int i = 0; i < argc; ++i)
-    {
-        if(argv[i] == option && i+1 < argc)
-        {
-            result = boost::lexical_cast<int>(argv[i+1]);
-            break;
-        }
-    }
-    return result;
-}
-
-// method parsing a string option
-std::string parseStringOption(int argc, char **argv, std::string option, std::string defaultValue)
-{
-    std::string result = defaultValue;
-    for(int i = 0; i < argc; ++i)
-    {
-        if(argv[i] == option && i+1 < argc)
-        {
-            result = argv[i+1];
-            break;
-        }
-    }
-    return result;
-}
-
-// method parsing a boolean option
-bool parseBoolOption(int argc, char **argv, std::string option)
-{
-    bool result = false;
-    for(int i = 0; i < argc; ++i)
-    {
-        if(argv[i] == option)
-        {
-            result = true;
-            break;
-        }
-    }
-    return result;
-}
-
-
 void readOptions(int argc, char** argv)
 {
-    std::cout << "HP2CDycoreUnittest\n\n";
-    std::cout << "usage: HP2CDycoreUnittest -p <dataPath>" << "\n";
-    for(int i=0; i < argc; ++i)
-        std::cout << std::string(argv[i]) << std::endl;
+    Options::setCommandLineParameters(argc, argv);
 
-    // parse additional command options
-    int iSize = parseIntOption(argc, argv, "--ie", 128);
-    int jSize = parseIntOption(argc, argv, "--je", 128);
-    int kSize = parseIntOption(argc, argv, "--ke", 60);
-    bool sync = parseBoolOption(argc, argv, "--sync");
-    bool nocomm = parseBoolOption(argc, argv, "--nocomm");
-    bool nocomp = parseBoolOption(argc, argv, "--nocomp");
-    bool nogcl = parseBoolOption(argc, argv, "--nogcl");
-    int nHaloUpdates = parseIntOption(argc, argv, "--nh", 2);
-    int nRep = parseIntOption(argc, argv, "-n", cNumBenchmarkRepetitions);
-    bool inOrder = parseBoolOption(argc, argv, "--inorder");
+    std::cout << "StandaloneStencilsCUDA\n\n";
+    std::cout << "usage: StandaloneStencilsCUDA\n";
+    Options::parse("isize",  "--ie",       128, "Size in x-direction");
+    Options::parse("jsize",  "--je",       128, "Size in y-direction");
+    Options::parse("ksize",  "--ke",        60, "Size in z-direction");
 
-    Options::set("isize", iSize);
-    Options::set("jsize", jSize);
-    Options::set("ksize", kSize);
-    Options::set("sync", sync);
-    Options::set("nocomm", nocomm);
-    Options::set("nocomp", nocomp);
-    Options::set("nogcl", nogcl);
-    Options::set("nhaloupdates", nHaloUpdates);
-    Options::set("nrep", nRep);
-    Options::set("inorder", inOrder);
+    Options::parse("sync",   "--sync",   false, "Synchronous communication");
+    Options::parse("nocomm", "--nocomm", false, "No communication");
+    Options::parse("nocomp", "--nocomp", false, "No computation");
+
+    Options::parse("nhaloupdates", "--nh",                     2, "Number of halo updates");
+    Options::parse("nrep",         "-n",cNumBenchmarkRepetitions, "Number of benchmark repetitions");
+
+    Options::parse("inorder", "--inorder", false, "In order communication");
+
+    std::cout << "\n";
 }
 
 void setupDevice()
@@ -129,6 +73,7 @@ int main(int argc, char** argv)
     MPI_Init(&argc, &argv);
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    Options::set("rank", rank);
     readOptions(argc, argv);
     setupDevice();
 
@@ -138,16 +83,12 @@ int main(int argc, char** argv)
                    Options::get<int>("ksize"));
     auto repository = std::shared_ptr<Repository>(new Repository(domain));
 
-    HoriDiffReference ref_(repository);
-    ref_.Generate();
-
     std::cout << "CONFIGURATION " << std::endl;
     std::cout << "====================================" << std::endl;
     std::cout << "Domain : [" << domain.isize << "," << domain.jsize << "," << domain.ksize << "]" << std::endl;
     std::cout << "Sync? : " << Options::get<bool>("sync") << std::endl;
     std::cout << "NoComm? : " << Options::get<bool>("nocomm") << std::endl;
     std::cout << "NoComp? : " << Options::get<bool>("nocomp") << std::endl;
-    std::cout << "NoGCL? : " << Options::get<bool>("nogcl") << std::endl;
     std::cout << "Number Halo Exchanges : " << Options::get<int>("nhaloupdates") << std::endl;
     std::cout << "Number benchmark repetitions : " << Options::get<int>("nrep") << std::endl;
     std::cout << "In Order halo exchanges? : " << Options::get<bool>("inorder") << std::endl;
@@ -172,26 +113,9 @@ int main(int argc, char** argv)
 
     boost::timer::cpu_timer cpu_timer;
 
-    // generate a reference field that contain the output of a horizontal diffusion operator
+    // Generate a horizontal diffusion operator
     HorizontalDiffusionSA horizontalDiffusionSA(repository);
-
-//    IJBoundary applyB;
-//    applyB.Init(-1,1,-1,1);
-//    horizontalDiffusionSA.Apply(applyB);
-////    horizontalDiffusionSA.ApplyHalos();
-//    pRepository_->Swap();
-//    horizontalDiffusionSA.Apply();
-
-//    IJKRealField& outField = pRepository_->u_out(0);
-//    IJKRealField& refField = pRepository_->refField();
-
-//    // we only verify the stencil once (before starting the real benchmark)
-//    IJKBoundary checkBoundary;
-//    checkBoundary.Init(0, 0, 0, 0, 0, 0);
-
-//    horizontalDiffusionSA.Apply();
     cudaDeviceSynchronize();
-//    horizontalDiffusionSA.ResetMeters();
 #ifdef __CUDA_BACKEND__
     cudaProfilerStart();
 #endif
@@ -202,8 +126,10 @@ int main(int argc, char** argv)
     bool nocomp = Options::get<bool>("nocomp");
     int nHaloUpdates = Options::get<int>("nhaloupdates");
     int nRep = Options::get<int>("nrep");
+
     cpu_timer.start();
 
+    // Benchmark!
     for(int i=0; i < nRep; ++i) {
         int numGPU;
         cudaGetDeviceCount(&numGPU);
@@ -291,8 +217,5 @@ int main(int argc, char** argv)
 
         std::cout <<"ELAPSED TIME : " << avg << " +- + " << rms << std::endl;
     }
-
-
     MPI_Finalize();
-
 }

@@ -1,19 +1,16 @@
 set( 
     SOURCES
+    "main.cpp"
     "Definitions.h"
-    "HoriDiffBenchmark.cpp"
-    "HoriDiffReference.cpp"
+    "HorizontalDiffusionSA.h"
     "IJKSize.h"
     "Kernel.h"
     "Repository.h"
     "Repository.cpp"
     "SimpleStorage.h"
-    "SimpleStorage.cpp"
     "SimpleSwappableStorage.h"
-    "SimpleSwappableStorage.cpp"
     "Options.h"
     "Options.cpp"
-    "HorizontalDiffusionSA.h"
 ) 
 
 set(
@@ -33,7 +30,7 @@ if( CUDA_BACKEND )
         StandaloneStencilsCUDA
         ${CUDA_SOURCES} 
         ${SOURCES}
-        OPTIONS "${NVCC_FLAGS}"
+        OPTIONS "${HORIDIFF_NVCC_FLAGS}"
     )
     target_link_libraries( StandaloneStencilsCUDA ${Boost_LIBRARIES} ${MPI_LIBRARIES})
 
