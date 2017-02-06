@@ -20,14 +20,10 @@ public:
     HorizontalDiffusionSA(std::shared_ptr<Repository> repository);
     ~HorizontalDiffusionSA();
 
-    void Init(Repository* repo);
-
     /**
     * Method applying the u stencil
     */
     void Apply();
-
-    void ResetMeters();
 
     void StartHalos(const int index)
     {

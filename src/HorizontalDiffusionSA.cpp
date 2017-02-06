@@ -78,16 +78,6 @@ HorizontalDiffusionSA::~HorizontalDiffusionSA()
 
 }
 
-void HorizontalDiffusionSA::ResetMeters()
-{
-
-}
-
-void HorizontalDiffusionSA::Init(Repository* repo)
-{
-
-}
-
 void HorizontalDiffusionSA::Apply()
 {
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
