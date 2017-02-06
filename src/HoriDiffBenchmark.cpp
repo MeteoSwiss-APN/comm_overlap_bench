@@ -87,9 +87,9 @@ void readOptions(int argc, char** argv)
     Options::set("nocomm", nocomm);
     Options::set("nocomp", nocomp);
     Options::set("nogcl", nogcl);
-    Options::set("nHaloUpdates", nHaloUpdates);
+    Options::set("nhaloupdates", nHaloUpdates);
     Options::set("nrep", nRep);
-    Options::set("inOrder", inOrder);
+    Options::set("inorder", inOrder);
 }
 
 void setupDevice()
@@ -148,9 +148,9 @@ int main(int argc, char** argv)
     std::cout << "NoComm? : " << Options::get<bool>("nocomm") << std::endl;
     std::cout << "NoComp? : " << Options::get<bool>("nocomp") << std::endl;
     std::cout << "NoGCL? : " << Options::get<bool>("nogcl") << std::endl;
-    std::cout << "Number Halo Exchanges : " << Options::get<int>("nHaloUpdates") << std::endl;
-    std::cout << "Number benchmark repetitions : " << Options::get<int>("nRep") << std::endl;
-    std::cout << "In Order halo exchanges? : " << Options::get<int>("inOrder") << std::endl;
+    std::cout << "Number Halo Exchanges : " << Options::get<int>("nhaloupdates") << std::endl;
+    std::cout << "Number benchmark repetitions : " << Options::get<int>("nrep") << std::endl;
+    std::cout << "In Order halo exchanges? : " << Options::get<bool>("inorder") << std::endl;
 
     int deviceId;
     if( cudaGetDevice(&deviceId) != cudaSuccess)
@@ -198,10 +198,10 @@ int main(int argc, char** argv)
 
     bool sync = Options::get<bool>("sync");
     bool nocomm = Options::get<bool>("nocomm");
-    bool inOrder = Options::get<bool>("inOrder");
+    bool inOrder = Options::get<bool>("inorder");
     bool nocomp = Options::get<bool>("nocomp");
-    int nHaloUpdates = Options::get<int>("nHaloUpdates_");
-    int nRep = Options::get<int>("nRep");
+    int nHaloUpdates = Options::get<int>("nhaloupdates");
+    int nRep = Options::get<int>("nrep");
     cpu_timer.start();
 
     for(int i=0; i < nRep; ++i) {
