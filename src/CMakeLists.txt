@@ -33,7 +33,7 @@ if( CUDA_BACKEND )
         StandaloneStencilsCUDA
         ${CUDA_SOURCES} 
         ${SOURCES}
-        OPTIONS "${HORIDIFF_NVCC_FLAGS}"
+        OPTIONS "${NVCC_FLAGS}"
     )
     target_link_libraries( StandaloneStencilsCUDA ${Boost_LIBRARIES} ${MPI_LIBRARIES})
 

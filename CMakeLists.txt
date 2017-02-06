@@ -34,9 +34,9 @@ if( CUDA_BACKEND )
     find_package( CUDA 5.0 )
     set(CUDA_SEPARABLE_COMPILATION ON CACHE BOOL "" FORCE)
     add_definitions( -D__CUDA_BACKEND__ )
-    set(HORIDIFF_CUDA_COMPUTE_CAPABILITY "sm_35" CACHE STRING "Compute capability for CUDA" )
-    set(HORIDIFF_NVCC_FLAGS "-arch=${HORIDIFF_CUDA_COMPUTE_CAPABILITY}" ) # -Xptxas -abi=no
-    set( ENABLE_OPENMP OFF CACHE BOOL "" FORCE)
+    set(CUDA_COMPUTE_CAPABILITY "sm_35" CACHE STRING "Compute capability for CUDA" )
+    set(NVCC_FLAGS "-arch=${CUDA_COMPUTE_CAPABILITY}" ) # -Xptxas -abi=no
+    list(APPEND NVCC_FLAGS "-std=c++11")
 else()
     message(FATAL_ERROR "Only cuda compilation is supported")
 endif()
