@@ -2,6 +2,7 @@
 
 #include "HorizontalDiffusionSA.h"
 #include "Kernel.h"
+#include <random>
 
 HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> repository):
   recWBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
@@ -14,6 +15,7 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
   sendSBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
   pRepository_(repository)
 {
+    generateFields(*pRepository_);
     cudaStreamCreate(&kernelStream_);
 
     const IJKSize& domain = repository->domain;
@@ -90,3 +92,26 @@ void HorizontalDiffusionSA::Apply()
     }
 }
 
+void HorizontalDiffusionSA::fillRandom(SimpleStorage<Real> &storage)
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> distribution(0,1);
+    const IJKSize domain = storage.size;
+    for (int i=0; i<domain.isizeFull(); ++i) {
+        for (int j=0; j<domain.jsizeFull(); ++j) {
+            for (int k=0; k<domain.ksizeFull(); ++k) {
+                storage(i,j,k) = distribution(gen);
+            }
+        }
+    }
+    storage.updateDevice();
+}
+
+void HorizontalDiffusionSA::generateFields(Repository& repository)
+{
+    for (size_t i=0; i<N_HORIDIFF_VARS; ++i) {
+        fillRandom(repository.in(i));
+        fillRandom(repository.out(i));
+    }
+}

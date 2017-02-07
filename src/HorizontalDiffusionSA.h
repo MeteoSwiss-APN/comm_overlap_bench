@@ -93,6 +93,9 @@ private:
 
     std::shared_ptr<Repository> pRepository_;
     cudaStream_t kernelStream_;
+
+    void fillRandom(SimpleStorage<Real>& storage);
+    void generateFields(Repository& repository);
 };
 
   
