@@ -45,7 +45,7 @@ public:
         return *boost::any_cast<T>(&(getInstance().options_[name]));
     }
 
-    static void parse(const std::string& option, const std::string& argument, bool default_value, const std::string& description)
+    static void parse(const std::string& option, const std::string& argument, bool default_value)
     {
         int argc = Options::getInstance().argc_;
         char** argv = Options::getInstance().argv_;
@@ -60,10 +60,9 @@ public:
             }
         }
         Options::set(option, result);
-        Options::printArgument(argument, description);
     }
 
-    static void parse(const std::string& option, const std::string& argument, std::string default_value, const std::string& description)
+    static void parse(const std::string& option, const std::string& argument, std::string default_value)
     {
         int argc = Options::getInstance().argc_;
         char** argv = Options::getInstance().argv_;
@@ -78,29 +77,17 @@ public:
             }
         }
         Options::set(option, result);
-        Options::printArgument(argument, default_value, description);
     }
 
     template<typename T>
-    static void parse(const std::string& option, const std::string& argument, T default_value, const std::string& description);
+    static void parse(const std::string& option, const std::string& argument, T default_value);
 
-private:
-    static void printArgument(const std::string& argument, const std::string& description)
-    {
-        std::cout << "[ " << argument << " ] " << description << "\n";
-
-    }
-
-    static void printArgument(const std::string& argument, const std::string& default_value, const std::string& description)
-    {
-        std::cout << "[ " << argument << " arg ] " << description << ", default:  " << default_value << "\n";
-    }
 };
 
 
 
 template<typename T>
-void Options::parse(const std::string& option, const std::string& argument, T default_value, const std::string& description)
+void Options::parse(const std::string& option, const std::string& argument, T default_value)
 {
     int argc = Options::getInstance().argc_;
     char** argv = Options::getInstance().argv_;
@@ -115,5 +102,4 @@ void Options::parse(const std::string& option, const std::string& argument, T de
         }
     }
     Options::set(option, result);
-    Options::printArgument(argument, std::to_string(default_value), description);
 }

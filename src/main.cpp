@@ -20,18 +20,18 @@ void readOptions(int argc, char** argv)
 
     std::cout << "StandaloneStencilsCUDA\n\n";
     std::cout << "usage: StandaloneStencilsCUDA\n";
-    Options::parse("isize",  "--ie",       128, "Size in x-direction");
-    Options::parse("jsize",  "--je",       128, "Size in y-direction");
-    Options::parse("ksize",  "--ke",        60, "Size in z-direction");
+    Options::parse("isize",  "--ie",       128);
+    Options::parse("jsize",  "--je",       128);
+    Options::parse("ksize",  "--ke",        60);
 
-    Options::parse("sync",   "--sync",   false, "Synchronous communication");
-    Options::parse("nocomm", "--nocomm", false, "No communication");
-    Options::parse("nocomp", "--nocomp", false, "No computation");
+    Options::parse("sync",   "--sync",   false);
+    Options::parse("nocomm", "--nocomm", false);
+    Options::parse("nocomp", "--nocomp", false);
 
-    Options::parse("nhaloupdates", "--nh",                     2, "Number of halo updates");
-    Options::parse("nrep",         "-n",cNumBenchmarkRepetitions, "Number of benchmark repetitions");
+    Options::parse("nhaloupdates", "--nh",                      2);
+    Options::parse("nrep",         "-n", cNumBenchmarkRepetitions);
 
-    Options::parse("inorder", "--inorder", false, "In order communication");
+    Options::parse("inorder", "--inorder", false);
 
     std::cout << "\n";
 }
@@ -64,7 +64,6 @@ void setupDevice()
         std::cout << "CUDA ERROR " << std::endl;
         exit(EXIT_FAILURE);
     }
-
 }
 
 int main(int argc, char** argv)
