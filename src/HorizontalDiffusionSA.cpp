@@ -5,6 +5,7 @@
 #include <random>
 
 HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> repository):
+  commSize_(repository->domain.isizeFull()*cNumBoundaryLines*repository->domain.ksizeFull()),
   recWBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
   recNBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
   recEBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
@@ -53,8 +54,6 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
         neighbours_[3] = (rankId_ + cartSizes_[0] ) - cartSizes_[0]*cartSizes_[1];
     else
         neighbours_[3] =rankId_ + cartSizes_[0];
-
-    commSize_ = domain.isize*3*domain.ksize;
 
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {

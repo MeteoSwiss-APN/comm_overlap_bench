@@ -72,7 +72,7 @@ public:
     }
 
 private:
-    int commSize_;
+    const int commSize_;
     int cartSizes_[2];
     int neighbours_[4];
     MPI_Request requestNull;
