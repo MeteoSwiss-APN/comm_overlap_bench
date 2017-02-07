@@ -4,9 +4,9 @@
 #include <cuda_runtime.h>
 
 //TODO mark these in namespace
-const int cNumBoundaryLines = 3;
-const int cCacheFlusherSize = 1024*1024*21;
-const int cNumBenchmarkRepetitions = 1000;
+constexpr int cNumBoundaryLines = 3;
+constexpr int cCacheFlusherSize = 1024*1024*21;
+constexpr int cNumBenchmarkRepetitions = 1000;
 #define N_HORIDIFF_VARS 4
 #define PI ((Real)3.14159265358979323846) // pi
 #ifdef SINGLEPRECISION
