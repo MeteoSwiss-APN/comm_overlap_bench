@@ -1,16 +1,16 @@
 set( 
     SOURCES
+    "main.cpp"
     "Definitions.h"
-    "HoriDiffRepository.h"
-    "HoriDiffBenchmark.cpp"
-    "HoriDiffRepository.cpp"
-    "HoriDiffReference.cpp"
-    "Kernel.h"
-    "Options.cpp"
-    "UnittestEnvironment.cpp"
     "HorizontalDiffusionSA.h"
-    "UnittestEnvironment.h"
+    "IJKSize.h"
+    "Kernel.h"
+    "Repository.h"
+    "Repository.cpp"
+    "SimpleStorage.h"
+    "SimpleSwappableStorage.h"
     "Options.h"
+    "Options.cpp"
 ) 
 
 set(
@@ -30,9 +30,18 @@ if( CUDA_BACKEND )
         StandaloneStencilsCUDA
         ${CUDA_SOURCES} 
         ${SOURCES}
-        OPTIONS "${HORIDIFF_NVCC_FLAGS}"
+        OPTIONS "${NVCC_FLAGS}"
     )
-    target_link_libraries( StandaloneStencilsCUDA ${STELLA_LIBRARIES} ${Boost_LIBRARIES})
+    target_link_libraries( StandaloneStencilsCUDA ${Boost_LIBRARIES} ${MPI_LIBRARIES})
+
+    if(MPI_COMPILE_FLAGS)
+      set_target_properties(StandaloneStencilsCUDA PROPERTIES COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")
+    endif()
+
+    if(MPI_LINK_FLAGS)
+      set_target_properties(StandaloneStencilsCUDA PROPERTIES LINK_FLAGS "${MPI_LINK_FLAGS}")
+    endif()
+
 
     install( TARGETS StandaloneStencilsCUDA DESTINATION bin/ )
 else()
@@ -41,7 +50,15 @@ else()
         ${X86_SOURCES}
         ${SOURCES}
     )
-    target_link_libraries( StandaloneStencils ${STELLA_LIBRARIES} )
+    target_link_libraries( StandaloneStencils ${MPI_LIBRARIES})
+
+    if(MPI_COMPILE_FLAGS)
+      set_target_properties(StandaloneStencils PROPERTIES COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")
+    endif()
+
+    if(MPI_LINK_FLAGS)
+      set_target_properties(StandaloneStencils PROPERTIES LINK_FLAGS "${MPI_LINK_FLAGS}")
+    endif()
 
     install( TARGETS StandaloneStencils DESTINATION bin/ )
  
