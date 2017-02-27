@@ -47,11 +47,18 @@ void readOptions(int argc, char** argv)
 
 void setupDevice()
 {
+    const int& rank = Options::get<int>("rank");
+
 #ifdef MVAPICH2
     const char* env_p = std::getenv("SLURM_PROCID");
     if(!env_p) {
         std::cout << "SLURM_PROCID not set" << std::endl;
         exit (EXIT_FAILURE);
+    }
+
+    const char* local_rank = std::getenv("MV2_COMM_WORLD_LOCAL_RANK");
+    if (local_rank) {
+        std::cout << "Rank: " << std::to_string(rank) << ", MV2_COMM_WORLD_LOCAL_RANK: " << local_rank << std::endl;
     }
 #elif OPENMPI
     const char* env_p = std::getenv("OMPI_COMM_WORLD_RANK");
@@ -63,6 +70,10 @@ void setupDevice()
     const char* env_p = "0";
 #endif
 
+    const char* visible_devices = std::getenv("CUDA_VISIBLE_DEVICES");
+    if (visible_devices) {
+        std::cout << "Rank: " << std::to_string(rank) << ", CUDA_VISIBLE_DEVICES: " << visible_devices << std::endl;
+    }
     int numGPU;
     cudaError_t error = cudaGetDeviceCount(&numGPU);
     if(error)  {
