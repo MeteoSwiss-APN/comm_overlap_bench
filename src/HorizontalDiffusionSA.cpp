@@ -69,6 +69,10 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
     }
     MPI_Cart_rank(cartcomm,  &(coords[0]), &neighbours_[3]);
 
+    std::cout << "MPI Configuration for rank " << std::to_string(rankId_) << "\n";
+    std::cout << "Dimensions: [" << std::to_string(dims[0]) << ", " << std::to_string(dims[1]) << "]\n";
+    std::cout << "Neighbors: [" << std::to_string(neighbours_[0]) << ", "  << std::to_string(neighbours_[1]) << ", "  << std::to_string(neighbours_[2]) << ", "  << std::to_string(neighbours_[3]) << "]\n";
+
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
         for(int h=0; h < N_CONCURRENT_HALOS; ++h)
