@@ -5,7 +5,7 @@ cmake_minimum_required( VERSION 2.8.11.1 )
 # Note: setting this *before* the project imposes a default that the user is able to change.
 SET(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install/" CACHE PATH "installation prefix")
 
-project( hori_diff_tests )
+project( comm_overlap_benchmark )
 enable_language( CXX )
 set (CMAKE_CXX_STANDARD 11)
 
@@ -50,11 +50,11 @@ endif()
 find_package(MPI REQUIRED)
 include_directories( ${MPI_INCLUDE_PATH} )
 
-set( MPI_VENDOR "mvapich2" CACHE STRING "mpi vendor" )
+set( MPI_VENDOR "unknown" CACHE STRING "mpi vendor" )
 if( MPI_VENDOR STREQUAL "mvapich2")
     add_definitions ( -DMVAPICH2 )
-elseif( NOT MPI_VENDOR STREQUAL "openmpi" )
-    message([FATA_ERROR] "mpi vendor not known")
+elseif( MPI_VENDOR STREQUAL "openmpi" )
+    add_definitions ( -DOPENMPI )
 endif()
 
 set (VERBOSE "OFF" CACHE BOOL "VERBOSE")

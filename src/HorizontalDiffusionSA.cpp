@@ -1,5 +1,5 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
-
+#include <exception>
 #include "HorizontalDiffusionSA.h"
 #include "Kernel.h"
 #include <random>
@@ -23,37 +23,68 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
     MPI_Comm_size(MPI_COMM_WORLD, &numRanks_);
     MPI_Comm_rank(MPI_COMM_WORLD, &rankId_);
 
-    bool found=false;
-    for(int i=sqrt(numRanks_); i > 0; --i)
-    {
-        if(numRanks_ % i == 0) {
-            found = true;
-            cartSizes_[0] = i;
-            cartSizes_[1] = numRanks_ / i;
-            break;
-        }
+    std::vector<int> periods {1, 1};
+    std::vector<int> dims {0, 0};
+    MPI_Comm cartcomm;
+    MPI_Dims_create(numRanks_, 2, &dims[0]);
+    if (dims[0]*dims[1] != numRanks_) {
+        throw std::runtime_error("Can't create 2D cartesian communicator: Invalid number of ranks");
     }
-    if(!found) std::cout<< "ERROR: Could not apply a domain decomposition" << std::endl;
+    MPI_Cart_create(MPI_COMM_WORLD, 2, &dims[0], &periods[0], 1, &cartcomm);
 
-    if(rankId_ % cartSizes_[0] == 0)
-        neighbours_[0] = rankId_ + cartSizes_[0]-1;
-    else
-        neighbours_[0] = rankId_ -1;
+    std::vector<int> cartPos {-1, -1};
+    MPI_Cart_coords(cartcomm, rankId_, 2, &cartPos[0]);
 
-    if(rankId_ < cartSizes_[0])
-        neighbours_[1] = rankId_ + (cartSizes_[1]-1)*cartSizes_[0];
-    else
-        neighbours_[1] = rankId_ - cartSizes_[0];
+    std::vector<int> coords {0, 0};
+    const int& cX = cartPos[0];
+    const int& cY = cartPos[1];
+    int& nX = coords[0];
+    int& nY = coords[1];
 
-    if((rankId_+1) % cartSizes_[0] == 0)
-        neighbours_[2] = rankId_ - (cartSizes_[0]-1);
-    else
-        neighbours_[2] = rankId_+1;
+    const int& dimX = dims[0];
+    const int& dimY = dims[1];
 
-    if(rankId_ >= (cartSizes_[1]-1)*cartSizes_[0] )
-        neighbours_[3] = (rankId_ + cartSizes_[0] ) - cartSizes_[0]*cartSizes_[1];
-    else
-        neighbours_[3] =rankId_ + cartSizes_[0];
+    nY = cY;
+    if (cX == 0) {
+        nX = dimX-1;
+    } else {
+        nX = cX-1;
+    }
+    MPI_Cart_rank(cartcomm, &nX, &(neighbours_[0]));
+
+    nX = cX;
+    if (cY == dimY-1) {
+        nY = 0;
+    } else {
+        nY = cY+1;
+    }
+    MPI_Cart_rank(cartcomm,  &nX, &neighbours_[1]);
+
+    nY = cY;
+    if (cX == dimX-1) {
+        nX = 0;
+    } else {
+        nX = cX+1;
+    }
+    MPI_Cart_rank(cartcomm,  &nX, &neighbours_[2]);
+
+    nX = cX;
+    if (cY == 0) {
+        nY = dimY-1;
+    } else {
+        nY = cY-1;
+    }
+    MPI_Cart_rank(cartcomm,  &nX, &neighbours_[3]);
+
+    if (rankId_ == 0) {
+        std::cout << "Dimensions: [" << std::to_string(dims[0]) << ", " << std::to_string(dims[1]) << "]" << std::endl;
+    }
+    MPI_Barrier(MPI_COMM_WORLD);
+    std::cout << "Rank: " << std::to_string(rankId_) << " - "
+              << "Neighbors: [" << std::to_string(neighbours_[0]) << ", "
+                                << std::to_string(neighbours_[1]) << ", "
+                                << std::to_string(neighbours_[2]) << ", "
+                                << std::to_string(neighbours_[3]) << "]" << std::endl;
 
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {

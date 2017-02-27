@@ -18,8 +18,17 @@ void readOptions(int argc, char** argv)
 {
     Options::setCommandLineParameters(argc, argv);
 
-    std::cout << "StandaloneStencilsCUDA\n\n";
-    std::cout << "usage: StandaloneStencilsCUDA\n";
+    const int& rank = Options::get<int>("rank");
+
+    if (rank == 0) {
+        std::cout << "StandaloneStencilsCUDA\n\n";
+        std::cout << "usage: StandaloneStencilsCUDA [--ie isize] [--je jsize] [--ke ksize] \\\n"
+                  << "                              [--sync] [--nocomm] [--nocomp] \\\n"
+                  << "                              [--nh nhaloupdates] [-n nrepetitions] [--inorder]\n"
+                  << std::endl;
+    }
+    MPI_Barrier(MPI_COMM_WORLD);
+
     Options::parse("isize",  "--ie",       128);
     Options::parse("jsize",  "--je",       128);
     Options::parse("ksize",  "--ke",        60);
@@ -44,12 +53,14 @@ void setupDevice()
         std::cout << "SLURM_PROCID not set" << std::endl;
         exit (EXIT_FAILURE);
     }
-#else
+#elif OPENMPI
     const char* env_p = std::getenv("OMPI_COMM_WORLD_RANK");
     if(!env_p) {
         std::cout << "OMPI_COMM_WORLD_RANK not set" << std::endl;
         exit (EXIT_FAILURE);
     }
+#else
+    const char* env_p = "0";
 #endif
 
     int numGPU;
@@ -66,13 +77,16 @@ void setupDevice()
     }
 }
 
-int main(int argc, char** argv)
-{
-
+void init_mpi(int argc, char** argv) {
     MPI_Init(&argc, &argv);
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     Options::set("rank", rank);
+}
+
+int main(int argc, char** argv)
+{
+    init_mpi(argc, argv);
     readOptions(argc, argv);
     setupDevice();
 
@@ -82,32 +96,40 @@ int main(int argc, char** argv)
                    Options::get<int>("ksize"));
     auto repository = std::shared_ptr<Repository>(new Repository(domain));
 
-    std::cout << "CONFIGURATION " << std::endl;
-    std::cout << "====================================" << std::endl;
-    std::cout << "Domain : [" << domain.isize << "," << domain.jsize << "," << domain.ksize << "]" << std::endl;
-    std::cout << "Sync? : " << Options::get<bool>("sync") << std::endl;
-    std::cout << "NoComm? : " << Options::get<bool>("nocomm") << std::endl;
-    std::cout << "NoComp? : " << Options::get<bool>("nocomp") << std::endl;
-    std::cout << "Number Halo Exchanges : " << Options::get<int>("nhaloupdates") << std::endl;
-    std::cout << "Number benchmark repetitions : " << Options::get<int>("nrep") << std::endl;
-    std::cout << "In Order halo exchanges? : " << Options::get<bool>("inorder") << std::endl;
+    const int& rank = Options::get<int>("rank");
+    if (Options::get<int>("rank") == 0) {
+        std::cout << "CONFIGURATION " << std::endl;
+        std::cout << "====================================" << std::endl;
+        std::cout << "Domain : [" << domain.isize << "," << domain.jsize << "," << domain.ksize << "]" << std::endl;
+        std::cout << "Sync? : " << Options::get<bool>("sync") << std::endl;
+        std::cout << "NoComm? : " << Options::get<bool>("nocomm") << std::endl;
+        std::cout << "NoComp? : " << Options::get<bool>("nocomp") << std::endl;
+        std::cout << "Number Halo Exchanges : " << Options::get<int>("nhaloupdates") << std::endl;
+        std::cout << "Number benchmark repetitions : " << Options::get<int>("nrep") << std::endl;
+        std::cout << "In Order halo exchanges? : " << Options::get<bool>("inorder") << std::endl;
+    }
+    MPI_Barrier(MPI_COMM_WORLD);
 
     int deviceId;
     if( cudaGetDevice(&deviceId) != cudaSuccess)
     {
         std::cerr << cudaGetErrorString(cudaGetLastError()) << std::endl;
     }
-    std::cout << "Device ID :" << deviceId << std::endl;
+    std::cout << "Rank: "<< std::to_string(rank) << " Device ID: " << std::to_string(deviceId) << std::endl;
+    MPI_Barrier(MPI_COMM_WORLD);
 
 #ifdef MVAPICH2
     const char* env_p = std::getenv("SLURM_PROCID");
     std::cout << "SLURM_PROCID :" << env_p << std::endl;
 
     std::cout << "Compiled for mvapich2" << std::endl;
-#else
+#elif OPENMPI
     const char* env_p = std::getenv("OMPI_COMM_WORLD_RANK");
     std::cout << "OMPI_COMM_WORLD_RANK :" << env_p<< std::endl;
     std::cout << "Compiled for openmpi" << std::endl;
+#else
+    // Default proc
+    const char* env_p = "0";
 #endif
 
     boost::timer::cpu_timer cpu_timer;
@@ -200,7 +222,6 @@ int main(int argc, char** argv)
     if(rank_id==0) {
         double avg = 0.0;
         double rms = 0.0;
-        total_time_g[3] = 5;
         for(int i=0; i < num_ranks; ++i)
         {
             avg += total_time_g[i];
