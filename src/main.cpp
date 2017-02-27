@@ -66,13 +66,14 @@ void setupDevice()
     int numGPU;
     cudaError_t error = cudaGetDeviceCount(&numGPU);
     if(error)  {
-        std::cout << "CUDA ERROR " << std::endl;
+        std::cout << "CUDA ERROR: No device found " << std::endl;
         exit(EXIT_FAILURE);
     }
 
     error = cudaSetDevice(atoi(env_p)%numGPU);
     if(error)  {
-        std::cout << "CUDA ERROR " << std::endl;
+        std::cout << "CUDA ERROR: Could not set device " << std::to_string(atoi(env_p)%numGPU)
+                  << std::endl;
         exit(EXIT_FAILURE);
     }
 }
