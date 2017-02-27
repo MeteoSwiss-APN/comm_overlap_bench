@@ -44,12 +44,14 @@ void setupDevice()
         std::cout << "SLURM_PROCID not set" << std::endl;
         exit (EXIT_FAILURE);
     }
-#else
+#elif OPENMPI
     const char* env_p = std::getenv("OMPI_COMM_WORLD_RANK");
     if(!env_p) {
         std::cout << "OMPI_COMM_WORLD_RANK not set" << std::endl;
         exit (EXIT_FAILURE);
     }
+#else
+    const char* env_p = "0";
 #endif
 
     int numGPU;
@@ -104,10 +106,13 @@ int main(int argc, char** argv)
     std::cout << "SLURM_PROCID :" << env_p << std::endl;
 
     std::cout << "Compiled for mvapich2" << std::endl;
-#else
+#elif OPENMPI
     const char* env_p = std::getenv("OMPI_COMM_WORLD_RANK");
     std::cout << "OMPI_COMM_WORLD_RANK :" << env_p<< std::endl;
     std::cout << "Compiled for openmpi" << std::endl;
+#else
+    // Default proc
+    const char* env_p = "0";
 #endif
 
     boost::timer::cpu_timer cpu_timer;
