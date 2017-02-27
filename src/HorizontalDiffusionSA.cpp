@@ -36,38 +36,45 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
     MPI_Cart_coords(cartcomm, rankId_, 2, &cartPos[0]);
 
     std::vector<int> coords {0, 0};
+    const int& cX = cartPos[0];
+    const int& cY = cartPos[1];
+    int& nX = coords[0];
+    int& nY = coords[1];
 
-    coords[1] = cartPos[1];
-    if (cartPos[0] == 0) {
-        coords[0] = dims[0]-1;
-    } else {
-        coords[0] = cartPos[0]-1;
-    }
-    MPI_Cart_rank(cartcomm, &(coords[0]), &(neighbours_[0]));
+    const int& dimX = dims[0];
+    const int& dimY = dims[1];
 
-    coords[0] = cartPos[0];
-    if (cartPos[1] == dims[1]-1) {
-        coords[1] = 0;
+    nY = cY;
+    if (cX == 0) {
+        nX = dimX-1;
     } else {
-        coords[1] = cartPos[1]+1;
+        nX = cX-1;
     }
-    MPI_Cart_rank(cartcomm,  &(coords[0]), &neighbours_[1]);
+    MPI_Cart_rank(cartcomm, &nX, &(neighbours_[0]));
 
-    coords[1] = cartPos[1];
-    if (cartPos[0] == dims[1]-1) {
-        coords[0] = 0;
+    nX = cX;
+    if (cY == dimY-1) {
+        nY = 0;
     } else {
-        coords[0] = coords[0]+1;
+        nY = cX+1;
     }
-    MPI_Cart_rank(cartcomm,  &(coords[0]), &neighbours_[2]);
+    MPI_Cart_rank(cartcomm,  &nX, &neighbours_[1]);
 
-    coords[0] = cartPos[0];
-    if (cartPos[1] == 0) {
-        coords[1] = dims[1]-1;
+    nY = cY;
+    if (cX == dimX-1) {
+        nX = 0;
     } else {
-        coords[1] = cartPos[1]-1;
+        nX = cX+1;
     }
-    MPI_Cart_rank(cartcomm,  &(coords[0]), &neighbours_[3]);
+    MPI_Cart_rank(cartcomm,  &nX, &neighbours_[2]);
+
+    nX = cX;
+    if (cY == 0) {
+        nY = dimY-1;
+    } else {
+        nY = cY-1;
+    }
+    MPI_Cart_rank(cartcomm,  &nX, &neighbours_[3]);
 
     std::cout << "MPI Configuration for rank " << std::to_string(rankId_) << "\n";
     std::cout << "Dimensions: [" << std::to_string(dims[0]) << ", " << std::to_string(dims[1]) << "]\n";
