@@ -56,7 +56,7 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
     if (cY == dimY-1) {
         nY = 0;
     } else {
-        nY = cX+1;
+        nY = cY+1;
     }
     MPI_Cart_rank(cartcomm,  &nX, &neighbours_[1]);
 

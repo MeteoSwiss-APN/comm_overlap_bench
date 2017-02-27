@@ -115,7 +115,7 @@ int main(int argc, char** argv)
     {
         std::cerr << cudaGetErrorString(cudaGetLastError()) << std::endl;
     }
-    std::cout << "Rank: "<< std::to_string(rank) << " Device ID :" << deviceId << std::endl;
+    std::cout << "Rank: "<< std::to_string(rank) << " Device ID: " << std::to_string(deviceId) << std::endl;
     MPI_Barrier(MPI_COMM_WORLD);
 
 #ifdef MVAPICH2
