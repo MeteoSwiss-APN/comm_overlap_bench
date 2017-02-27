@@ -5,7 +5,7 @@ cmake_minimum_required( VERSION 2.8.11.1 )
 # Note: setting this *before* the project imposes a default that the user is able to change.
 SET(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install/" CACHE PATH "installation prefix")
 
-project( hori_diff_tests )
+project( comm_overlap_benchmark )
 enable_language( CXX )
 set (CMAKE_CXX_STANDARD 11)
 
