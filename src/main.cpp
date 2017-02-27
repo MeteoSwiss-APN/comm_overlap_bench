@@ -210,7 +210,6 @@ int main(int argc, char** argv)
     if(rank_id==0) {
         double avg = 0.0;
         double rms = 0.0;
-        total_time_g[3] = 5;
         for(int i=0; i < num_ranks; ++i)
         {
             avg += total_time_g[i];
