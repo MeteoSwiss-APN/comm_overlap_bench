@@ -1,5 +1,5 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
-
+#include <exception>
 #include "HorizontalDiffusionSA.h"
 #include "Kernel.h"
 #include <random>
@@ -23,37 +23,51 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
     MPI_Comm_size(MPI_COMM_WORLD, &numRanks_);
     MPI_Comm_rank(MPI_COMM_WORLD, &rankId_);
 
-    bool found=false;
-    for(int i=sqrt(numRanks_); i > 0; --i)
-    {
-        if(numRanks_ % i == 0) {
-            found = true;
-            cartSizes_[0] = i;
-            cartSizes_[1] = numRanks_ / i;
-            break;
-        }
+    std::vector<int> periods {1, 1};
+    std::vector<int> dims {0, 0};
+    MPI_Comm cartcomm;
+    MPI_Dims_create(numRanks_, 2, &dims[0]);
+    if (dims[0]*dims[1] != numRanks_) {
+        throw std::runtime_error("Can't create 2D cartesian communicator: Invalid number of ranks");
     }
-    if(!found) std::cout<< "ERROR: Could not apply a domain decomposition" << std::endl;
+    MPI_Cart_create(MPI_COMM_WORLD, 2, &dims[0], &periods[0], 1, &cartcomm);
 
-    if(rankId_ % cartSizes_[0] == 0)
-        neighbours_[0] = rankId_ + cartSizes_[0]-1;
-    else
-        neighbours_[0] = rankId_ -1;
+    std::vector<int> cartPos {-1, -1};
+    MPI_Cart_coords(cartcomm, rankId_, 2, &cartPos[0]);
 
-    if(rankId_ < cartSizes_[0])
-        neighbours_[1] = rankId_ + (cartSizes_[1]-1)*cartSizes_[0];
-    else
-        neighbours_[1] = rankId_ - cartSizes_[0];
+    std::vector<int> coords {0, 0};
 
-    if((rankId_+1) % cartSizes_[0] == 0)
-        neighbours_[2] = rankId_ - (cartSizes_[0]-1);
-    else
-        neighbours_[2] = rankId_+1;
+    coords[1] = cartPos[1];
+    if (cartPos[0] == 0) {
+        coords[0] = dims[0]-1;
+    } else {
+        coords[0] = cartPos[0]-1;
+    }
+    MPI_Cart_rank(cartcomm, &(coords[0]), &(neighbours_[0]));
 
-    if(rankId_ >= (cartSizes_[1]-1)*cartSizes_[0] )
-        neighbours_[3] = (rankId_ + cartSizes_[0] ) - cartSizes_[0]*cartSizes_[1];
-    else
-        neighbours_[3] =rankId_ + cartSizes_[0];
+    coords[0] = cartPos[0];
+    if (cartPos[1] == dims[1]-1) {
+        coords[1] = 0;
+    } else {
+        coords[1] = cartPos[1]+1;
+    }
+    MPI_Cart_rank(cartcomm,  &(coords[0]), &neighbours_[1]);
+
+    coords[1] = cartPos[1];
+    if (cartPos[0] == dims[1]-1) {
+        coords[0] = 0;
+    } else {
+        coords[0] = coords[0]+1;
+    }
+    MPI_Cart_rank(cartcomm,  &(coords[0]), &neighbours_[2]);
+
+    coords[0] = cartPos[0];
+    if (cartPos[1] == 0) {
+        coords[1] = dims[1]-1;
+    } else {
+        coords[1] = cartPos[1]-1;
+    }
+    MPI_Cart_rank(cartcomm,  &(coords[0]), &neighbours_[3]);
 
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {

@@ -68,13 +68,18 @@ void setupDevice()
     }
 }
 
-int main(int argc, char** argv)
-{
-
+void init_mpi(int argc, char** argv) {
     MPI_Init(&argc, &argv);
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+
     Options::set("rank", rank);
+}
+
+int main(int argc, char** argv)
+{
+    init_mpi(argc, argv);
     readOptions(argc, argv);
     setupDevice();
 
