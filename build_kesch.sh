@@ -3,8 +3,8 @@ rm -rf build
 mkdir -p build
 
 module purge
-source /project/c01/install/kesch/dycore/release_double/modules_cpp.env
 module load CMake
+source modules_kesch.env
 module list -t
 echo
 
@@ -13,7 +13,6 @@ export CXX=g++
 export BOOST_ROOT="/apps/escha/UES/RH6.7/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10"
 
 pushd build &>/dev/null
-    cmake .. -DBOOST_ROOT="${BOOST_ROOT}" -DCUDA_COMPUTE_CAPABILITY="sm_37" -DCMAKE_BUILD_TYPE=Release 
-
-    make -j 8
+    cmake .. -DCMAKE_CXX_FLAGS="-std=c++11" -DMPI_VENDOR=mvapich2 -DCUDA_COMPUTE_CAPABILITY="sm_37" -DCMAKE_BUILD_TYPE=Release  -DBOOST_ROOT="${BOOST_ROOT}" 
+    make -j 8 
 
