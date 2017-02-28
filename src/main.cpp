@@ -87,6 +87,14 @@ void setupDevice()
                   << std::endl;
         exit(EXIT_FAILURE);
     }
+    
+    int device;
+    error = cudaGetDevice(&device);
+    if(error)  {
+        std::cout << "CUDA ERROR: Could not get configured device." << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    std::cout << "Rank: " << std::to_string(rank) << ", Device: " << std::to_string(device) << std::endl;
 }
 
 void init_mpi(int argc, char** argv) {
