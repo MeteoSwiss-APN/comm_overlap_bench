@@ -7,5 +7,5 @@ else
 fi
 
 module load craype-accel-nvidia60
-module load Boost/1.63.0-CrayGNU-2016.11-Python-3.5.2
+#module load Boost/1.63.0-CrayGNU-2016.11-Python-3.5.2
 
