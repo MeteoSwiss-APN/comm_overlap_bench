@@ -5,6 +5,8 @@ set(
     "HorizontalDiffusionSA.h"
     "IJKSize.h"
     "Kernel.h"
+    "MPIHelper.h"
+    "MPIHelper.cpp"
     "Repository.h"
     "Repository.cpp"
     "SimpleStorage.h"
