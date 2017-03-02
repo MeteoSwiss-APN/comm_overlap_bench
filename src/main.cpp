@@ -7,6 +7,7 @@
 #include "Definitions.h"
 #include "Options.h"
 #include <mpi.h>
+#include "MPIHelper.h"
 
 #include "IJKSize.h"
 
@@ -41,8 +42,6 @@ void readOptions(int argc, char** argv)
     Options::parse("nrep",         "-n", cNumBenchmarkRepetitions);
 
     Options::parse("inorder", "--inorder", false);
-
-    std::cout << "\n";
 }
 
 void setupDevice()
@@ -55,10 +54,11 @@ void setupDevice()
         std::cout << "SLURM_PROCID not set" << std::endl;
         exit (EXIT_FAILURE);
     }
+    MPIHelper::print("SLURM_PROCID: ", std::string(env_p)+", ", 9999);
 
     const char* local_rank = std::getenv("MV2_COMM_WORLD_LOCAL_RANK");
     if (local_rank) {
-        std::cout << "Rank: " << std::to_string(rank) << ", MV2_COMM_WORLD_LOCAL_RANK: " << local_rank << std::endl;
+        MPIHelper::print("MV2_COMM_WORLD_LOCAL_RANK: ", std::string(local_rank)+", ", 9999);
         env_p = local_rank;
     }
 #elif OPENMPI
@@ -67,24 +67,26 @@ void setupDevice()
         std::cout << "OMPI_COMM_WORLD_RANK not set" << std::endl;
         exit (EXIT_FAILURE);
     }
+    MPIHelper::print("OMPI_COMM_WORLD_RANK: ", std::string(env_p)+", ", 9999);
+
 #else
     const char* env_p = "0";
 #endif
 
     const char* visible_devices = std::getenv("CUDA_VISIBLE_DEVICES");
     if (visible_devices) {
-        std::cout << "Rank: " << std::to_string(rank) << ", CUDA_VISIBLE_DEVICES: " << visible_devices << std::endl;
+        MPIHelper::print("CUDA_VISIBLE_DEVICES: ", "["+std::to_string(rank)+": "+std::string(visible_devices)+"] ", 9999);
     }
     int numGPU;
     cudaError_t error = cudaGetDeviceCount(&numGPU);
     if(error)  {
-        std::cout << "CUDA ERROR: No device found " << std::endl;
+        std::cout << "Rank: "+std::to_string(rank)+"CUDA ERROR: No device found " << std::endl;
         exit(EXIT_FAILURE);
     }
 
     error = cudaSetDevice(atoi(env_p)%numGPU);
     if(error)  {
-        std::cout << "CUDA ERROR: Could not set device " << std::to_string(atoi(env_p)%numGPU)
+        std::cout << "Rank: "+std::to_string(rank)+"CUDA ERROR: Could not set device " << std::to_string(atoi(env_p)%numGPU)
                   << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -92,10 +94,10 @@ void setupDevice()
     int device;
     error = cudaGetDevice(&device);
     if(error)  {
-        std::cout << "CUDA ERROR: Could not get configured device." << std::endl;
+        std::cout << "Rank: "+std::to_string(rank)+"CUDA ERROR: Could not get configured device." << std::endl;
         exit(EXIT_FAILURE);
     }
-    std::cout << "Rank: " << std::to_string(rank) << ", Device: " << std::to_string(device) << std::endl;
+    MPIHelper::print("Configured CUDA Devices: ", "["+std::to_string(rank)+": "+std::to_string(device)+"] ", 9999);
 }
 
 void init_mpi(int argc, char** argv) {
@@ -119,7 +121,7 @@ int main(int argc, char** argv)
 
     const int& rank = Options::get<int>("rank");
     if (Options::get<int>("rank") == 0) {
-        std::cout << "CONFIGURATION " << std::endl;
+        std::cout << "\nCONFIGURATION " << std::endl;
         std::cout << "====================================" << std::endl;
         std::cout << "Domain : [" << domain.isize << "," << domain.jsize << "," << domain.ksize << "]" << std::endl;
         std::cout << "Sync? : " << Options::get<bool>("sync") << std::endl;
@@ -136,18 +138,14 @@ int main(int argc, char** argv)
     {
         std::cerr << cudaGetErrorString(cudaGetLastError()) << std::endl;
     }
-    std::cout << "Rank: "<< std::to_string(rank) << " Device ID: " << std::to_string(deviceId) << std::endl;
     MPI_Barrier(MPI_COMM_WORLD);
 
 #ifdef MVAPICH2
-    const char* env_p = std::getenv("SLURM_PROCID");
-    std::cout << "SLURM_PROCID :" << env_p << std::endl;
-
-    std::cout << "Compiled for mvapich2" << std::endl;
+    if (rank == 0)
+        std::cout << "Compiled for mvapich2" << std::endl;
 #elif OPENMPI
-    const char* env_p = std::getenv("OMPI_COMM_WORLD_RANK");
-    std::cout << "OMPI_COMM_WORLD_RANK :" << env_p<< std::endl;
-    std::cout << "Compiled for openmpi" << std::endl;
+    if (rank == 0)
+        std::cout << "Compiled for openmpi" << std::endl;
 #else
     // Default proc
     const char* env_p = "0";

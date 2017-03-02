@@ -2,6 +2,7 @@
 #include <exception>
 #include "HorizontalDiffusionSA.h"
 #include "Kernel.h"
+#include "MPIHelper.h"
 #include <random>
 
 HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> repository):
@@ -79,12 +80,11 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
     if (rankId_ == 0) {
         std::cout << "Dimensions: [" << std::to_string(dims[0]) << ", " << std::to_string(dims[1]) << "]" << std::endl;
     }
-    MPI_Barrier(MPI_COMM_WORLD);
-    std::cout << "Rank: " << std::to_string(rankId_) << " - "
-              << "Neighbors: [" << std::to_string(neighbours_[0]) << ", "
-                                << std::to_string(neighbours_[1]) << ", "
-                                << std::to_string(neighbours_[2]) << ", "
-                                << std::to_string(neighbours_[3]) << "]" << std::endl;
+    MPIHelper::print("Neighbors: ", "["+std::to_string(rankId_)+": "
+                                           +std::to_string(neighbours_[0])+","
+                                           +std::to_string(neighbours_[1])+","
+                                           +std::to_string(neighbours_[2])+","
+                                           +std::to_string(neighbours_[3])+"] ", 9999);
 
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
