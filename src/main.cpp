@@ -54,7 +54,6 @@ void setupDevice()
         std::cout << "SLURM_PROCID not set" << std::endl;
         exit (EXIT_FAILURE);
     }
-    MPIHelper::print("SLURM_PROCID: ", std::string(env_p)+", ", 9999);
 
     const char* local_rank = std::getenv("MV2_COMM_WORLD_LOCAL_RANK");
     if (local_rank) {
@@ -100,6 +99,28 @@ void setupDevice()
     MPIHelper::print("Configured CUDA Devices: ", "["+std::to_string(rank)+": "+std::to_string(device)+"] ", 9999);
 }
 
+void printSlurmInfo() {
+    const char* procid = std::getenv("SLURM_PROCID");
+    if (procid == 0) {
+        return;
+    }
+    const char* jobid = std::getenv("SLURM_JOBID");
+    if (jobid != 0) {
+        std::cout << "SLURM_JOBID: " << jobid << std::endl;
+    }
+    if (procid != 0) {
+        MPIHelper::print("SLURM_PROCID: ", std::string(procid)+", ", 9999);
+    }
+    const char* cpu_bind = std::getenv("SLURM_CPU_BIND");
+    if (cpu_bind != 0) {
+        std::cout << "SLURM_CPU_BIND: " << cpu_bind << std::endl;
+    }
+    const char* nodename = std::getenv("SLURMD_NODENAME");
+    if (nodename != 0) {
+        MPIHelper::print("SLURMD_NODENAME: ", std::string(nodename)+", ", 9999);
+    }
+}
+
 void init_mpi(int argc, char** argv) {
     MPI_Init(&argc, &argv);
     int rank;
@@ -112,7 +133,7 @@ int main(int argc, char** argv)
     init_mpi(argc, argv);
     readOptions(argc, argv);
     setupDevice();
-
+    printSlurmInfo();
 
     IJKSize domain(Options::get<int>("isize"),
                    Options::get<int>("jsize"),
@@ -138,7 +159,6 @@ int main(int argc, char** argv)
     {
         std::cerr << cudaGetErrorString(cudaGetLastError()) << std::endl;
     }
-    MPI_Barrier(MPI_COMM_WORLD);
 
 #ifdef MVAPICH2
     if (rank == 0)
@@ -166,6 +186,8 @@ int main(int argc, char** argv)
     bool nocomp = Options::get<bool>("nocomp");
     int nHaloUpdates = Options::get<int>("nhaloupdates");
     int nRep = Options::get<int>("nrep");
+
+    MPI_Barrier(MPI_COMM_WORLD);
 
     cpu_timer.start();
 
