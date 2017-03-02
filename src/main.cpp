@@ -59,6 +59,7 @@ void setupDevice()
     const char* local_rank = std::getenv("MV2_COMM_WORLD_LOCAL_RANK");
     if (local_rank) {
         std::cout << "Rank: " << std::to_string(rank) << ", MV2_COMM_WORLD_LOCAL_RANK: " << local_rank << std::endl;
+        env_p = local_rank;
     }
 #elif OPENMPI
     const char* env_p = std::getenv("OMPI_COMM_WORLD_RANK");
