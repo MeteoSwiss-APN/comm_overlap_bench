@@ -100,20 +100,20 @@ void setupDevice()
 }
 
 void printSlurmInfo() {
-    const char* procid = std::getenv("SLURM_PROCID");
-    if (procid == 0) {
-        return;
-    }
+
+    const int& rank = Options::get<int>("rank");
+
     const char* jobid = std::getenv("SLURM_JOBID");
-    if (jobid != 0) {
+    if (jobid != 0 && rank == 0) {
         std::cout << "SLURM_JOBID: " << jobid << std::endl;
     }
+    const char* procid = std::getenv("SLURM_PROCID");
     if (procid != 0) {
         MPIHelper::print("SLURM_PROCID: ", std::string(procid)+", ", 9999);
     }
     const char* cpu_bind = std::getenv("SLURM_CPU_BIND");
     if (cpu_bind != 0) {
-        std::cout << "SLURM_CPU_BIND: " << cpu_bind << std::endl;
+        MPIHelper::print("SLURM_CPU_BIND: ", "["+std::to_string(rank)+": "+std::string(cpu_bind)+"] ", 9999);
     }
     const char* nodename = std::getenv("SLURMD_NODENAME");
     if (nodename != 0) {
