@@ -43,13 +43,11 @@ else()
     )
 endif()
 
-
-if(MPI_COMPILE_FLAGS)
-    set_target_properties(comm_overlap_benchmark PROPERTIES COMPILE_FLAGS ${MPI_COMPILE_FLAGS})
+if (${CMAKE_COMPILE_FLAGS})
+    set_target_properties(comm_overlap_benchmark PROPERTIES COMPILE_FLAGS ${CMAKE_COMPILE_FLAGS})
 endif()
-
-if(MPI_LINK_FLAGS)
-  set_target_properties(comm_overlap_benchmark PROPERTIES LINK_FLAGS ${MPI_LINK_FLAGS})
+if (${CMAKE_LINK_FLAGS})
+    set_target_properties(comm_overlap_benchmark PROPERTIES LINK_FLAGS ${CMAKE_LINK_FLAGS}) 
 endif()
 
 target_link_libraries(comm_overlap_benchmark

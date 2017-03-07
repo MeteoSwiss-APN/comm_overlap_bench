@@ -10,10 +10,13 @@ module list -t
 echo
 
 export SCOREP_ROOT=$EBROOTSCOREMINP
-export SCOREP_WRAPPER_ARGS="--mpp=mpi --cuda --keep-files --user" 
+export SCOREP_WRAPPER_ARGS="--mpp=mpi --cuda --keep-files" 
+export CC=gcc
+export CXX=g++
+export NVCC=nvcc
 export CC=`which scorep-gcc`
 export CXX=`which scorep-g++`
-export NVCC=`which scorep-nvcc`
+#export NVCC=`which scorep-nvcc`
 export BOOST_ROOT="/apps/escha/UES/RH6.7/easybuild/software/Boost/1.63.0-gmvapich2-17.02_cuda_7.5_gdr-Python-2.7.12"
 
 export SRC_DIR=$(pwd)
@@ -28,8 +31,9 @@ SCOREP_WRAPPER=OFF cmake .. \
     -DBOOST_ROOT="${BOOST_ROOT}" \
     -DCMAKE_CXX_COMPILER="${CXX}" \
     -DCMAKE_C_COMPILER="${CC}" \
-    -DCUDA_NVCC_EXECUTABLE="${NVCC}" \
-    -DCUDA_HOST_COMPILER=`which g++`
+    -DCUDA_HOST_COMPILER=`which g++` \
+    -DCUDA_NVCC_EXECUTABLE="${NVCC}" 
+
 
     
     export SCOREP_WRAPPER=ON

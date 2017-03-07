@@ -46,6 +46,15 @@ endif()
 find_package(MPI REQUIRED)
 include_directories( ${MPI_INCLUDE_PATH} )
 
+if(MPI_COMPILE_FLAGS)
+    set(CMAKE_COMPILE_FLAGS ${MPI_COMPILE_FLAGS} ${CMAKE_COMPILE_FLAGS})
+endif()
+
+if(MPI_LINK_FLAGS)
+    set(CMAKE_LINK_FLAGS ${MPI_LINK_FLAGS} ${CMAKE_LINK_FLAGS})
+endif()
+
+
 set( MPI_VENDOR "unknown" CACHE STRING "mpi vendor" )
 if( MPI_VENDOR STREQUAL "mvapich2")
     add_definitions ( -DMVAPICH2 )
