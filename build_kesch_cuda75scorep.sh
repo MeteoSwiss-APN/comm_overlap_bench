@@ -10,7 +10,7 @@ module list -t
 echo
 
 export SCOREP_ROOT=$EBROOTSCOREMINP
-export SCOREP_WRAPPER_ARGS="--mpp=mpi --cuda --keep-files --verbose" 
+export SCOREP_WRAPPER_ARGS="--mpp=mpi --cuda --keep-files --user" 
 export CC=`which scorep-gcc`
 export CXX=`which scorep-g++`
 export NVCC=`which scorep-nvcc`
@@ -33,7 +33,7 @@ SCOREP_WRAPPER=OFF cmake .. \
 
     
     export SCOREP_WRAPPER=ON
-    make -j 8 \
-        SCOREP_WRAPPER_INSTRUMENTER_FLAGS="--cuda --mpp=mpi --verbose --keep-files" 
-#        VERBOSE=1        
+    make -j 1 \
+        SCOREP_WRAPPER_INSTRUMENTER_FLAGS="${SCOREP_WRAPPER_ARGS}" \
+        VERBOSE=1        
 

@@ -10,6 +10,15 @@
 
 #include "IJKSize.h"
 
+#ifdef SCOREP_USER_ENABLE
+#include <scorep/SCOREP_User.h>
+#else
+#define SCOREP_RECORDING_ON()
+#define SCOREP_RECORDING_OFF()
+#define SCOREP_USER_FUNC_BEGIN()
+#define SCOREP_USER_FUNC_END()
+#endif 
+
 #ifdef ENABLE_TIMER
 #include <boost/timer/timer.hpp>
 #endif
@@ -196,6 +205,7 @@ int main(int argc, char** argv)
 #ifdef ENABLE_TIMER
     cpu_timer.start();
 #endif
+    SCOREP_USER_FUNC_BEGIN()
     // Benchmark!
     for(int i=0; i < nRep; ++i) {
         int numGPU;
@@ -252,7 +262,8 @@ int main(int argc, char** argv)
 #ifdef __CUDA_BACKEND__
     cudaProfilerStop();
 #endif
-
+    
+    SCOREP_USER_FUNC_END()
 
 #ifdef ENABLE_TIMER
     cpu_timer.stop();
