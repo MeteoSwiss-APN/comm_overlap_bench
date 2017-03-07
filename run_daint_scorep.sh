@@ -14,9 +14,12 @@ export MPICH_RDMA_ENABLED_CUDA=1
 #export CUDA_AUTOBOOST=1
 #export GCLOCK=875
 
+export SCOREP_TOTAL_MEMORY=1G
+export SCOREP_ENABLE_TRACING=true
+export SCOREP_CUDA_ENABLE=1
+
 export BOOST_LIBRARY_ROOT=/apps/daint/UES/jenkins/6.0.UP02/gpu/easybuild/software/Boost/1.63.0-CrayGNU-2016.11-Python-3.5.2/lib
 export LD_LIBRARY_PATH=$BOOST_LIBRARY_ROOT:$LD_LIBRARY_PATH
 
-
-srun --gres=gpu:1 -N $jobs -n $jobs --ntasks-per-node=1 --constraint=gpu --time=00:10:00 --partition=$partition build/src/comm_overlap_benchmark
+srun --gres=gpu:1 -N $jobs -n $jobs --ntasks-per-node=1 --constraint=gpu --time=00:10:00 --partition=$partition build_scorep/src/comm_overlap_benchmark
 
