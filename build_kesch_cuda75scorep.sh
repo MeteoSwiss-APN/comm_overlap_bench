@@ -11,18 +11,9 @@ echo
 
 export SCOREP_ROOT=$EBROOTSCOREMINP
 export SCOREP_WRAPPER_ARGS="--mpp=mpi --cuda --keep-files --verbose" 
-#export CC=`which scorep-gcc` 
-#export CXX=`which scorep-g++`  
-#export CC="scorep --cuda --mpp=mpi --keep-files gcc"
-#export CXX="scorep --cuda --mpp=mpi --keep-files g++"
-#export NVCC="scorep --cuda --mpp=mpi --keep-files nvcc"
 export CC=`which scorep-gcc`
 export CXX=`which scorep-g++`
 export NVCC=`which scorep-nvcc`
-#export NVCC=`/scratch/cosuna/software/scorep/nvcc.scorep`
-#export NVCC="scorep nvcc"
-#export CC=gcc
-#export CXX=g++
 export BOOST_ROOT="/apps/escha/UES/RH6.7/easybuild/software/Boost/1.63.0-gmvapich2-17.02_cuda_7.5_gdr-Python-2.7.12"
 
 export SRC_DIR=$(pwd)
@@ -31,8 +22,9 @@ pushd build_cuda75 &>/dev/null
 SCOREP_WRAPPER=OFF cmake .. \
     -DCMAKE_CXX_FLAGS="-std=c++11" \
     -DMPI_VENDOR=mvapich2 \
+    -DENABLE_TIMER=OFF \
     -DCUDA_COMPUTE_CAPABILITY="sm_37" \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=Debug \
     -DBOOST_ROOT="${BOOST_ROOT}" \
     -DCMAKE_CXX_COMPILER="${CXX}" \
     -DCMAKE_C_COMPILER="${CC}" \
@@ -41,7 +33,7 @@ SCOREP_WRAPPER=OFF cmake .. \
 
     
     export SCOREP_WRAPPER=ON
-    make -j 1 \
-        SCOREP_WRAPPER_INSTRUMENTER_FLAGS="--cuda --mpp=mpi" 
+    make -j 8 \
+        SCOREP_WRAPPER_INSTRUMENTER_FLAGS="--cuda --mpp=mpi --verbose --keep-files" 
 #        VERBOSE=1        
 

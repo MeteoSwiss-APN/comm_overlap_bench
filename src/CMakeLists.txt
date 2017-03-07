@@ -34,7 +34,11 @@ if( CUDA_BACKEND )
         ${SOURCES}
         OPTIONS "${NVCC_FLAGS}"
     )
-    target_link_libraries( StandaloneStencilsCUDA ${Boost_LIBRARIES} ${MPI_LIBRARIES})
+    if (ENABLE_TIMER)
+        target_link_libraries( StandaloneStencilsCUDA ${Boost_LIBRARIES} ${MPI_LIBRARIES})
+    else()
+        target_link_libraries( StandaloneStencilsCUDA ${MPI_LIBRARIES})
+    endif()
 
     if(MPI_COMPILE_FLAGS)
       set_target_properties(StandaloneStencilsCUDA PROPERTIES COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")

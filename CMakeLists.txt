@@ -32,7 +32,7 @@ endif( ENABLE_OPENMP )
 set( CUDA_BACKEND "ON" CACHE BOOL "Compile CUDA version" )
 if( CUDA_BACKEND )
     find_package( CUDA 5.0 )
-    set(CUDA_SEPARABLE_COMPILATION ON CACHE BOOL "" FORCE)
+    #    set(CUDA_SEPARABLE_COMPILATION ON CACHE BOOL "" FORCE)
     add_definitions( -D__CUDA_BACKEND__ )
     set(CUDA_COMPUTE_CAPABILITY "sm_35" CACHE STRING "Compute capability for CUDA" )
     set(NVCC_FLAGS "-arch=${CUDA_COMPUTE_CAPABILITY}" ) # -Xptxas -abi=no
@@ -45,6 +45,12 @@ endif()
 set( SINGLEPRECISION "OFF" CACHE BOOL "Single precision" )
 if( SINGLEPRECISION )
   add_definitions( -DSINGLEPRECISION )
+endif()
+
+# Timers
+set (ENABLE_TIMER "ON" CACHE BOOL "Enable timers")
+if (ENABLE_TIMER)
+    add_definitions( -DENABLE_TIMER )
 endif()
 
 find_package(MPI REQUIRED)
@@ -61,6 +67,7 @@ set (VERBOSE "OFF" CACHE BOOL "VERBOSE")
 if(VERBOSE)
     add_definitions(-DVERBOSE)
 endif()
+
 
 if ( SINGLEPRECISION )
     set ( STELLA_PRECISION "float" )

@@ -2,7 +2,6 @@
 #include <iostream>
 #include <cmath>
 #include <boost/lexical_cast.hpp>
-#include <boost/timer/timer.hpp>
 #include "HorizontalDiffusionSA.h"
 #include "Definitions.h"
 #include "Options.h"
@@ -10,6 +9,10 @@
 #include "MPIHelper.h"
 
 #include "IJKSize.h"
+
+#ifdef ENABLE_TIMER
+#include <boost/timer/timer.hpp>
+#endif
 
 #ifdef __CUDA_BACKEND__
 #include "cuda_profiler_api.h"
@@ -171,8 +174,9 @@ int main(int argc, char** argv)
     const char* env_p = "0";
 #endif
 
+#ifdef ENABLE_TIMER
     boost::timer::cpu_timer cpu_timer;
-
+#endif
     // Generate a horizontal diffusion operator
     HorizontalDiffusionSA horizontalDiffusionSA(repository);
     cudaDeviceSynchronize();
@@ -189,8 +193,9 @@ int main(int argc, char** argv)
 
     MPI_Barrier(MPI_COMM_WORLD);
 
+#ifdef ENABLE_TIMER
     cpu_timer.start();
-
+#endif
     // Benchmark!
     for(int i=0; i < nRep; ++i) {
         int numGPU;
@@ -248,6 +253,8 @@ int main(int argc, char** argv)
     cudaProfilerStop();
 #endif
 
+
+#ifdef ENABLE_TIMER
     cpu_timer.stop();
     boost::timer::cpu_times elapsed = cpu_timer.elapsed();
 
@@ -278,5 +285,9 @@ int main(int argc, char** argv)
 
         std::cout <<"ELAPSED TIME : " << avg << " +- + " << rms << std::endl;
     }
+#else
+    std::cout << "Timers disabled: Enable by compiling with ENABLE_TIMER" << std::endl;
+#endif
+
     MPI_Finalize();
 }
