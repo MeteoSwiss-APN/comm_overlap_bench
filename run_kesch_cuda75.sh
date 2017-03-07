@@ -46,7 +46,7 @@ echo "Tasks/Socket: ${tasks_socket}"
 echo "Partition: ${partition}"
 
 #srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_socket build/src/StandaloneStencilsCUDA
-srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build_cuda75/src/StandaloneStencilsCUDA
+srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build_cuda75/src/comm_overlap_benchmark
 
 #srun --nodes=$nodes --ntasks-per-node=$tasks_node --gres=gpu:$tasks_node -n $jobs -p debug  build/src/StandaloneStencilsCUDA
 
