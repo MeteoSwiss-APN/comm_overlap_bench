@@ -31,7 +31,7 @@ void readOptions(int argc, char** argv)
 {
     Options::setCommandLineParameters(argc, argv);
 
-    const int& rank = Options::get<int>("rank");
+    const int& rank = Options::getInt("rank");
 
     if (rank == 0) {
         std::cout << "StandaloneStencilsCUDA\n\n";
@@ -58,7 +58,7 @@ void readOptions(int argc, char** argv)
 
 void setupDevice()
 {
-    const int& rank = Options::get<int>("rank");
+    const int& rank = Options::getInt("rank");
 
 #ifdef MVAPICH2
     const char* env_p = std::getenv("SLURM_PROCID");
@@ -113,7 +113,7 @@ void setupDevice()
 
 void printSlurmInfo() {
 
-    const int& rank = Options::get<int>("rank");
+    const int& rank = Options::getInt("rank");
 
     const char* jobid = std::getenv("SLURM_JOBID");
     if (jobid != 0 && rank == 0) {
@@ -147,22 +147,22 @@ int main(int argc, char** argv)
     setupDevice();
     printSlurmInfo();
 
-    IJKSize domain(Options::get<int>("isize"),
-                   Options::get<int>("jsize"),
-                   Options::get<int>("ksize"));
+    IJKSize domain(Options::getInt("isize"),
+                   Options::getInt("jsize"),
+                   Options::getInt("ksize"));
     auto repository = std::shared_ptr<Repository>(new Repository(domain));
 
-    const int& rank = Options::get<int>("rank");
-    if (Options::get<int>("rank") == 0) {
+    const int& rank = Options::getInt("rank");
+    if (rank == 0) {
         std::cout << "\nCONFIGURATION " << std::endl;
         std::cout << "====================================" << std::endl;
         std::cout << "Domain : [" << domain.isize << "," << domain.jsize << "," << domain.ksize << "]" << std::endl;
-        std::cout << "Sync? : " << Options::get<bool>("sync") << std::endl;
-        std::cout << "NoComm? : " << Options::get<bool>("nocomm") << std::endl;
-        std::cout << "NoComp? : " << Options::get<bool>("nocomp") << std::endl;
-        std::cout << "Number Halo Exchanges : " << Options::get<int>("nhaloupdates") << std::endl;
-        std::cout << "Number benchmark repetitions : " << Options::get<int>("nrep") << std::endl;
-        std::cout << "In Order halo exchanges? : " << Options::get<bool>("inorder") << std::endl;
+        std::cout << "Sync? : " << Options::getBool("sync") << std::endl;
+        std::cout << "NoComm? : " << Options::getBool("nocomm") << std::endl;
+        std::cout << "NoComp? : " << Options::getBool("nocomp") << std::endl;
+        std::cout << "Number Halo Exchanges : " << Options::getInt("nhaloupdates") << std::endl;
+        std::cout << "Number benchmark repetitions : " << Options::getInt("nrep") << std::endl;
+        std::cout << "In Order halo exchanges? : " << Options::getBool("inorder") << std::endl;
     }
     MPI_Barrier(MPI_COMM_WORLD);
 
@@ -193,12 +193,12 @@ int main(int argc, char** argv)
     cudaProfilerStart();
 #endif
 
-    bool sync = Options::get<bool>("sync");
-    bool nocomm = Options::get<bool>("nocomm");
-    bool inOrder = Options::get<bool>("inorder");
-    bool nocomp = Options::get<bool>("nocomp");
-    int nHaloUpdates = Options::get<int>("nhaloupdates");
-    int nRep = Options::get<int>("nrep");
+    bool sync = Options::getBool("sync");
+    bool nocomm = Options::getBool("nocomm");
+    bool inOrder = Options::getBool("inorder");
+    bool nocomp = Options::getBool("nocomp");
+    int nHaloUpdates = Options::getInt("nhaloupdates");
+    int nRep = Options::getInt("nrep");
 
     MPI_Barrier(MPI_COMM_WORLD);
 
