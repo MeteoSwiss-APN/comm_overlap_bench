@@ -32,7 +32,7 @@ add_executable(comm_overlap_benchmark
 #cuda and non cuda compilation
 if( CUDA_BACKEND )
     cuda_add_library(
-        StandaloneStencilsCUDA STATIC
+        StandaloneStencils STATIC
         ${CUDA_SOURCES} 
         OPTIONS ${NVCC_FLAGS}
     )
@@ -52,7 +52,7 @@ endif()
 
 target_link_libraries(comm_overlap_benchmark
     ${MPI_LIBRARIES}
-    StandaloneStencilsCUDA
+    StandaloneStencils
 )
 
 if (ENABLE_TIMER)

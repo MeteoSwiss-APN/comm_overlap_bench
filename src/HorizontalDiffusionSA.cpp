@@ -1,7 +1,10 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <exception>
 #include "HorizontalDiffusionSA.h"
+
+#ifdef CUDA_BACKEND
 #include "Kernel.h"
+#endif
 #include "MPIHelper.h"
 #include <random>
 
@@ -20,7 +23,9 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
   pRepository_(repository)
 {
     generateFields(*pRepository_);
+#ifdef CUDA_BACKEND
     cudaStreamCreate(&kernelStream_);
+#endif
 
     const IJKSize& domain = repository->domain;
     MPI_Comm_size(MPI_COMM_WORLD, &numRanks_);
@@ -88,6 +93,7 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
                                            +std::to_string(neighbours_[2])+","
                                            +std::to_string(neighbours_[3])+"] ", 9999);
 
+#ifdef CUDA_BACKEND
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
         for(int h=0; h < N_CONCURRENT_HALOS; ++h)
@@ -103,18 +109,40 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
             cudaMalloc(&(recSBuff_[c*N_CONCURRENT_HALOS+h]), sizeof(Real)*commSize_);
         }
     }
+#else
+
+    for(int c=0; c < N_HORIDIFF_VARS; ++c)
+    {
+        for(int h=0; h < N_CONCURRENT_HALOS; ++h)
+        {
+            sendWBuff_[c*N_CONCURRENT_HALOS+h] = (Real*) malloc(sizeof(Real)*commSize_);
+            sendNBuff_[c*N_CONCURRENT_HALOS+h] = (Real*) malloc(sizeof(Real)*commSize_);
+            sendEBuff_[c*N_CONCURRENT_HALOS+h] = (Real*) malloc(sizeof(Real)*commSize_);
+            sendSBuff_[c*N_CONCURRENT_HALOS+h] = (Real*) malloc(sizeof(Real)*commSize_);
+
+            recWBuff_[c*N_CONCURRENT_HALOS+h] = (Real*) malloc(sizeof(Real)*commSize_);
+            recNBuff_[c*N_CONCURRENT_HALOS+h] = (Real*) malloc(sizeof(Real)*commSize_);
+            recEBuff_[c*N_CONCURRENT_HALOS+h] = (Real*) malloc(sizeof(Real)*commSize_);
+            recSBuff_[c*N_CONCURRENT_HALOS+h] = (Real*) malloc(sizeof(Real)*commSize_);
+        }
+    }
+
+    std::cout << "Warning: CUDA not enabled" << std::endl;
+#endif
 }
 HorizontalDiffusionSA::~HorizontalDiffusionSA() 
 {
+#ifdef CUDA_BACKEND
     cudaStreamDestroy(kernelStream_);
-
+#endif
 }
 
 
 void HorizontalDiffusionSA::StartHalos(const int index)
 {
-
+#ifdef CUDA_BACKEND
     cudaDeviceSynchronize();
+#endif
     assert(index < N_CONCURRENT_HALOS);
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
@@ -166,6 +194,7 @@ void HorizontalDiffusionSA::ApplyHalos(const int i)
 
 void HorizontalDiffusionSA::Apply()
 {
+#ifdef CUDA_BACKEND
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
           launch_kernel(pRepository_->domain,
@@ -174,6 +203,7 @@ void HorizontalDiffusionSA::Apply()
                         kernelStream_
           );
     }
+#endif
 }
 
 void HorizontalDiffusionSA::fillRandom(SimpleStorage<Real> &storage)

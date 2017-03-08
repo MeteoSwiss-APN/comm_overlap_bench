@@ -84,6 +84,7 @@ void setupDevice()
     const char* env_p = "0";
 #endif
 
+#ifdef CUDA_BACKEND
     const char* visible_devices = std::getenv("CUDA_VISIBLE_DEVICES");
     if (visible_devices) {
         MPIHelper::print("CUDA_VISIBLE_DEVICES: ", "["+std::to_string(rank)+": "+std::string(visible_devices)+"] ", 9999);
@@ -109,6 +110,11 @@ void setupDevice()
         exit(EXIT_FAILURE);
     }
     MPIHelper::print("Configured CUDA Devices: ", "["+std::to_string(rank)+": "+std::to_string(device)+"] ", 9999);
+#else
+    if (rank == 0) {
+        std::cout << "CUDA Mode Disabled" << std::endl;
+    }
+#endif
 }
 
 void printSlurmInfo() {
@@ -166,11 +172,13 @@ int main(int argc, char** argv)
     }
     MPI_Barrier(MPI_COMM_WORLD);
 
+#ifdef CUDA_BACKEND
     int deviceId;
     if( cudaGetDevice(&deviceId) != cudaSuccess)
     {
         std::cerr << cudaGetErrorString(cudaGetLastError()) << std::endl;
     }
+#endif
 
 #ifdef MVAPICH2
     if (rank == 0)
@@ -188,9 +196,9 @@ int main(int argc, char** argv)
 #endif
     // Generate a horizontal diffusion operator
     HorizontalDiffusionSA horizontalDiffusionSA(repository);
+
+#ifdef CUDA_BACKEND
     cudaDeviceSynchronize();
-#ifdef __CUDA_BACKEND__
-    cudaProfilerStart();
 #endif
 
     bool sync = Options::getBool("sync");
@@ -208,8 +216,6 @@ int main(int argc, char** argv)
     SCOREP_USER_FUNC_BEGIN()
     // Benchmark!
     for(int i=0; i < nRep; ++i) {
-        int numGPU;
-        cudaGetDeviceCount(&numGPU);
         // flush cache between calls to horizontal diffusion stencil
         if(i!=0 && !sync && !nocomm && !inOrder) {
             for(int c=0; c < nHaloUpdates ; ++c) {
@@ -258,9 +264,9 @@ int main(int argc, char** argv)
             horizontalDiffusionSA.WaitHalos(c);
         }
     }
+
+#ifdef CUDA_BACKEND
     cudaDeviceSynchronize();
-#ifdef __CUDA_BACKEND__
-    cudaProfilerStop();
 #endif
     
     SCOREP_USER_FUNC_END()

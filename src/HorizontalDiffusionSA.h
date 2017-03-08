@@ -3,7 +3,9 @@
 #include <vector>
 #include "Definitions.h"
 #include "Repository.h"
+#ifdef CUDA_BACKEND
 #include <cuda_runtime.h>
+#endif
 #include <cassert>
 #include <memory>
 
@@ -50,7 +52,10 @@ private:
     std::vector<Real*> sendSBuff_;
 
     std::shared_ptr<Repository> pRepository_;
+
+#ifdef CUDA_BACKEND
     cudaStream_t kernelStream_;
+#endif
 
     void fillRandom(SimpleStorage<Real>& storage);
     void generateFields(Repository& repository);

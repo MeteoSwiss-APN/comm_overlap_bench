@@ -1,5 +1,7 @@
 #pragma once
+#ifdef CUDA_BACKEND
 #include <cuda_runtime.h>
+#endif
 #include <string>
 #include <cstdlib>
 #include "Definitions.h"
@@ -33,19 +35,25 @@ SimpleStorage<T>::SimpleStorage(const IJKSize& size, const std::string& name):
     storage_size((size.isize+cNumBoundaryLines*2) * (size.jsize+cNumBoundaryLines*2) * size.ksize)
 {
     host = (T*) malloc(storage_size*sizeof(T));
+#ifdef CUDA_BACKEND
     cudaMalloc(reinterpret_cast<void**>(&device), storage_size*sizeof(T));
+#endif
 }
 
 template <typename T>
 SimpleStorage<T>::~SimpleStorage()
 {
     delete host;
+#ifdef CUDA_BACKEND
     cudaFree(device);
+#endif
 }
 
 template <typename T>
 void SimpleStorage<T>::swapWith(SimpleStorage<T> &other) {
+#ifdef CUDA_BACKEND
     std::swap(device, other.device);
+#endif
     std::swap(host, other.host);
 }
 
@@ -59,10 +67,14 @@ T& SimpleStorage<T>::operator ()(size_t i, size_t j, size_t k) {
 
 template <typename T>
 void SimpleStorage<T>::updateDevice() {
+#ifdef CUDA_BACKEND
     cudaMemcpy(device, host, storage_size, cudaMemcpyHostToDevice);
+#endif
 }
 
 template <typename T>
 void SimpleStorage<T>::updateHost() {
+#ifdef CUDA_BACKEND
     cudaMemcpy(host, device, storage_size, cudaMemcpyDeviceToHost);
+#endif
 }

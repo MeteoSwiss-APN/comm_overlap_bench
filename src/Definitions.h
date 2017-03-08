@@ -1,7 +1,6 @@
 #pragma once
 
 #include <mpi.h>
-#include <cuda_runtime.h>
 
 //TODO mark these in namespace
 constexpr int cNumBoundaryLines = 3;
