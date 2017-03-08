@@ -19,3 +19,7 @@ The following picture shows an example of flow of the code for a simple communic
 * `--nh NN` the number of halo updates. Default: 2
 * `-n NN` the number of benchmark repetetitions. Default: 5000
 * `--inorder` enable in order halo exchanges. 
+
+# Disclaimer
+
+Code needs cleanup...

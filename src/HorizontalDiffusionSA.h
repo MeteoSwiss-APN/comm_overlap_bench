@@ -33,7 +33,8 @@ private:
     int cartSizes_[2];
     int neighbours_[4];
     MPI_Request requestNull;
-    MPI_Request *reqs_;
+    std::vector<MPI_Request> reqsIrecv_;
+    std::vector<MPI_Request> reqsIsend_;
     MPI_Status status_[4*N_CONCURRENT_HALOS];
     int numRanks_;
     int rankId_;

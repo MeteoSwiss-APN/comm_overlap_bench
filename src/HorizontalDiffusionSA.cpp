@@ -7,6 +7,8 @@
 
 HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> repository):
   commSize_(repository->domain.isizeFull()*cNumBoundaryLines*repository->domain.ksizeFull()),
+  reqsIrecv_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS*4),
+  reqsIsend_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS*4),
   recWBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
   recNBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
   recEBuff_(N_HORIDIFF_VARS*N_CONCURRENT_HALOS),
@@ -101,8 +103,6 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
             cudaMalloc(&(recSBuff_[c*N_CONCURRENT_HALOS+h]), sizeof(Real)*commSize_);
         }
     }
-
-    reqs_ = (MPI_Request*)malloc(N_HORIDIFF_VARS*N_CONCURRENT_HALOS*sizeof(MPI_Request)*4);
 }
 HorizontalDiffusionSA::~HorizontalDiffusionSA() 
 {
@@ -118,19 +118,15 @@ void HorizontalDiffusionSA::StartHalos(const int index)
     assert(index < N_CONCURRENT_HALOS);
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
-        MPI_Irecv(recWBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[0],5, MPI_COMM_WORLD, &(reqs_[c*4*N_CONCURRENT_HALOS+index]));
-        MPI_Irecv(recNBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[1],7, MPI_COMM_WORLD, &(reqs_[(c*4+1)*N_CONCURRENT_HALOS+index]));
-        MPI_Irecv(recEBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[2],1, MPI_COMM_WORLD, &(reqs_[(c*4+2)*N_CONCURRENT_HALOS+index]));
-        MPI_Irecv(recSBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[3],3, MPI_COMM_WORLD, &(reqs_[(c*4+3)*N_CONCURRENT_HALOS+index]));
+        MPI_Irecv(recWBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[0],5, MPI_COMM_WORLD, &(reqsIrecv_[(c*4+0)*N_CONCURRENT_HALOS+index]));
+        MPI_Irecv(recNBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[1],7, MPI_COMM_WORLD, &(reqsIrecv_[(c*4+1)*N_CONCURRENT_HALOS+index]));
+        MPI_Irecv(recEBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[2],1, MPI_COMM_WORLD, &(reqsIrecv_[(c*4+2)*N_CONCURRENT_HALOS+index]));
+        MPI_Irecv(recSBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[3],3, MPI_COMM_WORLD, &(reqsIrecv_[(c*4+3)*N_CONCURRENT_HALOS+index]));
 
-        MPI_Isend(sendWBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[0],1, MPI_COMM_WORLD, &requestNull);
-        MPI_Request_free(&requestNull);
-        MPI_Isend(sendNBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[1],3, MPI_COMM_WORLD, &requestNull);
-        MPI_Request_free(&requestNull);
-        MPI_Isend(sendEBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[2],5, MPI_COMM_WORLD, &requestNull);
-        MPI_Request_free(&requestNull);
-        MPI_Isend(sendSBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[3],7, MPI_COMM_WORLD, &requestNull);
-        MPI_Request_free(&requestNull);
+        MPI_Isend(sendWBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[0],1, MPI_COMM_WORLD, &(reqsIsend_[(c*4+0)*N_CONCURRENT_HALOS+index]));
+        MPI_Isend(sendNBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[1],3, MPI_COMM_WORLD, &(reqsIsend_[(c*4+1)*N_CONCURRENT_HALOS+index]));
+        MPI_Isend(sendEBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[2],5, MPI_COMM_WORLD, &(reqsIsend_[(c*4+2)*N_CONCURRENT_HALOS+index]));
+        MPI_Isend(sendSBuff_[c*N_CONCURRENT_HALOS+index], commSize_, MPITYPE, neighbours_[3],7, MPI_COMM_WORLD, &(reqsIsend_[(c*4+3)*N_CONCURRENT_HALOS+index]));
 
 #ifdef VERBOSE
         int rank;
@@ -148,10 +144,15 @@ void HorizontalDiffusionSA::WaitHalos(const int index)
     assert(index < N_CONCURRENT_HALOS);
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
     {
-        MPI_Wait(&(reqs_[c*4*N_CONCURRENT_HALOS+index]), &(status_[0*N_CONCURRENT_HALOS+index]));
-        MPI_Wait(&(reqs_[(c*4+1)*N_CONCURRENT_HALOS+index]), &(status_[1*N_CONCURRENT_HALOS+index]));
-        MPI_Wait(&(reqs_[(c*4+2)*N_CONCURRENT_HALOS+index]), &(status_[2*N_CONCURRENT_HALOS+index]));
-        MPI_Wait(&(reqs_[(c*4+3)*N_CONCURRENT_HALOS+index]), &(status_[3*N_CONCURRENT_HALOS+index]));
+        MPI_Wait(&(reqsIrecv_[c*4*N_CONCURRENT_HALOS+index]), &(status_[0*N_CONCURRENT_HALOS+index]));
+        MPI_Wait(&(reqsIrecv_[(c*4+1)*N_CONCURRENT_HALOS+index]), &(status_[1*N_CONCURRENT_HALOS+index]));
+        MPI_Wait(&(reqsIrecv_[(c*4+2)*N_CONCURRENT_HALOS+index]), &(status_[2*N_CONCURRENT_HALOS+index]));
+        MPI_Wait(&(reqsIrecv_[(c*4+3)*N_CONCURRENT_HALOS+index]), &(status_[3*N_CONCURRENT_HALOS+index]));
+
+        MPI_Request_free(&(reqsIsend_[(c*4+0)*N_CONCURRENT_HALOS+index]));
+        MPI_Request_free(&(reqsIsend_[(c*4+1)*N_CONCURRENT_HALOS+index]));
+        MPI_Request_free(&(reqsIsend_[(c*4+2)*N_CONCURRENT_HALOS+index]));
+        MPI_Request_free(&(reqsIsend_[(c*4+3)*N_CONCURRENT_HALOS+index]));
     }
 
 }
