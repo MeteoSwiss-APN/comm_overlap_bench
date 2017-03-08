@@ -38,7 +38,7 @@ if( CUDA_BACKEND )
     )
 else()
     add_library(
-        StandaloneStencils 
+        StandaloneStencils STATIC 
         ${X86_SOURCES}
     )
 endif()

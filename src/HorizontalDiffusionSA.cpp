@@ -7,6 +7,7 @@
 #endif
 #include "MPIHelper.h"
 #include <random>
+#include <iostream>
 
 HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> repository):
   commSize_(repository->domain.isizeFull()*cNumBoundaryLines*repository->domain.ksizeFull()),
