@@ -3,9 +3,6 @@
 #include <string>
 #include <map>
 #include <iostream>
-#include <boost/any.hpp>
-#include <boost/lexical_cast.hpp>
-
 /**
 * @class Options
 * Singleton data container for program options
@@ -18,7 +15,9 @@ private:
     { }
     ~Options() { }
 
-    std::map<std::string, boost::any> options_;
+    std::map<std::string, int> optionsInt_;
+    std::map<std::string, bool> optionsBool_;
+    std::map<std::string, std::string> optionsString_;
 
     int argc_;
     char** argv_;
@@ -30,19 +29,38 @@ public:
         getInstance().argv_ = argv;
     }
 
-    template<typename T>
-    static void set(const std::string& name, const T& value)
+    static void set(const std::string& name, bool value)
     {
-        getInstance().options_[name] = value;
+        getInstance().optionsBool_[name] = value;
     }
-    static void set(const std::string& name, const char* value)
+    static void set(const std::string& name, int value)
     {
-        getInstance().options_[name] = std::string(value);
+        getInstance().optionsInt_[name] = value;
+    }
+    static void set(const std::string &name, const std::string& value)
+    {
+        getInstance().optionsString_[name] = value;
     }
 
-    template<typename T>
-    static const T& get(const std::string& name) {
-        return *boost::any_cast<T>(&(getInstance().options_[name]));
+    static void set(const std::string& name, const char* value)
+    {
+         std::string val(value);
+         set(name, val);
+    }
+
+    static const bool& getBool(const std::string &name)
+    {
+        return getInstance().optionsBool_[name];
+    }
+
+    static const int& getInt(const std::string &name)
+    {
+        return getInstance().optionsInt_[name];
+    }
+
+    static const std::string& getString(const std::string& name)
+    {
+        return getInstance().optionsString_[name];
     }
 
     static void parse(const std::string& option, const std::string& argument, bool default_value)
@@ -79,27 +97,21 @@ public:
         Options::set(option, result);
     }
 
-    template<typename T>
-    static void parse(const std::string& option, const std::string& argument, T default_value);
+    static void parse(const std::string& option, const std::string& argument, int default_value)
+    {
+        int argc = Options::getInstance().argc_;
+        char** argv = Options::getInstance().argv_;
+
+        int result = default_value;
+        for(int i = 0; i < argc; ++i)
+        {
+            if(argv[i] == argument && i+1 < argc)
+            {
+                result = std::stoi(std::string(argv[i+1]));
+                break;
+            }
+        }
+        Options::set(option, result);
+    }
 
 };
-
-
-
-template<typename T>
-void Options::parse(const std::string& option, const std::string& argument, T default_value)
-{
-    int argc = Options::getInstance().argc_;
-    char** argv = Options::getInstance().argv_;
-
-    int result = default_value;
-    for(int i = 0; i < argc; ++i)
-    {
-        if(argv[i] == argument && i+1 < argc)
-        {
-            result = boost::lexical_cast<T>(argv[i+1]);
-            break;
-        }
-    }
-    Options::set(option, result);
-}

@@ -9,10 +9,18 @@ project( comm_overlap_benchmark )
 enable_language( CXX )
 set (CMAKE_CXX_STANDARD 11)
 
+# Timers
+set (ENABLE_TIMER "ON" CACHE BOOL "Enable timers (requires boost)")
+if (ENABLE_TIMER)
+    add_definitions( -DENABLE_TIMER )
+endif()
+
 # BOOST
-find_package(Boost 1.43.0 COMPONENTS system timer REQUIRED)
-if (Boost_FOUND)
-    include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+if (ENABLE_TIMER)
+    find_package(Boost 1.43.0 COMPONENTS system timer REQUIRED)
+    if (Boost_FOUND)
+        include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+    endif()
 endif()
 
 find_package(Threads)
@@ -35,12 +43,6 @@ endif()
 set( SINGLEPRECISION "OFF" CACHE BOOL "Single precision" )
 if( SINGLEPRECISION )
   add_definitions( -DSINGLEPRECISION )
-endif()
-
-# Timers
-set (ENABLE_TIMER "ON" CACHE BOOL "Enable timers")
-if (ENABLE_TIMER)
-    add_definitions( -DENABLE_TIMER )
 endif()
 
 find_package(MPI REQUIRED)
