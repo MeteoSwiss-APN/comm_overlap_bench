@@ -3,6 +3,7 @@ rm -rf build_cuda75
 mkdir -p build_cuda75
 
 module purge
+module use /apps/escha/UES/easybuild/modulefiles
 module load CMake
 source modules_kesch_cuda75.env
 module load Score-P/3.0-gmvapich2-17.02_cuda_7.5_gdr
@@ -11,12 +12,16 @@ echo
 
 export SCOREP_ROOT=$EBROOTSCOREMINP
 export SCOREP_WRAPPER_ARGS="--mpp=mpi --cuda --keep-files" 
-export CC=gcc
-export CXX=g++
-export NVCC=nvcc
-export CC=`which scorep-gcc`
-export CXX=`which scorep-g++`
+#export CC=gcc
+#export CXX=g++
+#export NVCC=nvcc
+#export CC=`which scorep-mpicc`
+#export CXX=`which scorep-mpicxx`
 #export NVCC=`which scorep-nvcc`
+export CC=$(pwd)/cc.scorep
+export CXX=$(pwd)/CC.scorep
+export NVCC=$(pwd)/nvcc.scorep
+
 export BOOST_ROOT="/apps/escha/UES/RH6.7/easybuild/software/Boost/1.63.0-gmvapich2-17.02_cuda_7.5_gdr-Python-2.7.12"
 
 export SRC_DIR=$(pwd)
@@ -28,13 +33,13 @@ SCOREP_WRAPPER=OFF cmake .. \
     -DENABLE_TIMER=OFF \
     -DCUDA_COMPUTE_CAPABILITY="sm_37" \
     -DCMAKE_BUILD_TYPE=Debug \
-    -DBOOST_ROOT="${BOOST_ROOT}" \
     -DCMAKE_CXX_COMPILER="${CXX}" \
     -DCMAKE_C_COMPILER="${CC}" \
     -DCUDA_HOST_COMPILER=`which g++` \
     -DCUDA_NVCC_EXECUTABLE="${NVCC}" 
 
-
+    # Only needed when the timers are enabled
+    #-DBOOST_ROOT="${BOOST_ROOT}" \
     
     export SCOREP_WRAPPER=ON
     make -j 1 \

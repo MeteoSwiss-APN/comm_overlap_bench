@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 module purge
+module use /apps/escha/UES/easybuild/modulefiles
 source modules_kesch_cuda75.env
 module load Score-P/3.0-gmvapich2-17.02_cuda_7.5_gdr
 echo Modules:
@@ -7,7 +8,7 @@ module list
 
 # Add the boost library path manually
 export BOOST_LIBRARY_PATH=/apps/escha/UES/RH6.7/easybuild/software/Boost/1.63.0-gmvapich2-17.02_cuda_7.5_gdr-Python-2.7.12/lib
-export LD_LIBRARY_PATH=$BOOST_LIBRARY_PATH:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH=$BOOST_LIBRARY_PATH:$LD_LIBRARY_PATH
 
 [ -z "${jobs}" ] && jobs=2
 echo "Running with ${jobs} jobs (set jobs environment variable to change)"
@@ -50,6 +51,7 @@ echo "Tasks/Socket: ${tasks_socket}"
 echo "Partition: ${partition}"
 
 #srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_socket build/src/StandaloneStencilsCUDA
+ldd build_cuda75/src/comm_overlap_benchmark > ldd_scorepCuda75
 srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build_cuda75/src/comm_overlap_benchmark
 
 #srun --nodes=$nodes --ntasks-per-node=$tasks_node --gres=gpu:$tasks_node -n $jobs -p debug  build/src/StandaloneStencilsCUDA

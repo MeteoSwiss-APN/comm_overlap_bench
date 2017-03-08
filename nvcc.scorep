@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#`which scorep` --mpp=mpi --cuda mpicxx "$@"
+#remove system library paths like -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7
+parse_args=`echo "$@" | sed 's/-L[^ ]*redhat[^ ]*//g'`
+`which scorep` `which nvcc` ${parse_args}
+
