@@ -10,12 +10,13 @@ enable_language( CXX )
 set (CMAKE_CXX_STANDARD 11)
 
 # Timers
-set (ENABLE_TIMER "ON" CACHE BOOL "Enable timers (requires boost)")
+set( ENABLE_TIMER "OFF" CACHE BOOL "Enable timer (requires boost)" )
 if (ENABLE_TIMER)
     add_definitions( -DENABLE_TIMER )
 endif()
 
 # BOOST
+
 if (ENABLE_TIMER)
     find_package(Boost 1.43.0 COMPONENTS system timer REQUIRED)
     if (Boost_FOUND)
@@ -54,6 +55,9 @@ if(MPI_LINK_FLAGS)
     set(CMAKE_LINK_FLAGS ${MPI_LINK_FLAGS} ${CMAKE_LINK_FLAGS})
 endif()
 
+message(STATUS "MPI_LINK_FLAGS: ${MPI_LINK_FLAGS}")
+message(STATUS "MPI_COMPILE_FLAGS: ${MPI_COMPILE_FLAGS}")
+message(STATUS "MPI_LIBRARIES: ${MPI_LIBRARIES}")
 
 set( MPI_VENDOR "unknown" CACHE STRING "mpi vendor" )
 if( MPI_VENDOR STREQUAL "mvapich2")
