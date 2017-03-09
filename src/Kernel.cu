@@ -36,15 +36,15 @@ void launch_kernel(IJKSize domain, Real* in, Real* out, cudaStream_t& stream)
     threads.y = 8;
     threads.z = 1;
 
-    blocks.x = domain.iSize() / 32;
-    blocks.y = domain.jSize() / 8;
+    blocks.x = domain.isize / 32;
+    blocks.y = domain.jsize / 8;
     blocks.z = 1;
-    if(domain.iSize() % 32 != 0 || domain.jSize() % 8 != 0)
+    if(domain.isize % 32 != 0 || domain.jsize % 8 != 0)
         std::cout << "ERROR: Domain sizes should be multiple of 32x8" << std::endl;
 
     const int iStride = 1;
-    const int jStride = domain.iSize()+cNumBoundaryLines*2;
-    const int kStride = (domain.jSize()+cNumBoundaryLines*2)* jStride;
-    cukernel<<<blocks, threads,0,stream>>>(in, out, domain.kSize(), iStride, jStride, kStride);
+    const int jStride = domain.isize+cNumBoundaryLines*2;
+    const int kStride = (domain.jsize+cNumBoundaryLines*2)* jStride;
+    cukernel<<<blocks, threads,0,stream>>>(in, out, domain.ksize, iStride, jStride, kStride);
 }
 
