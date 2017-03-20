@@ -11,11 +11,7 @@
 #include <set>
 #include <vector>
 #include <string>
-#ifndef _NO_BOOST
-#include <boost/shared_ptr.hpp>
-#else
 #include <memory>
-#endif
 #include "Definitions.h"
 
 /**
@@ -28,9 +24,7 @@
 class HoriDiffRepository
 {
     DISALLOW_COPY_AND_ASSIGN(HoriDiffRepository);
-#ifndef _NO_BOOST
-    BOOST_STATIC_ASSERT(N_HORIDIFF_VARS > 0);
-#endif
+//noboost    BOOST_STATIC_ASSERT(N_HORIDIFF_VARS > 0);
 public:
 
     HoriDiffRepository();
@@ -86,11 +80,7 @@ public:
         }
     }
 
-#ifndef _NO_BOOST
-    std::vector< boost::shared_ptr< SwapDataField<IJKRealField> > >& horiDiffFields() { return horiDiffFields_; }
-#else
     std::vector< std::shared_ptr< SwapDataField<IJKRealField> > >& horiDiffFields() { return horiDiffFields_; }
-#endif
 
     // external parameter fields
     JRealField& crlat0() { return crlat0_; };
@@ -107,11 +97,7 @@ private:
 
     // prognostic variables
 
-#ifndef _NO_BOOST
-    std::vector<boost::shared_ptr< SwapDataField<IJKRealField> > > horiDiffFields_;
-#else
     std::vector<std::shared_ptr< SwapDataField<IJKRealField> > > horiDiffFields_;
-#endif
 
     IJKRealField refField_;
     IJKRealField ref4St_;

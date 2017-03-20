@@ -1,9 +1,6 @@
 #include <stdexcept>
 #include <iostream>
 #include <cmath>
-#ifndef _NO_BOOST
-#include <boost/lexical_cast.hpp>
-#endif
 #include "HorizontalDiffusionSA.h"
 #include "Definitions.h"
 #include "Options.h"

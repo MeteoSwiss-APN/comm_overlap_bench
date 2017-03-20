@@ -6,11 +6,7 @@
  */
 #include <cmath>
 #include <sstream>
-#ifndef _NO_BOOST
-#include <boost/make_shared.hpp>
-#else
 #include <memory>
-#endif
 #include "Definitions.h"
 #include "HoriDiffRepository.h"
 #include "Utils.h"
@@ -26,11 +22,7 @@ void HoriDiffRepository::Init(const IJKSize& calculationDomain)
 
     for(size_t i=0; i < N_HORIDIFF_VARS; ++i)
     {
-#ifndef _NO_BOOST
-        horiDiffFields_.push_back( boost::make_shared<SwapDataField<IJKRealField> >());
-#else
         horiDiffFields_.push_back( std::make_shared<SwapDataField<IJKRealField> >());
-#endif
     }
 }
 

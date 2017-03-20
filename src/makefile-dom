@@ -20,20 +20,18 @@ all: $(EXECUTABLE)
 
 INCFLAGS = -I$(CUDATOOLKIT_HOME)/include \
 -I$(MVAPICH2GDR_VERSION)/include \
--I$(BOOST_VERSION)/include \
 -I.
 
 NVFLAGS  = $(INCFLAGS)
 ARCH = -arch=sm_60
 CFLAGS  = $(INCFLAGS)
-CFLAGS += -D_NO_BOOST -DENABLE_MPI_TIMER # -D_NOTIMING # -DENABLE_TIMER
+CFLAGS += -DENABLE_MPI_TIMER # -D_NOTIMING # -DENABLE_TIMER
 CFLAGS += -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11
 NVFLAGS += -ccbin g++ -m64 $(ARCH) $(CFLAGS) -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\"
 
 LDFLAGS = -g -std=gnu++11 \
 -Wl,--enable-new-dtags \
 -L$(MVAPICH2GDR_VERSION)/lib64 \
--L$(BOOST_VERSION)/lib \
 -L$(CUDATOOLKIT_HOME)/lib64 \
 $(LIBMPI) \
 -lcudart -lcuda 
