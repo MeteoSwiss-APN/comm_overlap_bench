@@ -1,4 +1,6 @@
+#ifndef _NO_BOOST
 #include <boost/preprocessor/repetition/repeat.hpp>
+#endif
 #include <exception>
 #include "HorizontalDiffusionSA.h"
 

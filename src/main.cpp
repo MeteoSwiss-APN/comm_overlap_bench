@@ -1,7 +1,9 @@
 #include <stdexcept>
 #include <iostream>
 #include <cmath>
+#ifndef _NO_BOOST
 #include <boost/lexical_cast.hpp>
+#endif
 #include "HorizontalDiffusionSA.h"
 #include "Definitions.h"
 #include "Options.h"
@@ -148,6 +150,7 @@ void init_mpi(int argc, char** argv) {
 
 int main(int argc, char** argv)
 {
+    double starttime, endtime;
     init_mpi(argc, argv);
     readOptions(argc, argv);
     setupDevice();
@@ -209,6 +212,10 @@ int main(int argc, char** argv)
     int nRep = Options::getInt("nrep");
 
     MPI_Barrier(MPI_COMM_WORLD);
+
+#ifdef ENABLE_MPI_TIMER
+    starttime = MPI_Wtime();
+#endif
 
 #ifdef ENABLE_TIMER
     cpu_timer.start();
@@ -300,10 +307,19 @@ int main(int argc, char** argv)
         rms /= (double)num_ranks;
         rms = std::sqrt(rms);
 
-        std::cout <<"ELAPSED TIME : " << avg << " +- + " << rms << std::endl;
+        std::cout <<"ELAPSED TIME: " << avg << " +- + " << rms << std::endl;
     }
-#else
-    std::cout << "Timers disabled: Enable by compiling with ENABLE_TIMER" << std::endl;
+#endif
+
+#ifdef ENABLE_MPI_TIMER
+   endtime   = MPI_Wtime();
+   int rank_id;
+   MPI_Comm_rank(MPI_COMM_WORLD, &rank_id); 
+   printf("ELAPSED TIME (seconds) for rank=%d %f\n",rank_id, endtime-starttime); 
+#endif
+
+#if !defined(ENABLE_TIMER) && !defined(ENABLE_MPI_TIMER)
+    std::cout << "Timers disabled: Enable by compiling with -DENABLE_TIMER (Boost timers) or -DENABLE_MPI_TIMER (MPI_Wtime)" << std::endl;
 #endif
 
     MPI_Finalize();

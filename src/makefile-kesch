@@ -1,0 +1,93 @@
+# --- makefile-kesch:
+# module purge
+# module load craype-haswell
+# module load craype-network-infiniband
+# module load Score-P/3.0-gmvapich2-17.02_cuda_7.5_gdr
+# 
+# export SCOREP_WRAPPER=off
+# make -f makefile-kesch
+
+HH := $(shell uname -n |cut -c1-3 )
+CUDATOOLKIT_HOME := /global/opt/nvidia/cudatoolkit/7.5.18
+MVAPICH2GDR_VERSION := $(shell pkg-config --variable=prefix mvapich2-gdr)
+# BOOST_VERSION := /apps/escha/UES/RH6.7/easybuild/software/Boost/1.63.0-gmvapich2-17.02_cuda_7.5_gdr-Python-2.7.12
+LIBMPI = -lmpi -lmpicxx
+CXX=../mpicxx.scorep
+NVCC=../nvcc.scorep
+
+EXECUTABLE := GNU$(GNU_VERSION)-CUDA$(CUDATOOLKIT_VERSION)-Stencils.$(HH)
+all: $(EXECUTABLE)
+
+INCFLAGS = -I$(CUDATOOLKIT_HOME)/include \
+-I$(MVAPICH2GDR_VERSION)/include \
+-I$(BOOST_VERSION)/include \
+-I.
+
+NVFLAGS  = $(INCFLAGS)
+ARCH = -arch=sm_37
+CFLAGS  = $(INCFLAGS)
+CFLAGS += -D_NOBOOST -DENABLE_MPI_TIMER # -D_NOTIMING # -DENABLE_TIMER
+CFLAGS += -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11
+NVFLAGS += -ccbin g++ -m64 $(ARCH) $(CFLAGS) -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\"
+
+LDFLAGS = -g -std=gnu++11 \
+-Wl,--enable-new-dtags \
+-L$(MVAPICH2GDR_VERSION)/lib64 \
+-L$(BOOST_VERSION)/lib \
+-L$(CUDATOOLKIT_HOME)/lib64 \
+$(LIBMPI) \
+-lcudart -lcuda 
+
+SRCcu = Kernel.cu HorizontalDiffusionSA.cu
+SRCc  = main.cpp Repository.cpp Options.cpp MPIHelper.cpp
+
+OBJC  := $(SRCc:.cpp=.o)
+OBJCU := $(SRCcu:.cu=.o)
+
+$(OBJC):
+	$(CXX) $(CFLAGS) -c $(@:.o=.cpp) # -o $@
+	@echo
+
+$(OBJCU):
+	$(NVCC) $(INCFLAGS) $(NVFLAGS) -c $(@:.o=.cu) # -o $@
+	@echo
+
+$(EXECUTABLE): $(OBJC) $(OBJCU)
+	$(CXX) $(LDFLAGS) $(OBJC) $(OBJCU) -o $@
+
+clean:
+	rm -f $(OBJC) $(OBJCU) $(EXECUTABLE)
+
+## https://github.com/MeteoSwiss-APN/comm_overlap_bench/issues/6
+## 
+##   piccinal@keschln-0002:/apps/common/UES/sandbox/jgp/comm_overlap_bench.gitjg/KESCH$barebones 
+##  srun -p debug --gres=gpu:2 -N1 -n2 --ntasks-per-node=2 -t5 ./GNU-CUDA-Stencils.kes 
+##  StandaloneStencilsCUDA
+##  
+##  usage: StandaloneStencilsCUDA [--ie isize] [--je jsize] [--ke ksize] \
+##                                [--sync] [--nocomm] [--nocomp] \
+##                                [--nh nhaloupdates] [-n nrepetitions] [--inorder]
+##  
+##  MV2_COMM_WORLD_LOCAL_RANK: 0, 1, 
+##  CUDA_VISIBLE_DEVICES: [0: 8,9] [1: 8,9] 
+##  Configured CUDA Devices: [0: 0] [1: 1] 
+##  SLURM_JOBID: 1519804
+##  SLURM_PROCID: 0, 1, 
+##  SLURM_CPU_BIND: [0: quiet,mask_cpu:0x080000,0x100000] [1: quiet,mask_cpu:0x080000,0x100000] 
+##  SLURMD_NODENAME: keschcn-0001, keschcn-0001, 
+##  
+##  CONFIGURATION 
+##  ====================================
+##  Domain : [128,128,60]
+##  Sync? : 0
+##  NoComm? : 0
+##  NoComp? : 0
+##  Number Halo Exchanges : 2
+##  Number benchmark repetitions : 1000
+##  In Order halo exchanges? : 0
+##  Compiled for mvapich2
+##  Dimensions: [2, 1]
+##  Neighbors: [0: 1,0,1,0] [1: 0,1,0,1] 
+##  ELAPSED TIME (seconds) for rank=0 8.013144
+##  ELAPSED TIME (seconds) for rank=1 8.015569
+

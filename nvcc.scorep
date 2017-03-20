@@ -1,7 +1,21 @@
-#!/bin/bash
+#!/bin/bash 
+
+if [ $SCOREP_WRAPPER = "on" ] ;then
+
+    echo "$@" |grep -q -- "-M " ;rc=$?
+    isdep=$?
+    if [ $isdep = 0 ] ;then
+        `which nvcc` "$@"
+    else
+        scorep --cuda --mpp=mpi --keep-files nvcc "$@"
+    fi
+
+else
+    `which nvcc` "$@"
+fi
 
 #`which scorep` --mpp=mpi --cuda mpicxx "$@"
 #remove system library paths like -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7
-parse_args=`echo "$@" | sed 's/-L[^ ]*redhat[^ ]*//g'`
-`which scorep` `which nvcc` ${parse_args}
+# parse_args=`echo "$@" | sed 's/-L[^ ]*redhat[^ ]*//g'`
+# `which scorep` `which nvcc` ${parse_args}
 
