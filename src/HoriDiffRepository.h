@@ -11,7 +11,7 @@
 #include <set>
 #include <vector>
 #include <string>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include "Definitions.h"
 
 /**
@@ -24,7 +24,7 @@
 class HoriDiffRepository
 {
     DISALLOW_COPY_AND_ASSIGN(HoriDiffRepository);
-    BOOST_STATIC_ASSERT(N_HORIDIFF_VARS > 0);
+//noboost    BOOST_STATIC_ASSERT(N_HORIDIFF_VARS > 0);
 public:
 
     HoriDiffRepository();
@@ -80,7 +80,7 @@ public:
         }
     }
 
-    std::vector< boost::shared_ptr< SwapDataField<IJKRealField> > >& horiDiffFields() { return horiDiffFields_; }
+    std::vector< std::shared_ptr< SwapDataField<IJKRealField> > >& horiDiffFields() { return horiDiffFields_; }
 
     // external parameter fields
     JRealField& crlat0() { return crlat0_; };
@@ -97,7 +97,7 @@ private:
 
     // prognostic variables
 
-    std::vector<boost::shared_ptr< SwapDataField<IJKRealField> > > horiDiffFields_;
+    std::vector<std::shared_ptr< SwapDataField<IJKRealField> > > horiDiffFields_;
 
     IJKRealField refField_;
     IJKRealField ref4St_;

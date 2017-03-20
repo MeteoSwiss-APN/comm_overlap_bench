@@ -1,4 +1,3 @@
-#include <boost/preprocessor/repetition/repeat.hpp>
 #include <exception>
 #include "HorizontalDiffusionSA.h"
 

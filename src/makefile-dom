@@ -1,0 +1,92 @@
+# --- makefile-dom:
+# module load daint-gpu
+# module load craype-haswell
+# module load craype-network-aries
+# module load Score-P/3.0-CrayGNU-2016.11-cuda-8.0.54
+# 
+# export SCOREP_WRAPPER=off
+# make -f makefile-kesch
+
+HH := $(shell uname -n |cut -c1-3 )
+CUDATOOLKIT_HOME := $(CRAY_CUDATOOLKIT_DIR)
+MVAPICH2GDR_VERSION=$(CRAY_MPICH2_DIR)
+
+LIBMPI = # -lmpi -lmpicxx
+CXX=../CC2.scorep
+NVCC=../nvcc.scorep
+
+EXECUTABLE := GNU$(GNU_VERSION)-CUDA$(CUDATOOLKIT_VERSION)-Stencils.$(HH)
+all: $(EXECUTABLE)
+
+INCFLAGS = -I$(CUDATOOLKIT_HOME)/include \
+-I$(MVAPICH2GDR_VERSION)/include \
+-I.
+
+NVFLAGS  = $(INCFLAGS)
+ARCH = -arch=sm_60
+CFLAGS  = $(INCFLAGS)
+CFLAGS += -DENABLE_MPI_TIMER # -D_NOTIMING # -DENABLE_TIMER
+CFLAGS += -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11
+NVFLAGS += -ccbin g++ -m64 $(ARCH) $(CFLAGS) -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\"
+
+LDFLAGS = -g -std=gnu++11 \
+-Wl,--enable-new-dtags \
+-L$(MVAPICH2GDR_VERSION)/lib64 \
+-L$(CUDATOOLKIT_HOME)/lib64 \
+$(LIBMPI) \
+-lcudart -lcuda 
+
+SRCcu = Kernel.cu HorizontalDiffusionSA.cu
+SRCc  = main.cpp Repository.cpp Options.cpp MPIHelper.cpp
+
+OBJC  := $(SRCc:.cpp=.o)
+OBJCU := $(SRCcu:.cu=.o)
+
+$(OBJC):
+	$(CXX) $(CFLAGS) -c $(@:.o=.cpp) # -o $@
+	@echo
+
+$(OBJCU):
+	$(NVCC) $(INCFLAGS) $(NVFLAGS) -c $(@:.o=.cu) # -o $@
+	@echo
+
+$(EXECUTABLE): $(OBJC) $(OBJCU)
+	$(CXX) $(LDFLAGS) $(OBJC) $(OBJCU) -o $@
+
+clean:
+	rm -f $(OBJC) $(OBJCU) $(EXECUTABLE)
+
+
+##  export CUDA_AUTOBOOST=1
+##  export GCLOCK=875
+##  export MPICH_RDMA_ENABLED_CUDA=1
+##   piccinal@dom101:/apps/common/UES/sandbox/jgp/comm_overlap_bench.gitjg/DOM$barebones 
+##  srun -C gpu -N2 -n2 --ntasks-per-node=1 -t5 ./GNU5.3.0-CUDA-Stencils.dom 
+##  StandaloneStencilsCUDA
+##  
+##  usage: StandaloneStencilsCUDA [--ie isize] [--je jsize] [--ke ksize] \
+##                                [--sync] [--nocomm] [--nocomp] \
+##                                [--nh nhaloupdates] [-n nrepetitions] [--inorder]
+##  
+##  CUDA_VISIBLE_DEVICES: [0: 0] [1: 0] 
+##  Configured CUDA Devices: [0: 0] [1: 0] 
+##  SLURM_JOBID: 648028
+##  SLURM_PROCID: 0, 1, 
+##  SLURM_CPU_BIND: [0: quiet,mask_cpu:0xFFFFFF] [1: quiet,mask_cpu:0xFFFFFF] 
+##  SLURMD_NODENAME: nid00001, nid00002, 
+##  
+##  CONFIGURATION 
+##  ====================================
+##  Domain : [128,128,60]
+##  Sync? : 0
+##  NoComm? : 0
+##  NoComp? : 0
+##  Number Halo Exchanges : 2
+##  Number benchmark repetitions : 1000
+##  In Order halo exchanges? : 0
+##  Compiled for mvapich2
+##  Dimensions: [2, 1]
+##  Neighbors: [0: 1,0,1,0] [1: 0,1,0,1] 
+##  ELAPSED TIME (seconds) for rank=1 6.759589
+##  ELAPSED TIME (seconds) for rank=0 6.758718
+
