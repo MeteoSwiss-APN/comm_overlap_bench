@@ -140,9 +140,13 @@ void printSlurmInfo() {
     if (nodename != 0) {
         MPIHelper::print("SLURMD_NODENAME: ", std::string(nodename)+", ", 9999);
     }
-    const char* usecuda = std::getenv("MV2_USE_CUDA");
-    if (jobid != 0 && rank == 0) {
-        std::cout << "MV2_USE_CUDA: " << usecuda << std::endl;
+    const char* usecuda1 = std::getenv("MV2_USE_CUDA");
+    if (usecuda1 != 0 && rank == 0) {
+        std::cout << "MV2_USE_CUDA: " << usecuda1 << std::endl;
+    }
+    const char* usecuda2 = std::getenv("MPICH_RDMA_ENABLED_CUDA");
+    if (usecuda2 != 0 && rank == 0) {
+        std::cout << "MPICH_RDMA_ENABLED_CUDA: " << usecuda2 << std::endl;
     }
 }
 
