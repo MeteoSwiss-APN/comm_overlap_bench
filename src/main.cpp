@@ -32,6 +32,7 @@ void readOptions(int argc, char** argv)
 
     const int& rank = Options::getInt("rank");
 
+#ifdef VERBOSE
     if (rank == 0) {
         std::cout << "StandaloneStencilsCUDA\n\n";
         std::cout << "usage: StandaloneStencilsCUDA [--ie isize] [--je jsize] [--ke ksize] \\\n"
@@ -40,6 +41,7 @@ void readOptions(int argc, char** argv)
                   << std::endl;
     }
     MPI_Barrier(MPI_COMM_WORLD);
+#endif
 
     Options::parse("isize",  "--ie",       128);
     Options::parse("jsize",  "--je",       128);
@@ -95,12 +97,14 @@ void setupDevice()
         exit(EXIT_FAILURE);
     }
 
+#ifdef CUDASETDEVICE
     error = cudaSetDevice(atoi(env_p)%numGPU);
     if(error)  {
         std::cout << "Rank: "+std::to_string(rank)+"CUDA ERROR: Could not set device " << std::to_string(atoi(env_p)%numGPU)
                   << std::endl;
         exit(EXIT_FAILURE);
     }
+#endif
     
     int device;
     error = cudaGetDevice(&device);
@@ -136,6 +140,10 @@ void printSlurmInfo() {
     if (nodename != 0) {
         MPIHelper::print("SLURMD_NODENAME: ", std::string(nodename)+", ", 9999);
     }
+    const char* usecuda = std::getenv("MV2_USE_CUDA");
+    if (jobid != 0 && rank == 0) {
+        std::cout << "MV2_USE_CUDA: " << usecuda << std::endl;
+    }
 }
 
 void init_mpi(int argc, char** argv) {
@@ -159,6 +167,7 @@ int main(int argc, char** argv)
     auto repository = std::shared_ptr<Repository>(new Repository(domain));
 
     const int& rank = Options::getInt("rank");
+#ifdef VERBOSE
     if (rank == 0) {
         std::cout << "\nCONFIGURATION " << std::endl;
         std::cout << "====================================" << std::endl;
@@ -171,6 +180,7 @@ int main(int argc, char** argv)
         std::cout << "In Order halo exchanges? : " << Options::getBool("inorder") << std::endl;
     }
     MPI_Barrier(MPI_COMM_WORLD);
+#endif
 
 #ifdef CUDA_BACKEND
     int deviceId;
@@ -180,6 +190,7 @@ int main(int argc, char** argv)
     }
 #endif
 
+#ifdef VERBOSE
 #ifdef MVAPICH2
     if (rank == 0)
         std::cout << "Compiled for mvapich2" << std::endl;
@@ -189,6 +200,7 @@ int main(int argc, char** argv)
 #else
     // Default proc
     const char* env_p = "0";
+#endif
 #endif
 
 #ifdef ENABLE_TIMER

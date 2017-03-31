@@ -2,37 +2,43 @@
 # module load slurm ;salloc -p long -w greina28 
 # ssh greina28 # patience...
 # module use /users/piccinal/easybuild/greina/modules/all
-# module load Score-P/3.0-gmvapich2-17.01_cuda_8.0.44_gdr	# built with MVAPICH2/2.2gdr-GCC-CUDA-8.0
+# module load Score-P/3.0-gmvapich2-17.01_cuda_8.0.44_gdr	
+#	   # built with MVAPICH2/2.2gdr-GCC-CUDA-8.0
 # module rm Cube
 #
 #
 # export SCOREP_WRAPPER=off
 # make -f makefile-greina28
 
-HH := $(shell uname -n |cut -c1-3 )
-CUDATOOLKIT_HOME := /cm/shared/apps/cuda/8.0.44
-MVAPICH2GDR_VERSION := /cm/shared/apps/mvapich2/gdr/2.2/cuda8.0/gcc
+CUDATOOLKIT_HOME := $(CUDA_INSTALL_PATH)
+# MVAPICH2_HOME := /cm/shared/apps/mvapich2/gdr/2.2/cuda8.0/gcc
+MVAPICH2_HOME := $(shell pkg-config --variable=prefix mvapich2 )
 LIBMPI = -lmpi -lmpicxx
-CXX=../mpicxx.scorep
-NVCC=../nvcc.scorep
+CXX = ../mpicxx.scorep
+NVCC = ../nvcc.scorep
 
-EXECUTABLE := GNU$(GNU_VERSION)-CUDA$(CUDATOOLKIT_VERSION)-Stencils.$(HH)
+HH := $(shell uname -n ) # |cut -c1-3 )
+GNU_VERSION := $(shell gcc -v 2>&1 |grep "gcc version" |cut -d" " -f3 )
+MVAPICH2_VERSION1 := $(shell mpiname -n )
+MVAPICH2_VERSION2 := $(shell mpiname -v )
+CUDATOOLKIT_VERSION := $(shell nvcc -V |grep "Cuda compilation" |cut -d" " -f6 )
+EXECUTABLE := GNU$(GNU_VERSION)_$(MVAPICH2_VERSION1)$(MVAPICH2_VERSION2)_CUDA$(CUDATOOLKIT_VERSION).$(HH)
 all: $(EXECUTABLE)
 
 INCFLAGS = -I$(CUDATOOLKIT_HOME)/include \
--I$(MVAPICH2GDR_VERSION)/include \
+-I$(MVAPICH2_HOME)/include \
 -I.
 
 NVFLAGS  = $(INCFLAGS)
 ARCH = -arch=sm_60
 CFLAGS  = $(INCFLAGS)
-CFLAGS += -DENABLE_MPI_TIMER # -D_NOTIMING # -DENABLE_TIMER
+CFLAGS += -DENABLE_MPI_TIMER -DCUDASETDEVICE # -D_NOTIMING # -DENABLE_TIMER
 CFLAGS += -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 
 NVFLAGS += -ccbin g++ -m64 $(ARCH) $(CFLAGS) -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\"
 
 LDFLAGS = -g -std=gnu++11 \
 -Wl,--enable-new-dtags \
--L$(MVAPICH2GDR_VERSION)/lib64 \
+-L$(MVAPICH2_HOME)/lib64 \
 -L$(CUDATOOLKIT_HOME)/lib64 \
 $(LIBMPI) \
 -lcudart -lcuda 
@@ -61,7 +67,9 @@ clean:
 
 
 # export MV2_GPUDIRECT_GDRCOPY_LIB=/cm/shared/apps/gdrcopy/lib64/libgdrapi.so
-# export G2G=2
+# export G2G=2  # export MV2_USE_CUDA=1
+# 	http://mvapich.cse.ohio-state.edu/static/media/mvapich/mvapich2-2.2-userguide.html#x1-28700011.121
+# 	
 # module use /users/piccinal/easybuild/greina/modules/all
 # module load Score-P/3.0-gmvapich2-17.01_cuda_8.0.44_gdr
 

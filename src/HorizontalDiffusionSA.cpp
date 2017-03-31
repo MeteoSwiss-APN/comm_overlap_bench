@@ -84,6 +84,7 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
     }
     MPI_Cart_rank(cartcomm,  &nX, &neighbours_[3]);
 
+#ifdef VERBOSE
     if (rankId_ == 0) {
         std::cout << "Dimensions: [" << std::to_string(dims[0]) << ", " << std::to_string(dims[1]) << "]" << std::endl;
     }
@@ -92,6 +93,7 @@ HorizontalDiffusionSA::HorizontalDiffusionSA(std::shared_ptr<Repository> reposit
                                            +std::to_string(neighbours_[1])+","
                                            +std::to_string(neighbours_[2])+","
                                            +std::to_string(neighbours_[3])+"] ", 9999);
+#endif
 
 #ifdef CUDA_BACKEND
     for(int c=0; c < N_HORIDIFF_VARS; ++c)
