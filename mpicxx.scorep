@@ -1,8 +1,9 @@
 #!/bin/bash
 
 if [ -z $SCOREP_WRAPPER ] ;then
-    echo "SCOREP_WRAPPER must be set to on or off, exiting..."
-    exit 0
+    export SCOREP_WRAPPER=off
+    # echo "SCOREP_WRAPPER must be set to on or off, exiting..."
+    # exit 0
 fi
 
 set -x
