@@ -1,0 +1,85 @@
+# Kesch:
+## cuda/70 + mvapich/21gdr + gcc/493
+
+### Setup:
+module load gmvapich2/15.11_cuda_7.0_gdr
+
+Currently Loaded Modulefiles:
+craype-haswell
+craype-network-infiniband
+binutils/.2.25
+GCC/4.9.3-binutils-2.25
+cudatoolkit/7.0.28
+mvapich2gdr_gnu/2.1_cuda_7.0
+MVAPICH2/2.1_cuda_7.0_gdr
+gmvapich2/15.11_cuda_7.0_gdr
+
+
+### Compile: with CUDASETDEVICE
+cd src/
+make -f makefile-kesch clean
+make -f makefile-kesch
+
+../mpicxx.scorep -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c main.cpp # -o main.o
++ '[' off = on ']'
+++ which mpicxx
++ /opt/mvapich2/gdr/2.1/cuda7.0/gnu/bin/mpicxx -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c main.cpp
++ set +x
+
+../mpicxx.scorep -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c Repository.cpp # -o Repository.o
++ '[' off = on ']'
+++ which mpicxx
++ /opt/mvapich2/gdr/2.1/cuda7.0/gnu/bin/mpicxx -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c Repository.cpp
++ set +x
+
+../mpicxx.scorep -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c Options.cpp # -o Options.o
++ '[' off = on ']'
+++ which mpicxx
++ /opt/mvapich2/gdr/2.1/cuda7.0/gnu/bin/mpicxx -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c Options.cpp
++ set +x
+
+../mpicxx.scorep -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c MPIHelper.cpp # -o MPIHelper.o
++ '[' off = on ']'
+++ which mpicxx
++ /opt/mvapich2/gdr/2.1/cuda7.0/gnu/bin/mpicxx -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c MPIHelper.cpp
++ set +x
+
+../nvcc.scorep -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -ccbin g++ -m64 -arch=sm_37 -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\" -c Kernel.cu # -o Kernel.o
++ '[' off = on ']'
+++ which nvcc
++ /global/opt/nvidia/cudatoolkit/7.0.28/bin/nvcc -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -ccbin g++ -m64 -arch=sm_37 -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -D__CUDACC__ -Xcompiler ',"-g","-std=c++11"' -c Kernel.cu
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
++ set +x
+
+../nvcc.scorep -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -ccbin g++ -m64 -arch=sm_37 -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\" -c HorizontalDiffusionSA.cu # -o HorizontalDiffusionSA.o
++ '[' off = on ']'
+++ which nvcc
++ /global/opt/nvidia/cudatoolkit/7.0.28/bin/nvcc -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -ccbin g++ -m64 -arch=sm_37 -I/global/opt/nvidia/cudatoolkit/7.0.28/bin/../include -I/opt/mvapich2/gdr/2.1/cuda7.0/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -D__CUDACC__ -Xcompiler ',"-g","-std=c++11"' -c HorizontalDiffusionSA.cu
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
++ set +x
+
+../mpicxx.scorep -g -std=gnu++11 -Wl,--enable-new-dtags -L/opt/mvapich2/gdr/2.1/cuda7.0/gnu/lib64 -L/global/opt/nvidia/cudatoolkit/7.0.28/bin/../lib64 -lmpi -lmpicxx -lcudart -lcuda  main.o Repository.o Options.o MPIHelper.o Kernel.o HorizontalDiffusionSA.o -o GNU4.9.3_MVAPICH2-GDR2.1_CUDAV7.0.27.keschln-0001
++ '[' off = on ']'
+++ which mpicxx
++ /opt/mvapich2/gdr/2.1/cuda7.0/gnu/bin/mpicxx -g -std=gnu++11 -Wl,--enable-new-dtags -L/opt/mvapich2/gdr/2.1/cuda7.0/gnu/lib64 -L/global/opt/nvidia/cudatoolkit/7.0.28/bin/../lib64 -lmpi -lmpicxx -lcudart -lcuda main.o Repository.o Options.o MPIHelper.o Kernel.o HorizontalDiffusionSA.o -o GNU4.9.3_MVAPICH2-GDR2.1_CUDAV7.0.27.keschln-0001
++ set +x
+
+
+
+
+### Run:
+export MV2_USE_CUDA=1
+srun -p debug --gres=gpu:2 -N1 -n2 --ntasks-per-node=2 -t1 \
+./GNU4.9.3_MVAPICH2-GDR2.1_CUDAV7.0.27.keschln-0001 
+
+CUDA_VISIBLE_DEVICES: [0: 0,1] [1: 0,1] 
+Configured CUDA Devices: [0: 0] [1: 1] 
+SLURM_JOBID: 1559920
+SLURM_PROCID: 0, 1, 
+SLURM_CPU_BIND: [0: quiet,mask_cpu:0x000001,0x000002] [1: quiet,mask_cpu:0x000001,0x000002] 
+SLURMD_NODENAME: keschcn-0007, keschcn-0007, 
+MV2_USE_CUDA: 1
+ELAPSED TIME (seconds) for rank=1 3.135746
+ELAPSED TIME (seconds) for rank=0 3.135923
