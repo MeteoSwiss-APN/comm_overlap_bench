@@ -7,30 +7,34 @@
 # export SCOREP_WRAPPER=off
 # make -f makefile-kesch
 
-HH := $(shell uname -n |cut -c1-3 )
-CUDATOOLKIT_HOME := /global/opt/nvidia/cudatoolkit/7.5.18
-MVAPICH2GDR_VERSION := $(shell pkg-config --variable=prefix mvapich2-gdr)
+# CUDATOOLKIT_HOME := /global/opt/nvidia/cudatoolkit/7.5.18
+CUDATOOLKIT_HOME := $(shell dirname `which nvcc` )/..
+MVAPICH2_HOME := $(shell pkg-config --variable=prefix mvapich2-gdr)
 LIBMPI = -lmpi -lmpicxx
 CXX=../mpicxx.scorep
 NVCC=../nvcc.scorep
-
-EXECUTABLE := GNU$(GNU_VERSION)-CUDA$(CUDATOOLKIT_VERSION)-Stencils.$(HH)
+HH := $(shell uname -n ) # |cut -c1-3 )
+GNU_VERSION := $(shell gcc -v 2>&1 |grep "gcc version" |cut -d" " -f3 )
+MVAPICH2_VERSION1 := $(shell mpiname -n )
+MVAPICH2_VERSION2 := $(shell mpiname -v )
+CUDATOOLKIT_VERSION := $(shell nvcc -V |grep "Cuda compilation" |cut -d" " -f6 )
+EXECUTABLE := GNU$(GNU_VERSION)_$(MVAPICH2_VERSION1)$(MVAPICH2_VERSION2)_CUDA$(CUDATOOLKIT_VERSION).$(HH)
 all: $(EXECUTABLE)
 
 INCFLAGS = -I$(CUDATOOLKIT_HOME)/include \
--I$(MVAPICH2GDR_VERSION)/include \
+-I$(MVAPICH2_HOME)/include \
 -I.
 
 NVFLAGS  = $(INCFLAGS)
 ARCH = -arch=sm_37
 CFLAGS  = $(INCFLAGS)
-CFLAGS += -DENABLE_MPI_TIMER # -D_NOTIMING # -DENABLE_TIMER
+CFLAGS += -DENABLE_MPI_TIMER -DCUDASETDEVICE # -D_NOTIMING # -DENABLE_TIMER
 CFLAGS += -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11
 NVFLAGS += -ccbin g++ -m64 $(ARCH) $(CFLAGS) -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\"
 
 LDFLAGS = -g -std=gnu++11 \
 -Wl,--enable-new-dtags \
--L$(MVAPICH2GDR_VERSION)/lib64 \
+-L$(MVAPICH2_HOME)/lib64 \
 -L$(CUDATOOLKIT_HOME)/lib64 \
 $(LIBMPI) \
 -lcudart -lcuda 

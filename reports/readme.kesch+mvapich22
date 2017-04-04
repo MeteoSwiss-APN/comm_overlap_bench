@@ -1,0 +1,300 @@
+# Kesch:
+## cuda/75 + mvapich/22gdr + gcc/493
+
+### Setup:
+module load gmvapich2/17.02_cuda_7.5_gdr
+
+Currently Loaded Modulefiles:
+binutils/.2.25
+GCC/4.9.3-binutils-2.25
+cudatoolkit/7.5.18
+mvapich2gdr_gnu/2.2_cuda_7.5
+MVAPICH2/2.2_cuda_7.5_gdr
+craype-haswell
+craype-network-infiniband
+gmvapich2/17.02_cuda_7.5_gdr
+
+
+### Compile: with CUDASETDEVICE
+cd src/
+make -f makefile-kesch clean
+make -f makefile-kesch
+
+../mpicxx.scorep -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c main.cpp # -o main.o
++ '[' off = on ']'
+++ which mpicxx
++ /opt/mvapich2/gdr/2.2/cuda7.5/gnu/bin/mpicxx -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c main.cpp
++ set +x
+
+../mpicxx.scorep -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c Repository.cpp # -o Repository.o
++ '[' off = on ']'
+++ which mpicxx
++ /opt/mvapich2/gdr/2.2/cuda7.5/gnu/bin/mpicxx -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c Repository.cpp
++ set +x
+
+../mpicxx.scorep -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c Options.cpp # -o Options.o
++ '[' off = on ']'
+++ which mpicxx
++ /opt/mvapich2/gdr/2.2/cuda7.5/gnu/bin/mpicxx -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c Options.cpp
++ set +x
+
+../mpicxx.scorep -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c MPIHelper.cpp # -o MPIHelper.o
++ '[' off = on ']'
+++ which mpicxx
++ /opt/mvapich2/gdr/2.2/cuda7.5/gnu/bin/mpicxx -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c MPIHelper.cpp
++ set +x
+
+../nvcc.scorep -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -ccbin g++ -m64 -arch=sm_37 -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\" -c Kernel.cu # -o Kernel.o
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+
+../nvcc.scorep -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -ccbin g++ -m64 -arch=sm_37 -I/global/opt/nvidia/cudatoolkit/7.5.18/include -I/opt/mvapich2/gdr/2.2/cuda7.5/gnu/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\" -c HorizontalDiffusionSA.cu # -o HorizontalDiffusionSA.o
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+
+../mpicxx.scorep -g -std=gnu++11 -Wl,--enable-new-dtags -L/opt/mvapich2/gdr/2.2/cuda7.5/gnu/lib64 -L/global/opt/nvidia/cudatoolkit/7.5.18/lib64 -lmpi -lmpicxx -lcudart -lcuda  main.o Repository.o Options.o MPIHelper.o Kernel.o HorizontalDiffusionSA.o -o GNU4.9.3_MVAPICH2-GDR2.2_CUDAV7.5.17.keschln-0003
++ '[' off = on ']'
+++ which mpicxx
++ /opt/mvapich2/gdr/2.2/cuda7.5/gnu/bin/mpicxx -g -std=gnu++11 -Wl,--enable-new-dtags -L/opt/mvapich2/gdr/2.2/cuda7.5/gnu/lib64 -L/global/opt/nvidia/cudatoolkit/7.5.18/lib64 -lmpi -lmpicxx -lcudart -lcuda main.o Repository.o Options.o MPIHelper.o Kernel.o HorizontalDiffusionSA.o -o GNU4.9.3_MVAPICH2-GDR2.2_CUDAV7.5.17.keschln-0003
+
+
+
+### Run: exe compiled with -DCUDASETDEVICE
+export MV2_USE_CUDA=1
+
+srun -p debug --gres=gpu:2 -N1 -n2 --ntasks-per-node=2 -t1 \
+#### ./GNU4.9.3_MVAPICH2-GDR2.2_CUDAV7.5.17.keschln-0003 
+
+CUDA_VISIBLE_DEVICES: [0: 0,1] [1: 0,1] 
+Configured CUDA Devices: [0: 0] [1: 1] 
+SLURM_JOBID: 1560163
+SLURM_PROCID: 0, 1, 
+SLURM_CPU_BIND: [0: quiet,mask_cpu:0x000001,0x000002] 
+                [1: quiet,mask_cpu:0x000001,0x000002] 
+SLURMD_NODENAME: keschcn-0002, keschcn-0002, 
+MV2_USE_CUDA: 1
+ELAPSED TIME (seconds) for rank=1 7.881949  # SLOW!
+ELAPSED TIME (seconds) for rank=0 7.883803
+
+#### ./GNU4.9.3_MVAPICH22.2_CUDAV7.0.27.keschln-0002+setdev 
+CUDA_VISIBLE_DEVICES: [0: 0,1] [1: 0,1] 
+Configured CUDA Devices: [0: 0] [1: 1] 
+SLURM_JOBID: 1574307
+SLURM_PROCID: 0, 1, 
+SLURM_CPU_BIND: [0: quiet,mask_cpu:0x000020,0x000040] 
+                [1: quiet,mask_cpu:0x000020,0x000040] 
+SLURMD_NODENAME: keschcn-0001, keschcn-0001, 
+MV2_USE_CUDA: 1
+ELAPSED TIME (seconds) for rank=0 3.193842
+ELAPSED TIME (seconds) for rank=1 3.193817
+
+#### ./GNU4.9.3_MVAPICH22.2_CUDAV7.5.17.keschln-0001+setdev 
+CUDA_VISIBLE_DEVICES: [0: 0,1] [1: 0,1] 
+Configured CUDA Devices: [0: 0] [1: 1] 
+SLURM_JOBID: 1574325
+SLURM_PROCID: 0, 1, 
+SLURM_CPU_BIND: [0: quiet,mask_cpu:0x000001,0x000002] 
+                [1: quiet,mask_cpu:0x000001,0x000002] 
+SLURMD_NODENAME: keschcn-0001, keschcn-0001, 
+MV2_USE_CUDA: 1
+ELAPSED TIME (seconds) for rank=1 7.478549  # SLOW!
+ELAPSED TIME (seconds) for rank=0 7.477308
+
+### Run: exe compiled without -DCUDASETDEVICE
+export MV2_USE_CUDA=1
+
+srun -p debug --gres=gpu:2 -N1 -n2 --ntasks-per-node=2 -t1 \
+./GNU4.9.3_MVAPICH2-GDR2.2_CUDAV7.5.17.keschln-0001-setdev
+
+CUDA_VISIBLE_DEVICES: [0: 0,1] [1: 0,1] 
+Configured CUDA Devices: [0: 0] [1: 0] 
+SLURM_JOBID: 1572863
+SLURM_PROCID: 0, 1, 
+SLURM_CPU_BIND: [0: quiet,mask_cpu:0x000001,0x000002] 
+                [1: quiet,mask_cpu:0x000001,0x000002] 
+SLURMD_NODENAME: keschcn-0012, keschcn-0012, 
+MV2_USE_CUDA: 1
+ELAPSED TIME (seconds) for rank=1 8.231837
+ELAPSED TIME (seconds) for rank=0 8.234329
+
+
+
+# srun -p debug --gres=gpu:2 -N1 -n1 -t1 nvidia-smi topo -m
+    GPU0    GPU1    GPU2    GPU3    GPU4    GPU5    GPU6    GPU7    GPU8    GPU9    GPU10   GPU11   GPU12   GPU13   GPU14   GPU15   mlx5_0  mlx5_1  CPU Affinity
+GPU0     X  PIX PXB PXB PHB PHB PHB PHB SOC SOC SOC SOC SOC SOC SOC SOC PHB SOC 0-11
+GPU1    PIX  X  PXB PXB PHB PHB PHB PHB SOC SOC SOC SOC SOC SOC SOC SOC PHB SOC 0-11
+GPU2    PXB PXB  X  PIX PHB PHB PHB PHB SOC SOC SOC SOC SOC SOC SOC SOC PHB SOC 0-11
+GPU3    PXB PXB PIX  X  PHB PHB PHB PHB SOC SOC SOC SOC SOC SOC SOC SOC PHB SOC 0-11
+GPU4    PHB PHB PHB PHB  X  PIX PXB PXB SOC SOC SOC SOC SOC SOC SOC SOC PHB SOC 0-11
+GPU5    PHB PHB PHB PHB PIX  X  PXB PXB SOC SOC SOC SOC SOC SOC SOC SOC PHB SOC 0-11
+GPU6    PHB PHB PHB PHB PXB PXB  X  PIX SOC SOC SOC SOC SOC SOC SOC SOC PHB SOC 0-11
+GPU7    PHB PHB PHB PHB PXB PXB PIX  X  SOC SOC SOC SOC SOC SOC SOC SOC PHB SOC 0-11
+GPU8    SOC SOC SOC SOC SOC SOC SOC SOC  X  PIX PXB PXB PHB PHB PHB PHB SOC PHB 12-23
+GPU9    SOC SOC SOC SOC SOC SOC SOC SOC PIX  X  PXB PXB PHB PHB PHB PHB SOC PHB 12-23
+GPU10   SOC SOC SOC SOC SOC SOC SOC SOC PXB PXB  X  PIX PHB PHB PHB PHB SOC PHB 12-23
+GPU11   SOC SOC SOC SOC SOC SOC SOC SOC PXB PXB PIX  X  PHB PHB PHB PHB SOC PHB 12-23
+GPU12   SOC SOC SOC SOC SOC SOC SOC SOC PHB PHB PHB PHB  X  PIX PXB PXB SOC PHB 12-23
+GPU13   SOC SOC SOC SOC SOC SOC SOC SOC PHB PHB PHB PHB PIX  X  PXB PXB SOC PHB 12-23
+GPU14   SOC SOC SOC SOC SOC SOC SOC SOC PHB PHB PHB PHB PXB PXB  X  PIX SOC PHB 12-23
+GPU15   SOC SOC SOC SOC SOC SOC SOC SOC PHB PHB PHB PHB PXB PXB PIX  X  SOC PHB 12-23
+mlx5_0  PHB PHB PHB PHB PHB PHB PHB PHB SOC SOC SOC SOC SOC SOC SOC SOC  X  SOC 
+mlx5_1  SOC SOC SOC SOC SOC SOC SOC SOC PHB PHB PHB PHB PHB PHB PHB PHB SOC  X  
+
+Legend:
+
+  X   = Self
+  SOC = Path traverses a socket-level link (e.g. QPI)
+  PHB = Path traverses a PCIe host bridge
+  PXB = Path traverses multiple PCIe internal switches
+  PIX = Path traverses a PCIe internal switch
+
+
+# srun -p debug --gres=gpu:2 -N1 -n1 -t1 nvidia-smi -q
+
+==============NVSMI LOG==============
+
+Timestamp                           : Mon Apr  3 10:44:45 2017
+Driver Version                      : 352.79
+
+Attached GPUs                       : 16
+GPU 0000:06:00.0
+    Product Name                    : Tesla K80
+    Product Brand                   : Tesla
+    Display Mode                    : Disabled
+    Display Active                  : Disabled
+    Persistence Mode                : Enabled
+    Accounting Mode                 : Disabled
+    Accounting Mode Buffer Size     : 1920
+    Driver Model
+        Current                     : N/A
+        Pending                     : N/A
+    Serial Number                   : 0320415056576
+    GPU UUID                        : GPU-221f1373-ac28-f73c-0774-fe9b884ffea3
+    Minor Number                    : 0
+    VBIOS Version                   : 80.21.1B.00.01
+    MultiGPU Board                  : Yes
+    Board ID                        : 0x400
+    Inforom Version
+        Image Version               : 2080.0200.00.04
+        OEM Object                  : 1.1
+        ECC Object                  : 3.0
+        Power Management Object     : N/A
+    GPU Operation Mode
+        Current                     : N/A
+        Pending                     : N/A
+    PCI
+        Bus                         : 0x06
+        Device                      : 0x00
+        Domain                      : 0x0000
+        Device Id                   : 0x102D10DE
+        Bus Id                      : 0000:06:00.0
+        Sub System Id               : 0x106C10DE
+        GPU Link Info
+            PCIe Generation
+                Max                 : 3
+                Current             : 3
+            Link Width
+                Max                 : 16x
+                Current             : 16x
+        Bridge Chip
+            Type                    : PLX
+            Firmware                : 0xF0472900
+        Replays since reset         : 0
+        Tx Throughput               : N/A
+        Rx Throughput               : N/A
+    Fan Speed                       : N/A
+    Performance State               : P0
+    Clocks Throttle Reasons
+        Idle                        : Not Active
+        Applications Clocks Setting : Active
+        SW Power Cap                : Not Active
+        HW Slowdown                 : Not Active
+        Unknown                     : Not Active
+    FB Memory Usage
+        Total                       : 11519 MiB
+        Used                        : 329 MiB
+        Free                        : 11190 MiB
+    BAR1 Memory Usage
+        Total                       : 16384 MiB
+        Used                        : 4 MiB
+        Free                        : 16380 MiB
+    Compute Mode                    : Exclusive_Process
+    Utilization
+        Gpu                         : 45 %
+        Memory                      : 0 %
+        Encoder                     : 0 %
+        Decoder                     : 0 %
+    Ecc Mode
+        Current                     : Enabled
+        Pending                     : Enabled
+    ECC Errors
+        Volatile
+            Single Bit            
+                Device Memory       : 0
+                Register File       : 0
+                L1 Cache            : 0
+                L2 Cache            : 0
+                Texture Memory      : 0
+                Total               : 0
+            Double Bit            
+                Device Memory       : 0
+                Register File       : 0
+                L1 Cache            : 0
+                L2 Cache            : 0
+                Texture Memory      : 0
+                Total               : 0
+        Aggregate
+            Single Bit            
+                Device Memory       : 0
+                Register File       : 0
+                L1 Cache            : 0
+                L2 Cache            : 0
+                Texture Memory      : 0
+                Total               : 0
+            Double Bit            
+                Device Memory       : 0
+                Register File       : 0
+                L1 Cache            : 0
+                L2 Cache            : 0
+                Texture Memory      : 0
+                Total               : 0
+    Retired Pages
+        Single Bit ECC              : 0
+        Double Bit ECC              : 0
+        Pending                     : No
+    Temperature
+        GPU Current Temp            : 44 C
+        GPU Shutdown Temp           : 93 C
+        GPU Slowdown Temp           : 88 C
+    Power Readings
+        Power Management            : Supported
+        Power Draw                  : 63.45 W
+        Power Limit                 : 149.00 W
+        Default Power Limit         : 149.00 W
+        Enforced Power Limit        : 149.00 W
+        Min Power Limit             : 100.00 W
+        Max Power Limit             : 175.00 W
+    Clocks
+        Graphics                    : 640 MHz
+        SM                          : 640 MHz
+        Memory                      : 2505 MHz
+    Applications Clocks
+        Graphics                    : 562 MHz
+        Memory                      : 2505 MHz
+    Default Applications Clocks
+        Graphics                    : 562 MHz
+        Memory                      : 2505 MHz
+    Max Clocks
+        Graphics                    : 875 MHz
+        SM                          : 875 MHz
+        Memory                      : 2505 MHz
+    Clock Policy
+        Auto Boost                  : On
+        Auto Boost Default          : On
+    Processes
+        Process ID                  : 121546
+            Type                    : C
+            Name                    : /scratch-shared/meteoswiss/scratch/jenkins/workspace/cosmo5_PR/build_type/release/real_type/float/slave/kesch/target/gpu/cosmo/test/testsuite/work/pollen/test_1_gpu/./cosmo_gpu
+            Used GPU Memory         : 272 MiB
+etc...
+

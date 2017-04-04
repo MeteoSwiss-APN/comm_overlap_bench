@@ -1,0 +1,107 @@
+# greina6:
+## cuda/8061 + mvapich/75 + gcc/530
+
+### Setup:
+module load slurm 
+salloc -p long -w greina6
+ssh greina6  # <---------------
+module purge
+module load gmvapich2/17.01_cuda_8.0.61
+
+Currently Loaded Modulefiles:
+GCC/4.9.3-binutils-2.25
+cuda80/8.0.61
+slurm/15.08.6
+MVAPICH2/2.2-GCC-4.9.3-binutils-2.25
+gmvapich2/17.01_cuda_8.0.61
+
+### Compile: with CUDASETDEVICE
+cd src/
+make -f makefile-greina28 clean
+make -f makefile-greina28
+
+../mpicxx.scorep -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11  -c main.cpp # -o main.o
++ '[' off = on ']'
+++ which mpicxx
++ /cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/bin/mpicxx -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c main.cpp
++ set +x
+
+../mpicxx.scorep -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11  -c Repository.cpp # -o Repository.o
++ '[' off = on ']'
+++ which mpicxx
++ /cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/bin/mpicxx -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c Repository.cpp
++ set +x
+
+../mpicxx.scorep -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11  -c Options.cpp # -o Options.o
++ '[' off = on ']'
+++ which mpicxx
++ /cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/bin/mpicxx -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c Options.cpp
++ set +x
+
+../mpicxx.scorep -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11  -c MPIHelper.cpp # -o MPIHelper.o
++ '[' off = on ']'
+++ which mpicxx
++ /cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/bin/mpicxx -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -c MPIHelper.cpp
++ set +x
+
+../nvcc.scorep -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -ccbin g++ -m64 -arch=sm_60 -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11  -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\" -c Kernel.cu # -o Kernel.o
++ '[' off = on ']'
+++ which nvcc
++ /cm/shared/apps/cuda8/bin/nvcc -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -ccbin g++ -m64 -arch=sm_60 -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -D__CUDACC__ -Xcompiler ',"-g","-std=c++11"' -c Kernel.cu
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
++ set +x
+
+../nvcc.scorep -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -ccbin g++ -m64 -arch=sm_60 -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE  -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11  -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\" -c HorizontalDiffusionSA.cu # -o HorizontalDiffusionSA.o
++ '[' off = on ']'
+++ which nvcc
++ /cm/shared/apps/cuda8/bin/nvcc -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -ccbin g++ -m64 -arch=sm_60 -I/cm/shared/apps/cuda8//include -I/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/include -I. -DENABLE_MPI_TIMER -DCUDASETDEVICE -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11 -D__CUDACC__ -Xcompiler ',"-g","-std=c++11"' -c HorizontalDiffusionSA.cu
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
++ set +x
+
+../mpicxx.scorep -g -std=gnu++11 -Wl,--enable-new-dtags -L/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/lib64 -L/cm/shared/apps/cuda8//lib64 -lmpi -lmpicxx -lcudart -lcuda  main.o Repository.o Options.o MPIHelper.o Kernel.o HorizontalDiffusionSA.o -o GNU4.9.3_MVAPICH22.2_CUDAV8.0.61.greina6
++ '[' off = on ']'
+++ which mpicxx
++ /cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/bin/mpicxx -g -std=gnu++11 -Wl,--enable-new-dtags -L/cm/shared/apps/easybuild/software/MVAPICH2/2.2-GCC-4.9.3-binutils-2.25/lib64 -L/cm/shared/apps/cuda8//lib64 -lmpi -lmpicxx -lcudart -lcuda main.o Repository.o Options.o MPIHelper.o Kernel.o HorizontalDiffusionSA.o -o GNU4.9.3_MVAPICH22.2_CUDAV8.0.61.greina6
++ set +x
+
+
+### Run:
+piccinal@greina6:~$ 
+ exit
+ logout
+Connection to greina6 closed.
+piccinal@greina0:~/comm_overlap_bench.gitjg/GREINA6$barebones 
+ exit
+ exit
+ salloc: Relinquishing job allocation 31040
+ salloc: Job allocation 31040 has been revoked.
+
+module load gmvapich2/17.01_cuda_8.0.61
+export MV2_USE_CUDA=1
+
+srun -p short --cpu_bind=cores --hint=nomultithread --mpi=pmi2 -n2 --ntasks-per-node=2 --gres=gpu:1 -w greina2 -t1 ./GNU4.9.3_MVAPICH2-GDR2.2_CUDAV8.0.44.greina2
+CUDA_VISIBLE_DEVICES: [0: 0] [1: 0] 
+Configured CUDA Devices: [0: 0] [1: 0] 
+SLURM_JOBID: 31023
+SLURM_PROCID: 0, 1, 
+SLURM_CPU_BIND: [0: quiet,mask_cpu:0x001,0x002] [1: quiet,mask_cpu:0x001,0x002] 
+SLURMD_NODENAME: greina2, greina2, 
+MV2_USE_CUDA: 1
+ELAPSED TIME (seconds) for rank=0 2.015708
+ELAPSED TIME (seconds) for rank=1 2.015753
+
+
+srun -p short --cpu_bind=cores --hint=nomultithread --mpi=pmi2 -n2 --ntasks-per-node=1 --gres=gpu:1 -w greina2,greina3 -t1 ./GNU4.9.3_MVAPICH2-GDR2.2_CUDAV8.0.44.greina2
+CUDA_VISIBLE_DEVICES: [0: 0] [1: 0] 
+Configured CUDA Devices: [0: 0] [1: 0] 
+SLURM_JOBID: 31020
+SLURM_PROCID: 0, 1, 
+SLURM_CPU_BIND: [0: quiet,mask_cpu:0x001] [1: quiet,mask_cpu:0x001] 
+SLURMD_NODENAME: greina2, greina3, 
+MV2_USE_CUDA: 1
+ELAPSED TIME (seconds) for rank=0 0.808742
+ELAPSED TIME (seconds) for rank=1 0.808855
+
+
