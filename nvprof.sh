@@ -10,5 +10,6 @@ fi
 stdout="${OUTPUT_DIR}/nvprof_stdout_${SLURM_PROCID}"
 stderr="${OUTPUT_DIR}/nvprof_stderr_${SLURM_PROCID}"
 
-nvprof --events all $EXEC > "${stdout}_events" 2> "${stderr}_events"
-nvprof --metrics all $EXEC > "${stdout}_metrics" 2> "${stderr}_metrics"
+nvprof --metrics all     $EXEC > "${OUTPUT_DIR}/nvprof_metrics_${SLURM_PROCID}_stdout"   2> "${OUTPUT_DIR}/nvprof_metrics_${SLURM_PROCID}"
+nvprof --print-gpu-trace $EXEC > "${OUTPUT_DIR}/nvprof_gpu_trace_${SLURM_PROCID}_stdout" 2> "${OUTPUT_DIR}/nvprof_gpu_trace_${SLURM_PROCID}"
+nvprof --events all      $EXEC > "${OUTPUT_DIR}/nvprof_events_${SLURM_PROCID}_stdout"    2> "${OUTPUT_DIR}/nvprof_events_${SLURM_PROCID}"

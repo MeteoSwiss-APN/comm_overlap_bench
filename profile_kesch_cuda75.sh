@@ -8,7 +8,7 @@ module list
 export BOOST_LIBRARY_PATH=/apps/escha/UES/RH6.7/easybuild/software/Boost/1.63.0-gmvapich2-17.02_cuda_7.5_gdr-Python-2.7.12/lib
 export LD_LIBRARY_PATH=$BOOST_LIBRARY_PATH:$LD_LIBRARY_PATH
 
-[ -z "${jobs}" ] && jobs=2
+[ -z "${jobs}" ] && jobs=1
 echo "Running with ${jobs} jobs (set jobs environment variable to change)"
 
 # Setup Node configuration
@@ -45,7 +45,7 @@ echo "Tasks/Node: ${tasks_node}"
 echo "Tasks/Socket: ${tasks_socket}"
 echo "Partition: ${partition}"
 
-export EXEC="build_cuda75/src/comm_overlap_benchmark --nocomm"
+export EXEC="build_cuda75/src/comm_overlap_benchmark --nocomm -n 5"
 export OUTPUT_DIR=profile_kesch_cuda_75
 mkdir -p "${OUTPUT_DIR}"
 

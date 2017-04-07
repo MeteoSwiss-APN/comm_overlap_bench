@@ -14,5 +14,5 @@ export BOOST_ROOT="/apps/escha/UES/RH6.7/easybuild/software/Boost/1.49.0-gmvolf-
 
 pushd build &>/dev/null
     cmake .. -DCMAKE_CXX_FLAGS="-std=c++11" -DMPI_VENDOR=mvapich2 -DCUDA_COMPUTE_CAPABILITY="sm_37" -DCMAKE_BUILD_TYPE=Release  -DBOOST_ROOT="${BOOST_ROOT}" 
-    make -j 8 
+    make -j 1
 
