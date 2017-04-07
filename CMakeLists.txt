@@ -1,5 +1,5 @@
 # Top Level CMakeLists.txt File
-cmake_minimum_required( VERSION 2.8.11.1 )
+cmake_minimum_required( VERSION 3.4 )
 
 # set the installation prefix
 # Note: setting this *before* the project imposes a default that the user is able to change.
@@ -31,6 +31,7 @@ set ( CMAKE_EXE_LINKER_FLAGS ${MPI_LINK_FLAGS} ${CMAKE_LINK_FLAGS} ${CMAKE_THREA
 set( CUDA_BACKEND "ON" CACHE BOOL "Compile CUDA version" )
 if( CUDA_BACKEND )
     find_package( CUDA 5.0 )
+    set(CUDA_PROPAGATE_HOST_FLAGS OFF)
     #    set(CUDA_SEPARABLE_COMPILATION ON CACHE BOOL "" FORCE)
     add_definitions( -DCUDA_BACKEND)
     add_definitions( -DCUDASETDEVICE)
