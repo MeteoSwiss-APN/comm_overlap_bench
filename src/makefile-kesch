@@ -3,6 +3,8 @@
 # module load craype-haswell
 # module load craype-network-infiniband
 # module load Score-P/3.0-gmvapich2-17.02_cuda_7.5_gdr
+# # module use /users/piccinal/easybuild/keschln/modules/all
+# # MVAPICH2/2.2-GCC-4.9.3-binutils-2.25-cuda75
 # 
 # export SCOREP_WRAPPER=off
 # make -f makefile-kesch
@@ -60,7 +62,7 @@ clean:
 	rm -f $(OBJC) $(OBJCU) $(EXECUTABLE)
 
 ## https://github.com/MeteoSwiss-APN/comm_overlap_bench/issues/6
-## 
+## 	export MV2_USE_CUDA=1
 ##   piccinal@keschln-0002:/apps/common/UES/sandbox/jgp/comm_overlap_bench.gitjg/KESCH$barebones 
 ##  srun -p debug --gres=gpu:2 -N1 -n2 --ntasks-per-node=2 -t5 ./GNU-CUDA-Stencils.kes 
 ##  StandaloneStencilsCUDA
