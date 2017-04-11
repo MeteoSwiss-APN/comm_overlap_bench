@@ -46,7 +46,18 @@ echo "Tasks/Socket: ${tasks_socket}"
 echo "Partition: ${partition}"
 
 #srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_socket build/src/StandaloneStencilsCUDA
+echo =======================================================================
+echo = Default Benchmark
+echo =======================================================================
 srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build_cuda75/src/comm_overlap_benchmark
+echo =======================================================================
+echo = No Communication
+echo =======================================================================
+srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build_cuda75/src/comm_overlap_benchmark --nocomm
+echo =======================================================================
+echo = No Computation
+echo =======================================================================
+srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build_cuda75/src/comm_overlap_benchmark --nocomp
 
 #srun --nodes=$nodes --ntasks-per-node=$tasks_node --gres=gpu:$tasks_node -n $jobs -p debug  build/src/StandaloneStencilsCUDA
 

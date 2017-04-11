@@ -22,8 +22,8 @@
 #include <boost/timer/timer.hpp>
 #endif
 
-#ifdef __CUDA_BACKEND__
-#include "cuda_profiler_api.h"
+#ifdef CUDA_BACKEND
+#include <cuda_profiler_api.h>
 #endif
 
 void readOptions(int argc, char** argv)
@@ -215,6 +215,7 @@ int main(int argc, char** argv)
 
 #ifdef CUDA_BACKEND
     cudaDeviceSynchronize();
+    cudaProfilerStart();
 #endif
 
     bool sync = Options::getBool("sync");
@@ -286,6 +287,7 @@ int main(int argc, char** argv)
     }
 
 #ifdef CUDA_BACKEND
+    cudaProfilerStop();
     cudaDeviceSynchronize();
 #endif
     
