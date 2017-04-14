@@ -32,7 +32,8 @@ add_executable(comm_overlap_benchmark
 #cuda and non cuda compilation
 if( CUDA_BACKEND )
     cuda_add_library(
-        StandaloneStencils STATIC
+        # StandaloneStencils STATIC
+        StandaloneStencils SHARED
         ${CUDA_SOURCES} 
         OPTIONS ${NVCC_FLAGS}
     )
@@ -46,6 +47,7 @@ endif()
 if (${CMAKE_COMPILE_FLAGS})
     set_target_properties(comm_overlap_benchmark PROPERTIES COMPILE_FLAGS ${CMAKE_COMPILE_FLAGS})
 endif()
+
 if (${CMAKE_LINK_FLAGS})
     set_target_properties(comm_overlap_benchmark PROPERTIES LINK_FLAGS ${CMAKE_LINK_FLAGS}) 
 endif()
@@ -59,12 +61,15 @@ cuda_add_executable(comm_overlap_benchmark_cc
     ${SOURCES}
     ${CUDA_SOURCES}
     OPTIONS ${NVCC_FLAGS})
+
 if (${CMAKE_COMPILE_FLAGS})
     set_target_properties(comm_overlap_benchmark_cc PROPERTIES COMPILE_FLAGS ${CMAKE_COMPILE_FLAGS})
 endif()
+
 if (${CMAKE_LINK_FLAGS})
     set_target_properties(comm_overlap_benchmark_cc PROPERTIES LINK_FLAGS ${CMAKE_LINK_FLAGS}) 
 endif()
+
 target_link_libraries(
     comm_overlap_benchmark_cc
     ${MPI_LIBRARIES})

@@ -4,7 +4,7 @@
 # module load craype-network-infiniband
 # module load Score-P/3.0-gmvapich2-17.02_cuda_7.5_gdr
 # # module use /users/piccinal/easybuild/keschln/modules/all
-# # MVAPICH2/2.2-GCC-4.9.3-binutils-2.25-cuda75
+# # module load Score-P/3.0-gmvapich2-17.02_cuda_7.0 CMake/3.7.2
 # 
 # export SCOREP_WRAPPER=off
 # make -f makefile-kesch

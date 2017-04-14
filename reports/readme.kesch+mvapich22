@@ -161,7 +161,7 @@ ELAPSED TIME (seconds) for rank=0 7.477308
 export MV2_USE_CUDA=1
 
 srun -p debug --gres=gpu:2 -N1 -n2 --ntasks-per-node=2 -t1 \
-./GNU4.9.3_MVAPICH2-GDR2.2_CUDAV7.5.17.keschln-0001-setdev
+# ./GNU4.9.3_MVAPICH2-GDR2.2_CUDAV7.5.17.keschln-0001-setdev
 
 CUDA_VISIBLE_DEVICES: [0: 0,1] [1: 0,1] 
 Configured CUDA Devices: [0: 0] [1: 0] 

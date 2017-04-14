@@ -16,12 +16,23 @@ if (ENABLE_TIMER)
 endif()
 
 # BOOST
-
 if (ENABLE_TIMER)
     find_package(Boost 1.43.0 COMPONENTS system timer REQUIRED)
     if (Boost_FOUND)
         include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
     endif()
+endif()
+
+# MPI timers
+set( ENABLE_MPI_TIMER "OFF" CACHE BOOL "Enable timer (MPI_Wtime)" )
+if (ENABLE_MPI_TIMER)
+    add_definitions( -DENABLE_MPI_TIMER )
+endif()
+
+# SCOREP region timers
+set( ENABLE_SCOREP_TIMER "OFF" CACHE BOOL "Enable scorep region timer" )
+if (ENABLE_SCOREP_TIMER)
+    add_definitions( -DSCOREP_USER_ENABLE )
 endif()
 
 find_package(Threads)
@@ -33,8 +44,8 @@ if( CUDA_BACKEND )
     find_package( CUDA 5.0 )
     set(CUDA_PROPAGATE_HOST_FLAGS OFF)
     #    set(CUDA_SEPARABLE_COMPILATION ON CACHE BOOL "" FORCE)
-    add_definitions( -DCUDA_BACKEND)
-    add_definitions( -DCUDASETDEVICE)
+    add_definitions( -DCUDA_BACKEND )
+    add_definitions( -DCUDASETDEVICE )
     set(CUDA_COMPUTE_CAPABILITY "sm_35" CACHE STRING "Compute capability for CUDA" )
     set(NVCC_FLAGS "-arch=${CUDA_COMPUTE_CAPABILITY}" ) # -Xptxas -abi=no
     list(APPEND NVCC_FLAGS "-std=c++11")
