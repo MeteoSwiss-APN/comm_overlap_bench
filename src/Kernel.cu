@@ -7,25 +7,43 @@ void cukernel(Real __restrict__ * in, Real __restrict__* out, const int kSize, c
     int ipos = blockIdx.x * 32 + threadIdx.x;
     int jpos = blockIdx.y * 8 + threadIdx.y;
 
-
-    out[ipos*iStride + jpos*jStride] = (exp(in[ipos*iStride + jpos*jStride] *in[ipos*iStride + jpos*jStride]*3.5) +
-            exp(in[ipos*iStride + jpos*jStride + kStride] * 2.3)
+#ifndef _NOPOW
+    out[ipos*iStride + jpos*jStride] = (pow(in[ipos*iStride + jpos*jStride] *in[ipos*iStride + jpos*jStride], 3.5) +
+            pow(in[ipos*iStride + jpos*jStride + kStride], 2.3)
         );
+#else
+    out[ipos*iStride + jpos*jStride] = (exp(log(in[ipos*iStride + jpos*jStride] *in[ipos*iStride + jpos*jStride])*3.5) +
+            exp(log(in[ipos*iStride + jpos*jStride + kStride])*2.3)
+        );
+#endif
+
     for(int k=1; k < kSize-1; ++k)
     {
-        out[ipos*iStride + jpos*jStride + k*kStride] = (exp(in[ipos*iStride + jpos*jStride + k*kStride] *in[ipos*iStride + jpos*jStride + k*kStride] * 3.5) +
-            exp(in[ipos*iStride + jpos*jStride + (k+1)*kStride] * 2.3) -
-            exp(in[ipos*iStride + jpos*jStride + (k-1)*kStride] * 1.3)
+#ifndef _NOPOW
+        out[ipos*iStride + jpos*jStride + k*kStride] = (pow(in[ipos*iStride + jpos*jStride + k*kStride] *in[ipos*iStride + jpos*jStride + k*kStride], 3.5) +
+            pow(in[ipos*iStride + jpos*jStride + (k+1)*kStride], 2.3) -
+            pow(in[ipos*iStride + jpos*jStride + (k-1)*kStride], 1.3)
         )
-        + out[(ipos+1)*iStride + jpos*jStride + k*kStride] + out[(ipos-1)*iStride + jpos*jStride + k*kStride] + 
+#else
+        out[ipos*iStride + jpos*jStride + k*kStride] = (exp(log(in[ipos*iStride + jpos*jStride + k*kStride] *in[ipos*iStride + jpos*jStride + k*kStride])*3.5) +
+            exp(log(in[ipos*iStride + jpos*jStride + (k+1)*kStride])*2.3) -
+            exp(log(in[ipos*iStride + jpos*jStride + (k-1)*kStride])*1.3)
+        )
+#endif
+        + out[(ipos+1)*iStride + jpos*jStride + k*kStride] + out[(ipos-1)*iStride + jpos*jStride + k*kStride] +
         out[ipos*iStride + (jpos+1)*jStride + k*kStride] + out[ipos*iStride + (jpos-1)*jStride + k*kStride]
         ;
-
-      
     }
-    out[ipos*iStride + jpos*jStride + (kSize-1)*kStride] = (exp(in[ipos*iStride + jpos*jStride + (kSize-1)*kStride] *in[ipos*iStride + jpos*jStride + (kSize-1)*kStride] * 3.5) -
-            exp(in[ipos*iStride + jpos*jStride + (kSize-2)*kStride] * 1.3)
+
+#ifndef _NOPOW
+    out[ipos*iStride + jpos*jStride + (kSize-1)*kStride] = (pow(in[ipos*iStride + jpos*jStride + (kSize-1)*kStride] *in[ipos*iStride + jpos*jStride + (kSize-1)*kStride], 3.5) -
+            pow(in[ipos*iStride + jpos*jStride + (kSize-2)*kStride], 1.3)
         );
+#else
+    out[ipos*iStride + jpos*jStride + (kSize-1)*kStride] = (exp(log(in[ipos*iStride + jpos*jStride + (kSize-1)*kStride] *in[ipos*iStride + jpos*jStride + (kSize-1)*kStride])*3.5) -
+            exp(log(in[ipos*iStride + jpos*jStride + (kSize-2)*kStride])*1.3)
+        );
+#endif
 
 }
 
