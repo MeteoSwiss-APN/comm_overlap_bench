@@ -12,7 +12,7 @@ echo
 
 RRR=$(pwd)
 export CC=$RRR/cc.scorep
-export CXX=$RRR/mpicxx.scorep
+export CXX=$RRR/CXX.scorep
 export NVCC=$RRR/nvcc.scorep
 export SCOREP_WRAPPER=OFF 
 
@@ -33,7 +33,7 @@ pushd build &>/dev/null
         -DCMAKE_C_COMPILER="${CC}" \
         -DCUDA_HOST_COMPILER=`which g++` \
         -DCUDA_NVCC_EXECUTABLE="${NVCC}" \
-        -DCMAKE_EXE_LINKER_FLAGS="-lpthread "
+        -DCMAKE_EXE_LINKER_FLAGS="-lpthread"
     # Only needed when the timers are enabled
     #-DBOOST_ROOT="${BOOST_ROOT}" \
 

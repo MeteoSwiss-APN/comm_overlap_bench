@@ -49,10 +49,6 @@ if (${CMAKE_LINK_FLAGS})
     set_target_properties(comm_overlap_benchmark PROPERTIES LINK_FLAGS ${CMAKE_LINK_FLAGS}) 
 endif()
 
-target_link_libraries(comm_overlap_benchmark
-    ${MPI_LIBRARIES}
-)
-
 if (ENABLE_TIMER)
     target_link_libraries(comm_overlap_benchmark
         ${Boost_LIBRARIES}
