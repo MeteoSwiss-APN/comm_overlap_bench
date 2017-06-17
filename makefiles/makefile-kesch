@@ -1,0 +1,61 @@
+# --- makefile-kesch:
+# 	setup with ../build_kesch_scorep.sh
+# 	export SCOREP_WRAPPER=on
+# 	make -f makefile-kesch
+
+# CUDATOOLKIT_HOME := /global/opt/nvidia/cudatoolkit/7.5.18
+CUDATOOLKIT_HOME := $(shell dirname `which nvcc` )/..
+MVAPICH2_HOME := $(shell pkg-config --variable=prefix mvapich2-gdr)
+LIBMPI = -lmpi -lmpicxx
+CXX=../mpicxx.scorep
+NVCC=../nvcc.scorep
+HH := $(shell uname -n ) # |cut -c1-3 )
+GNU_VERSION := $(shell gcc -v 2>&1 |grep "gcc version" |cut -d" " -f3 )
+MVAPICH2_VERSION1 := $(shell mpiname -n )
+MVAPICH2_VERSION2 := $(shell mpiname -v )
+CUDATOOLKIT_VERSION := $(shell nvcc -V |grep "Cuda compilation" |cut -d" " -f6 )
+EXECUTABLE := GNU$(GNU_VERSION)_$(MVAPICH2_VERSION1)$(MVAPICH2_VERSION2)_CUDA$(CUDATOOLKIT_VERSION).$(HH)
+all: $(EXECUTABLE)
+
+INCFLAGS = -I$(CUDATOOLKIT_HOME)/include \
+-I$(MVAPICH2_HOME)/include \
+-I.
+
+NVFLAGS  = $(INCFLAGS)
+ARCH = -arch=sm_37
+CFLAGS  = $(INCFLAGS)
+CFLAGS += -DENABLE_MPI_TIMER -DCUDASETDEVICE -D_NOPOW # -D_NOTIMING # -DENABLE_TIMER
+CFLAGS += -g -w -DCUDA_BACKEND -DMVAPICH2 -DENABLE_CUDA_STREAMS -DNVCC -std=c++11
+NVFLAGS += -ccbin g++ -m64 $(ARCH) $(CFLAGS) -D__CUDACC__ -Xcompiler ,\"-g\",\"-std=c++11\"
+
+LDFLAGS = -g -std=gnu++11 \
+-Wl,--enable-new-dtags \
+-L$(MVAPICH2_HOME)/lib64 \
+-L$(CUDATOOLKIT_HOME)/lib64 \
+$(LIBMPI) \
+-lcudart -lcuda 
+
+SRCcu = Kernel.cu HorizontalDiffusionSA.cu
+SRCc  = main.cpp Repository.cpp Options.cpp MPIHelper.cpp
+
+OBJC  := $(SRCc:.cpp=.o)
+OBJCU := $(SRCcu:.cu=.o)
+
+$(OBJC):
+	$(CXX) $(CFLAGS) -c $(@:.o=.cpp) # -o $@
+	@echo
+
+$(OBJCU):
+	$(NVCC) $(INCFLAGS) $(NVFLAGS) -c $(@:.o=.cu) # -o $@
+	@echo
+
+$(EXECUTABLE): $(OBJC) $(OBJCU)
+	$(CXX) $(LDFLAGS) $(OBJC) $(OBJCU) -o $@
+	@echo "For score-p: relink with ../ld.scorep"
+
+help:
+	@echo "relink with ../ld.scorep"
+
+clean:
+	rm -f $(OBJC) $(OBJCU) $(EXECUTABLE)
+

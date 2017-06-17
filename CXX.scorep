@@ -13,11 +13,11 @@ if [ $SCOREP_WRAPPER = "on" ] ;then
     if [ $isdep = 0 ] ;then
         `which mpicxx` "$@"
     else
-        `which scorep` --nouser --cuda --mpp=mpi `which mpicxx` -L$SLURM_DIR/lib64 "$@"
-        # `which scorep` --nouser --cuda --mpp=mpi --keep-files -v `which mpicxx` -L$SLURM_DIR/lib64 "$@"
+        `which scorep` --user --cuda --mpp=mpi `which g++` "$@"
+        # `which scorep` --user --cuda --mpp=mpi --keep-files -v `which g++` "$@"
     fi
     
 else
-    `which mpicxx` -L$SLURM_DIR/lib64 "$@"
+    `which g++` "$@"
 fi
 set +x

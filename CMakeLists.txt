@@ -24,6 +24,18 @@ if (ENABLE_TIMER)
     endif()
 endif()
 
+# MPI timers
+set( ENABLE_MPI_TIMER "OFF" CACHE BOOL "Enable timer (MPI_Wtime)" )
+if (ENABLE_MPI_TIMER)
+    add_definitions( -DENABLE_MPI_TIMER )
+endif()
+
+# SCOREP region timers
+set( ENABLE_SCOREP_TIMER "OFF" CACHE BOOL "Enable scorep region timer" )
+if (ENABLE_SCOREP_TIMER)
+    add_definitions( -DSCOREP_USER_ENABLE )
+endif()
+
 find_package(Threads)
 set ( CMAKE_EXE_LINKER_FLAGS ${MPI_LINK_FLAGS} ${CMAKE_LINK_FLAGS} ${CMAKE_THREAD_LIBS_INIT})
 
@@ -55,6 +67,14 @@ endif()
 
 if(MPI_LINK_FLAGS)
     set(CMAKE_LINK_FLAGS ${MPI_LINK_FLAGS} ${CMAKE_LINK_FLAGS})
+endif()
+
+#### FORCE MPI Libraries to front by appending to CMAKE_EXE_LINKER_FLAGS
+if(MPI_CXX_LIBRARIES)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${MPI_CXX_LINK_FLAGS}")
+    foreach(ITEM ${MPI_CXX_LIBRARIES})
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${ITEM}")
+    endforeach()
 endif()
 
 message(STATUS "MPI_LINK_FLAGS: ${MPI_LINK_FLAGS}")
