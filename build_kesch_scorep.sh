@@ -34,7 +34,6 @@ export SCOREP_WRAPPER=OFF
 pushd build &>/dev/null
         SCOREP_WRAPPER=OFF cmake .. \
         -DCMAKE_CXX_FLAGS="-std=c++11" \
-        -DMPI_VENDOR=mvapich2 \
         -DENABLE_TIMER=OFF \
         -DENABLE_MPI_TIMER=OFF \
         -DENABLE_SCOREP_TIMER=OFF \
@@ -48,7 +47,7 @@ pushd build &>/dev/null
 # Only needed when the timers are enabled
 # -DBOOST_ROOT="${BOOST_ROOT}" \
 
-# already set in *.scorep
+# already set in *.scorep:
 # SCOREP_WRAPPER_INSTRUMENTER_FLAGS="${SCOREP_WRAPPER_ARGS}" \
 export SCOREP_WRAPPER=ON
 make -j 1 \

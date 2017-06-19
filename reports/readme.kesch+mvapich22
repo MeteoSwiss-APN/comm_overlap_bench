@@ -76,6 +76,63 @@ MV2_USE_CUDA: 1
 ELAPSED TIME (seconds) for rank=1 7.881949  # SLOW!
 ELAPSED TIME (seconds) for rank=0 7.883803
 
+srun -p debug --gres=gpu:1 -N1 -n1 --ntasks-per-node=1 -t1 nvidia-smi
+Fri Apr  7 10:15:37 2017
++------------------------------------------------------+
+| NVIDIA-SMI 352.79     Driver Version: 352.79         |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  Tesla K80           On   | 0000:06:00.0     Off |                    0 |
+| N/A   38C    P8    26W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   1  Tesla K80           On   | 0000:07:00.0     Off |                    0 |
+| N/A   38C    P8    28W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   2  Tesla K80           On   | 0000:0A:00.0     Off |                    0 |
+| N/A   39C    P8    26W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   3  Tesla K80           On   | 0000:0B:00.0     Off |                    0 |
+| N/A   34C    P8    30W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   4  Tesla K80           On   | 0000:10:00.0     Off |                    0 |
+| N/A   40C    P8    26W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   5  Tesla K80           On   | 0000:11:00.0     Off |                    0 |
+| N/A   34C    P8    28W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   6  Tesla K80           On   | 0000:14:00.0     Off |                    0 |
+| N/A   40C    P8    26W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   7  Tesla K80           On   | 0000:15:00.0     Off |                    0 |
+| N/A   35C    P8    29W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   8  Tesla K80           On   | 0000:86:00.0     Off |                    0 |
+| N/A   32C    P8    26W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   9  Tesla K80           On   | 0000:87:00.0     Off |                    0 |
+| N/A   27C    P8    29W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|  10  Tesla K80           On   | 0000:8A:00.0     Off |                    0 |
+| N/A   32C    P8    26W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|  11  Tesla K80           On   | 0000:8B:00.0     Off |                    0 |
+| N/A   28C    P8    29W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|  12  Tesla K80           On   | 0000:90:00.0     Off |                    0 |
+| N/A   33C    P8    26W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|  13  Tesla K80           On   | 0000:91:00.0     Off |                    0 |
+| N/A   29C    P8    28W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|  14  Tesla K80           On   | 0000:94:00.0     Off |                    0 |
+| N/A   32C    P8    25W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|  15  Tesla K80           On   | 0000:95:00.0     Off |                    0 |
+| N/A   26C    P8    30W / 149W |     55MiB / 11519MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+=======
 #### ./GNU4.9.3_MVAPICH22.2_CUDAV7.0.27.keschln-0002+setdev 
 CUDA_VISIBLE_DEVICES: [0: 0,1] [1: 0,1] 
 Configured CUDA Devices: [0: 0] [1: 1] 
@@ -104,7 +161,7 @@ ELAPSED TIME (seconds) for rank=0 7.477308
 export MV2_USE_CUDA=1
 
 srun -p debug --gres=gpu:2 -N1 -n2 --ntasks-per-node=2 -t1 \
-./GNU4.9.3_MVAPICH2-GDR2.2_CUDAV7.5.17.keschln-0001-setdev
+# ./GNU4.9.3_MVAPICH2-GDR2.2_CUDAV7.5.17.keschln-0001-setdev
 
 CUDA_VISIBLE_DEVICES: [0: 0,1] [1: 0,1] 
 Configured CUDA Devices: [0: 0] [1: 0] 
@@ -294,7 +351,6 @@ GPU 0000:06:00.0
     Processes
         Process ID                  : 121546
             Type                    : C
-            Name                    : /scratch-shared/meteoswiss/scratch/jenkins/workspace/cosmo5_PR/build_type/release/real_type/float/slave/kesch/target/gpu/cosmo/test/testsuite/work/pollen/test_1_gpu/./cosmo_gpu
+            Name                    : cosmo_gpu
             Used GPU Memory         : 272 MiB
 etc...
-

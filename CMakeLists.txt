@@ -16,7 +16,6 @@ if (ENABLE_TIMER)
 endif()
 
 # BOOST
-
 if (ENABLE_TIMER)
     find_package(Boost 1.43.0 COMPONENTS system timer REQUIRED)
     if (Boost_FOUND)
