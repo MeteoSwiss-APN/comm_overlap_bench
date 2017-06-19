@@ -1,0 +1,48 @@
+#!/bin/bash 
+
+if [ -z $SCOREP_WRAPPER ] ;then
+    export SCOREP_WRAPPER=off
+    # echo "SCOREP_WRAPPER must be set to on or off, exiting..."
+    # exit 0
+fi
+
+# set -x
+if [ $SCOREP_WRAPPER = "on" ] ;then
+
+`which scorep-config` --adapter-init --nouser --compiler --cuda --mpp=mpi > scorep-config.c
+gcc -c scorep-config.c
+gcc -shared scorep-config.o -o libscorep-config.so
+cat <<EOF > ld.sh
+export MPILD=`pkg-config --variable=prefix mvapich2-gdr`
+echo MPILD=\$MPILD EBROOTSCOREMINP=$EBROOTSCOREMINP PWD=$PWD
+export LD_PRELOAD="$PWD/libscorep-config.so \
+$EBROOTSCOREMINP/lib/libscorep_adapter_compiler_event.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_adapter_cuda_event.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_adapter_memory_event_libc.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_adapter_memory_event_cxx.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_adapter_memory_event_cxx_L64.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_adapter_mpi_event.so.0 \
+$EBROOTSCOREMINP/lib/libscorep_measurement.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_adapter_utils.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_adapter_compiler_mgmt.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_adapter_cuda_mgmt.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_adapter_memory_mgmt.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_adapter_mpi_mgmt.so.0 \
+$EBROOTSCOREMINP/lib/libscorep_mpp_mpi.so.0 \
+$EBROOTSCOREMINP/lib/libscorep_online_access_mockup.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_thread_mockup.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_mutex_mockup.so.5 \
+$EBROOTSCOREMINP/lib/libscorep_alloc_metric.so.5 \
+\$MPILD/lib64/libmpi.so \
+\$MPILD/lib64/libmpifort.so"
+
+export SCOREP_TOTAL_MEMORY=1G
+export SCOREP_CUDA_ENABLE=1
+export SCOREP_ENABLE_PROFILING=false
+export SCOREP_ENABLE_TRACING=true
+EOF
+echo source ld.sh
+
+fi
+# set +x
+

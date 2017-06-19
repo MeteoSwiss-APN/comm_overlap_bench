@@ -9,11 +9,12 @@ fi
 set -x
 if [ $SCOREP_WRAPPER = "on" ] ;then
 
-    echo "$@" |egrep -q -- "-E |-M " ;isdep=$?
+    echo "$@" |egrep -q -- "-E |-M |bin/ar |bin/ranlib" ;isdep=$?
     if [ $isdep = 0 ] ;then
         `which mpicxx` "$@"
     else
-        `which scorep` --user --cuda --mpp=mpi --keep-files -v `which mpicxx` -L$SLURM_DIR/lib64 "$@"
+        `which scorep` --nouser --cuda --mpp=mpi `which mpicxx` -L$SLURM_DIR/lib64 "$@"
+        # `which scorep` --nouser --cuda --mpp=mpi --keep-files -v `which mpicxx` -L$SLURM_DIR/lib64 "$@"
     fi
     
 else

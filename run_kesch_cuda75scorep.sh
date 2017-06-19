@@ -42,6 +42,7 @@ if [ "${G2G}" == 2 ]; then
 fi
 
 export SCOREP_TOTAL_MEMORY=1G
+export SCOREP_ENABLE_PROFILING=false
 export SCOREP_ENABLE_TRACING=true
 export SCOREP_CUDA_ENABLE=1
 
@@ -52,7 +53,16 @@ echo "Partition: ${partition}"
 
 #srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_socket build/src/StandaloneStencilsCUDA
 ldd build_cuda75/src/comm_overlap_benchmark > ldd_scorepCuda75
-srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build_cuda75/src/comm_overlap_benchmark
+
+srun --nodes=$nodes \
+--ntasks=$jobs \
+--ntasks-per-node=$tasks_node \
+--ntasks-per-socket=$tasks_socket \
+--partition=$partition \
+--gres=gpu:$tasks_node \
+--distribution=block:block \
+--cpu_bind=q \
+./build_cuda75/src/comm_overlap_benchmark
 
 #srun --nodes=$nodes --ntasks-per-node=$tasks_node --gres=gpu:$tasks_node -n $jobs -p debug  build/src/StandaloneStencilsCUDA
 
