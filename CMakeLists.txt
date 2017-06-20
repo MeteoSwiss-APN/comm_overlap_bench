@@ -57,6 +57,11 @@ if( SINGLEPRECISION )
   add_definitions( -DSINGLEPRECISION )
 endif()
 
+set( DISABLE_POW_CUDA "ON" CACHE BOOL "Disable POW in CUDA Kernel" )
+if (DISABLE_POW_CUDA)
+  add_definitions( -D_NOPOW )
+endif()
+
 find_package(MPI REQUIRED)
 include_directories( ${MPI_INCLUDE_PATH} )
 
