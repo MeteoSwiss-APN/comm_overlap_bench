@@ -116,6 +116,7 @@ if( CMAKE_HOST_UNIX AND SHARED_LIBRARY )
     set( CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -fPIC )
 endif()
 
+include(clang-format.cmake)
 # 2. build sources
 add_subdirectory( src )
 
