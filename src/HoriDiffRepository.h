@@ -7,12 +7,12 @@
 
 #pragma once
 
-#include <map>
-#include <set>
-#include <vector>
-#include <string>
-#include <memory>
 #include "Definitions.h"
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <vector>
 
 /**
 * @class HoriDiffRepository
@@ -21,12 +21,10 @@
 *
 * Replacement for DycoreRepository, with only the required fields for the benchmark
 */
-class HoriDiffRepository
-{
+class HoriDiffRepository {
     DISALLOW_COPY_AND_ASSIGN(HoriDiffRepository);
-//noboost    BOOST_STATIC_ASSERT(N_HORIDIFF_VARS > 0);
-public:
-
+    // noboost    BOOST_STATIC_ASSERT(N_HORIDIFF_VARS > 0);
+  public:
     HoriDiffRepository();
     ~HoriDiffRepository();
 
@@ -36,7 +34,6 @@ public:
     *   only sets domain size - allocates no memory
     */
     void Init(const IJKSize& calculationDomain);
-
 
     /**
     * Method initializing the dycore repository and allocating the memory of repository data fields
@@ -53,7 +50,9 @@ public:
     /**
     * @return calculation domain size
     */
-    const IJKSize& calculationDomain() const { return calculationDomain_; }
+    const IJKSize& calculationDomain() const {
+        return calculationDomain_;
+    }
 
     IJKRealField& u_in(int idx) {
         assert(idx < N_HORIDIFF_VARS);
@@ -66,38 +65,51 @@ public:
         return horiDiffFields_[idx]->out();
     }
 
-    SwapDataField<IJKRealField>& u(const int idx)
-    {
+    SwapDataField< IJKRealField >& u(const int idx) {
         assert(idx < N_HORIDIFF_VARS);
         return *(horiDiffFields_[idx]);
     }
 
-    void Swap()
-    {
-        for(size_t i=0; i < N_HORIDIFF_VARS; ++i)
-        {
+    void Swap() {
+        for (size_t i = 0; i < N_HORIDIFF_VARS; ++i) {
             u(i).Swap();
         }
     }
 
-    std::vector< std::shared_ptr< SwapDataField<IJKRealField> > >& horiDiffFields() { return horiDiffFields_; }
+    std::vector< std::shared_ptr< SwapDataField< IJKRealField > > >& horiDiffFields() {
+        return horiDiffFields_;
+    }
 
     // external parameter fields
-    JRealField& crlat0() { return crlat0_; };
-    JRealField& crlat1() { return crlat1_; };
-    JRealField& crlato() { return crlato_; };
-    JRealField& crlatu() { return crlatu_; };
-    IJKRealField& hdmaskvel() { return hdmaskvel_; }
-    IJKRealField& refField() {return refField_; }
-    IJKRealField& ref4St() {return ref4St_; }
+    JRealField& crlat0() {
+        return crlat0_;
+    };
+    JRealField& crlat1() {
+        return crlat1_;
+    };
+    JRealField& crlato() {
+        return crlato_;
+    };
+    JRealField& crlatu() {
+        return crlatu_;
+    };
+    IJKRealField& hdmaskvel() {
+        return hdmaskvel_;
+    }
+    IJKRealField& refField() {
+        return refField_;
+    }
+    IJKRealField& ref4St() {
+        return ref4St_;
+    }
 
-private:
+  private:
     // configuration of the dynamics
     IJKSize calculationDomain_;
 
     // prognostic variables
 
-    std::vector<std::shared_ptr< SwapDataField<IJKRealField> > > horiDiffFields_;
+    std::vector< std::shared_ptr< SwapDataField< IJKRealField > > > horiDiffFields_;
 
     IJKRealField refField_;
     IJKRealField ref4St_;
@@ -109,4 +121,3 @@ private:
     JRealField crlatu_;
     IJKRealField hdmaskvel_;
 };
-
