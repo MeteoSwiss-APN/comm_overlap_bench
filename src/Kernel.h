@@ -1,13 +1,10 @@
 #pragma once
 
-#include "IJKSize.h"
 #include "Definitions.h"
-#include <iostream>
+#include "IJKSize.h"
 #include <cuda.h>
+#include <iostream>
 
-__global__
-void cukernel(Real* in, Real* out, const int, const int, const int);
+__global__ void cukernel(Real* in, Real* out, const int, const int, const int);
 
 void launch_kernel(IJKSize domain, Real* in, Real* out, cudaStream_t& stream);
-
-

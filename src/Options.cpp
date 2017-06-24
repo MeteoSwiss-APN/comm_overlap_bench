@@ -1,10 +1,6 @@
 #include "Options.h"
 
-
-Options& Options::getInstance() 
-{
-    static Options instance; 
-    return instance; 
+Options& Options::getInstance() {
+    static Options instance;
+    return instance;
 }
-
-  
