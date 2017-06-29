@@ -29,11 +29,21 @@ if (ENABLE_MPI_TIMER)
     add_definitions( -DENABLE_MPI_TIMER )
 endif()
 
-# SCOREP region timers
-set( ENABLE_SCOREP_TIMER "OFF" CACHE BOOL "Enable scorep region timer" )
-if (ENABLE_SCOREP_TIMER)
-    add_definitions( -DSCOREP_USER_ENABLE )
-endif()
+
+# Profiling
+set ( ENABLE_SCOREP "OFF" CACHE BOOL "Building with Score-P support")
+if ( ENABLE_SCOREP )
+    message(STATUS "Profiling with ScoreP enabled")
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_CURRENT_SOURCE_DIR}/scorep.wrapper")
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CMAKE_CURRENT_SOURCE_DIR}/scorep.wrapper")
+
+    # SCOREP region timers
+    set( ENABLE_SCOREP_TIMER "OFF" CACHE BOOL "Enable scorep region timer" )
+    if (ENABLE_SCOREP_TIMER)
+        add_definitions( -DSCOREP_USER_ENABLE )
+    endif()
+endif(ENABLE_SCOREP)
+
 
 find_package(Threads)
 set ( CMAKE_EXE_LINKER_FLAGS ${MPI_LINK_FLAGS} ${CMAKE_LINK_FLAGS} ${CMAKE_THREAD_LIBS_INIT})

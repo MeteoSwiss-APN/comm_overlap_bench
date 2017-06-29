@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "$@" |egrep -q -- "-E |-M |bin/ar |bin/ranlib " ;isdep=$?
+if [ $isdep != 0 ] ;then
+`which scorep` --user --cuda --mpp=mpi --compiler "$@"
+else
+    exec $@
+fi
