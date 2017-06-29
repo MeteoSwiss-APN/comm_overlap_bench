@@ -7,7 +7,6 @@ module purge
 module load CMake
 module load craype-haswell
 module load craype-network-infiniband
-
 module use /apps/common/UES/RHAT6/easybuild/modules/all
 module use /apps/escha/UES/RH6.7/sandbox-scorep/modules/all
 module load Score-P/3.1-gmvapich2-15.11_cuda_7.0_gdr
@@ -28,8 +27,6 @@ pushd build &>/dev/null
         -DCMAKE_BUILD_TYPE=Debug \
         -DCMAKE_CXX_COMPILER="${CXX}" \
         -DCMAKE_C_COMPILER="${CC}" \
-        -DCUDA_HOST_COMPILER=`which g++` \
-        -DCUDA_NVCC_EXECUTABLE="${NVCC}" \
         -DCMAKE_EXE_LINKER_FLAGS="-lpthread"
 # Only needed when the timers are enabled
 # -DBOOST_ROOT="${BOOST_ROOT}" \

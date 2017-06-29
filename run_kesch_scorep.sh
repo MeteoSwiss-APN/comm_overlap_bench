@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 module purge
-source modules_kesch.env
-module use /users/piccinal/easybuild/keschln/modules/all
-module load
-module load Score-P/3.0-gmvapich2-15.11_cuda_7.0_gdr CMake/3.8.1
-echo "Modules"
-module list -t
-echo
+module purge
+module load CMake
+module load craype-haswell
+module load craype-network-infiniband
+module use /apps/common/UES/RHAT6/easybuild/modules/all
+module use /apps/escha/UES/RH6.7/sandbox-scorep/modules/all
+module load Score-P/3.1-gmvapich2-15.11_cuda_7.0_gdr
+
+echo Modules:
+module list
 
 # Add the boost library path manually
 export BOOST_LIBRARY_PATH=/apps/escha/UES/RH6.7/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10/lib
@@ -42,7 +45,9 @@ if [ "${G2G}" == 2 ]; then
     export MV2_USE_CUDA=1
     echo
 fi
-#export LD_PRELOAD=/opt/mvapich2/gdr/2.1/cuda7.0/gnu/lib64/libmpi.so
+
+export LD_PRELOAD="$SCOREP_ROOT/lib/libscorep_init.so $SCOREP_ROOT/lib/libscorep_adapter_compiler_event.so $SCOREP_ROOT/lib/libscorep_adapter_cuda_event.so $SCOREP_ROOT/lib/libscorep_adapter_mpi_event.so $SCOREP_ROOT/lib/libscorep_measurement.so $SCOREP_ROOT/lib/libscorep_adapter_utils.so $SCOREP_ROOT/lib/libscorep_adapter_compiler_mgmt.so $SCOREP_ROOT/lib/libscorep_adapter_cuda_mgmt.so $SCOREP_ROOT/lib/libscorep_adapter_mpi_mgmt.so $SCOREP_ROOT/lib/libscorep_mpp_mpi.so $SCOREP_ROOT/lib/libscorep_online_access_mpp_mpi.so $SCOREP_ROOT/lib/libscorep_thread_mockup.so $SCOREP_ROOT/lib/libscorep_mutex_mockup.so $SCOREP_ROOT/lib/libscorep_alloc_metric.so /opt/mvapich2/gdr/2.1/cuda7.0/gnu/lib64/libmpi.so /opt/mvapich2/gdr/2.1/cuda7.0/gnu/lib64/libmpichf90.so"
+export SCOREP_MPI_MAX_COMMUNICATORS=2000
 export SCOREP_TOTAL_MEMORY=1G
 export SCOREP_ENABLE_PROFILING=false
 export SCOREP_ENABLE_TRACING=true
@@ -53,18 +58,16 @@ echo "Tasks/Node: ${tasks_node}"
 echo "Tasks/Socket: ${tasks_socket}"
 echo "Partition: ${partition}"
 
-args="-n 1"
-
 echo =======================================================================
 echo = Default Benchmark
 echo =======================================================================
-srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build/src/comm_overlap_benchmark $args
+srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build/src/comm_overlap_benchmark
 #echo =======================================================================
 #echo = No Communication
 #echo =======================================================================
-#srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build/src/comm_overlap_benchmark --nocomm $args
+#srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build/src/comm_overlap_benchmark --nocomm
 #echo =======================================================================
 #echo = No Computation
 #echo =======================================================================
-#srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build/src/comm_overlap_benchmark --nocomp $args
-
+#srun --nodes=$nodes --ntasks=$jobs --ntasks-per-node=$tasks_node --ntasks-per-socket=$tasks_socket --partition=$partition --gres=gpu:$tasks_node --distribution=block:block --cpu_bind=q  build/src/comm_overlap_benchmark --nocomp
+#
