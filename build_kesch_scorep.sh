@@ -18,6 +18,7 @@ export CXX=$(which g++)
 export CC=$(which gcc)
 pushd build &>/dev/null
     cmake .. \
+        -DMPI_VENDOR=mvapich2 \
         -DCMAKE_CXX_FLAGS="-std=c++11" \
         -DENABLE_TIMER=OFF \
         -DENABLE_MPI_TIMER=OFF \
