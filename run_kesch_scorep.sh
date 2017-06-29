@@ -58,7 +58,7 @@ echo "Tasks/Node: ${tasks_node}"
 echo "Tasks/Socket: ${tasks_socket}"
 echo "Partition: ${partition}"
 
-args="-n 1"
+args="-n 1000"
 
 echo =======================================================================
 echo = Default Benchmark
