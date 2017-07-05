@@ -1,4 +1,0 @@
-#!/bin/bash
-
-#`which scorep` --mpp=mpi --cuda mpicc "$@"
-`which scorep` `which mpicc` "$@"
