@@ -15,8 +15,12 @@ module load cmake/3.7.2
 module list -t
 echo
 
+#export LD_LIBRARY_PATH=${CRAY_LD_LIBRARY_PATH}:${LD_LIBRARY_PATH}
 export CC=gcc
 export CXX=g++
+#alias mpicc="/opt/mvapich2/gdr/no-mcast/2.2/cuda8.0/mpirun/gnu4.8.5/bin/mpicc `pkg-config --libs cudart`"
+#alias mpicxx="/opt/mvapich2/gdr/no-mcast/2.2/cuda8.0/mpirun/gnu4.8.5/bin/mpicxx `pkg-config --libs cudart`"
+export LDFLAGS=`pkg-config --libs cudart`
 export BOOST_ROOT="/apps/escha/UES/RH6.7/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10"
 
 pushd build &>/dev/null
