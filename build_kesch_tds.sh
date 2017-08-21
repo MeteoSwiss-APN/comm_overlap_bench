@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-rm -rf build
-mkdir -p build
+rm -rf build_tds
+mkdir -p build_tds
 
 module purge
 module load craype-network-infiniband
@@ -24,7 +24,7 @@ export CXX=g++
 export LDFLAGS=`pkg-config --libs cudart`
 export BOOST_ROOT="/apps/escha/UES/jenkins/RH7.3-17.02/easybuild/software/boost/1.63.0-gmvolf-17.02-python-2.7.13/"
 
-pushd build &>/dev/null
+pushd build_tds &>/dev/null
     cmake .. \
              -DMPI_VENDOR=mvapich2 \
              -DCUDA_COMPUTE_CAPABILITY="sm_37" \
