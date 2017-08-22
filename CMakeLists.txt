@@ -17,7 +17,7 @@ endif()
 
 # Boost timers
 set( ENABLE_BOOST_TIMER "OFF" CACHE BOOL "Enable Boost timer" )
-if (ENABLE_TIMER)
+if (ENABLE_BOOST_TIMER)
     find_package(Boost 1.43.0 COMPONENTS system timer REQUIRED)
     if (Boost_FOUND)
         include_directories(SYSTEM ${Boost_INCLUDE_DIRS})

@@ -222,8 +222,7 @@ int main(int argc, char** argv) {
 #ifdef ENABLE_BOOST_TIMER
     boost::timer::cpu_timer cpu_timer;
     cpu_timer.start();
-#endif
-#ifdef ENABLE_MPI_TIMER
+#elif ENABLE_MPI_TIMER
     double mpi_starttime = MPI_Wtime();
 #endif
 
@@ -288,16 +287,13 @@ int main(int argc, char** argv) {
 #ifdef ENABLE_BOOST_TIMER
     cpu_timer.stop();
     boost::timer::cpu_times elapsed = cpu_timer.elapsed();
-
     double total_time = ((double)elapsed.wall) / 1000000000.0;
-#endif
-#ifdef ENABLE_MPI_TIMER
+#elif ENABLE_MPI_TIMER
     double mpi_endtime = MPI_Wtime();
     double total_time = mpi_endtime - mpi_starttime;
 #endif
 
 #if defined(ENABLE_BOOST_TIMER) || defined(ENABLE_MPI_TIMER)
-
     int num_ranks;
     MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
     int rank_id;
@@ -322,14 +318,10 @@ int main(int argc, char** argv) {
 
         std::cout << "ELAPSED TIME: " << avg << " +- + " << rms << std::endl;
     }
-#endif
-
-
-
-#if !defined(ENABLE_BOOST_TIMER) && !defined(ENABLE_MPI_TIMER)
-    std::cout
-        << "Timers disabled: Enable by compiling with -DENABLE_BOOST_TIMER (Boost timers) or -DENABLE_MPI_TIMER (MPI_Wtime)"
-        << std::endl;
+#else
+    std::cout << "Timers disabled: Enable by compiling with -DENABLE_BOOST_TIMER (Boost timers) or -DENABLE_MPI_TIMER "
+                 "(MPI_Wtime)"
+              << std::endl;
 #endif
 
     MPI_Finalize();
