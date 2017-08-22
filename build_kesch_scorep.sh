@@ -20,7 +20,7 @@ pushd build &>/dev/null
     cmake .. \
         -DMPI_VENDOR=mvapich2 \
         -DCMAKE_CXX_FLAGS="-std=c++11" \
-        -DENABLE_TIMER=OFF \
+        -DENABLE_BOOST_TIMER=OFF \
         -DENABLE_MPI_TIMER=OFF \
         -DENABLE_SCOREP=ON \
         -DENABLE_SCOREP_TIMER=OFF \

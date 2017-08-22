@@ -17,7 +17,6 @@ pushd build_cuda75 &>/dev/null
              -DMPI_VENDOR=mvapich2 \
              -DCUDA_COMPUTE_CAPABILITY="sm_37" \
              -DCMAKE_BUILD_TYPE=Release \
-             -DENABLE_TIMER=ON \
-             -DBOOST_ROOT="${BOOST_ROOT}" 
+             -DENABLE_MPI_TIMER=ON
     make -j 1 
 

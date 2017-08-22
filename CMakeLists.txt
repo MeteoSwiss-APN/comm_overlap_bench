@@ -9,26 +9,25 @@ project( comm_overlap_benchmark )
 enable_language( CXX )
 set (CMAKE_CXX_STANDARD 11)
 
-# Timers
-set( ENABLE_TIMER "OFF" CACHE BOOL "Enable timer (requires boost)" )
-if (ENABLE_TIMER)
-    add_definitions( -DENABLE_TIMER )
-endif()
-
-# BOOST
-if (ENABLE_TIMER)
-    find_package(Boost 1.43.0 COMPONENTS system timer REQUIRED)
-    if (Boost_FOUND)
-        include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
-    endif()
-endif()
-
 # MPI timers
-set( ENABLE_MPI_TIMER "OFF" CACHE BOOL "Enable timer (MPI_Wtime)" )
+set( ENABLE_MPI_TIMER "ON" CACHE BOOL "Enable MPI timer (MPI_Wtime)" )
 if (ENABLE_MPI_TIMER)
     add_definitions( -DENABLE_MPI_TIMER )
 endif()
 
+# Boost timers
+set( ENABLE_BOOST_TIMER "OFF" CACHE BOOL "Enable Boost timer" )
+if (ENABLE_BOOST_TIMER)
+    find_package(Boost 1.43.0 COMPONENTS system timer REQUIRED)
+    if (Boost_FOUND)
+        include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+    endif()
+    add_definitions( -DENABLE_BOOST_TIMER )
+endif()
+
+if (ENABLE_MPI_TIMER AND ENABLE_BOOST_TIMER)
+    message(FATAL "MPI timer and boost timer can not be enabled at the same time")
+endif()
 
 # Profiling
 set ( ENABLE_SCOREP "OFF" CACHE BOOL "Building with Score-P support")
