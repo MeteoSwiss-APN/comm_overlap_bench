@@ -25,7 +25,7 @@ Building is straightforward. Create a build directory and run CMake:
 
 The build contains multiple options for building. 
 
-- `-DENABLE_TIMER=ON` will enable the boost timers to measure the performance. This requires boost. 
+- `-DENABLE_BOOST_TIMER=ON` will enable the boost timers to measure the performance. This requires boost. 
 - `-DENABLE_MPI_TIMER=ON` will enable MPI timers.
 - `-DVERBOSE=1` will print extra information when running the code.
 - `-DMPI_VENDOR` allows setting an MPI vendor. Typical values are: `unknown` `mvapich2` or `openmpi`. Enabling this variables will simply increase the debug output.
@@ -34,8 +34,11 @@ A typical build can be achieved with:
 
     mkdir build
     cd build
-    cmake .. -DVERBOSE=1 -DENABLE_TIMER=1
+    cmake .. -DVERBOSE=1 -DENABLE_MPI_TIMER=1
 
+### Buildscripts for CSCS Machines
+
+Buildscripts for CSCS machines are provided with the code. Simply run `./build_MACHINE.sh` to get a build for your machine. 
 
 ## Running
  
@@ -48,6 +51,7 @@ to run the code. The code can be run in several configurations:
     comm_overlap_benchmark [--ie isize] [--je jsize] [--ke ksize] \
                            [--sync] [--nocomm] [--nocomp] \
                            [--nh nhaloupdates] [-n nrepetitions] [--inorder]
+
 
 ### Command Line Arguments
 
@@ -70,6 +74,14 @@ Running without any MPI configuration (e.g. test the perofrmance of the CUDA ker
 Profiling the kernel with CUDA:
 
      nvprof --analysis-metrics -o benchmark.prof ./src/comm_overlap_benchmark --nocomm --nrep=1
+
+### Runscripts for CSCS machines
+
+Runscripts for CSCS machines are provided with the code. Simply run `./run_MACHINE.sh`. The scripts accepts arguments such as the number of MPI ranks `jobs=$MPI_RANKS` and the GDR setup `G2G=1`:
+
+    jobs=8 G2G=1 ./run_kesch.sh
+    jobs=16 G2G=1 ./run_kesch.sh
+    jobs=32 G2G=1 ./run_kesch.sh
 
 
 # Disclaimer
