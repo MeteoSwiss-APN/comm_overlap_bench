@@ -17,10 +17,6 @@ module load cmake/3.7.2
 echo Modules:
 module list -t
 
-# Add the boost library path manually
-export BOOST_LIBRARY_PATH=/apps/escha/UES/jenkins/RH7.3-17.02/easybuild/software/boost/1.63.0-gmvolf-17.02-python-2.7.13/lib
-export LD_LIBRARY_PATH=$BOOST_LIBRARY_PATH:$LD_LIBRARY_PATH
-
 [ -z "${jobs}" ] && jobs=2
 echo "Running with ${jobs} jobs (set jobs environment variable to change)"
 

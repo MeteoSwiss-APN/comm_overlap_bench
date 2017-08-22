@@ -4,10 +4,6 @@ source modules_kesch_cuda75.env
 echo Modules:
 module list
 
-# Add the boost library path manually
-export BOOST_LIBRARY_PATH=/apps/escha/UES/RH6.7/easybuild/software/Boost/1.63.0-gmvapich2-17.02_cuda_7.5_gdr-Python-2.7.12/lib
-export LD_LIBRARY_PATH=$BOOST_LIBRARY_PATH:$LD_LIBRARY_PATH
-
 [ -z "${jobs}" ] && jobs=2
 echo "Running with ${jobs} jobs (set jobs environment variable to change)"
 

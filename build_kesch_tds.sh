@@ -22,13 +22,11 @@ export CC=gcc
 export CXX=g++
 
 export LDFLAGS=`pkg-config --libs cudart`
-export BOOST_ROOT="/apps/escha/UES/jenkins/RH7.3-17.02/easybuild/software/boost/1.63.0-gmvolf-17.02-python-2.7.13/"
 
 pushd build_tds &>/dev/null
     cmake .. \
              -DMPI_VENDOR=mvapich2 \
              -DCUDA_COMPUTE_CAPABILITY="sm_37" \
              -DCMAKE_BUILD_TYPE=Release \
-             -DENABLE_BOOST_TIMER=ON \
-             -DBOOST_ROOT="${BOOST_ROOT}" 
+             -DENABLE_MPI_TIMER=ON
     make -j 1

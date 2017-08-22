@@ -15,14 +15,12 @@ echo
 
 export CC=gcc
 export CXX=g++
-export BOOST_ROOT="/apps/escha/UES/RH6.7/easybuild/software/Boost/1.49.0-gmvolf-15.11-Python-2.7.10"
 
 pushd build_kesch_mvapich22 &>/dev/null
     cmake .. \
              -DMPI_VENDOR=mvapich2 \
              -DCUDA_COMPUTE_CAPABILITY="sm_37" \
              -DCMAKE_BUILD_TYPE=Release \
-             -DENABLE_BOOST_TIMER=ON \
-             -DBOOST_ROOT="${BOOST_ROOT}" 
+             -DENABLE_MPI_TIMER=ON
     make -j 1
 
