@@ -22,7 +22,7 @@ pushd build_kesch_mvapich22 &>/dev/null
              -DMPI_VENDOR=mvapich2 \
              -DCUDA_COMPUTE_CAPABILITY="sm_37" \
              -DCMAKE_BUILD_TYPE=Release \
-             -DENABLE_TIMER=ON \
+             -DENABLE_BOOST_TIMER=ON \
              -DBOOST_ROOT="${BOOST_ROOT}" 
     make -j 1
 

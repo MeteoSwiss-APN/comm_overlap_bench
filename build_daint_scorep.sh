@@ -18,7 +18,7 @@ pushd build_scorep &>/dev/null
 #    cmake .. -DCMAKE_CXX_FLAGS="-std=c++11" -DBOOST_ROOT="${BOOST_ROOT}" -DCUDA_COMPUTE_CAPABILITY="sm_60" -DCMAKE_BUILD_TYPE=Debug
 SCOREP_WRAPPER=OFF cmake .. \
     -DCMAKE_CXX_FLAGS="-std=c++11" \
-    -DENABLE_TIMER=OFF \
+    -DENABLE_BOOST_TIMER=OFF \
     -DCUDA_COMPUTE_CAPABILITY="sm_60" \
     -DCMAKE_BUILD_TYPE=Release \
     -DBOOST_ROOT="${BOOST_ROOT}" \
