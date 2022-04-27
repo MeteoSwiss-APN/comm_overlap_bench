@@ -51,6 +51,7 @@ set ( CMAKE_EXE_LINKER_FLAGS ${MPI_LINK_FLAGS} ${CMAKE_LINK_FLAGS} ${CMAKE_THREA
 set( CUDA_BACKEND "ON" CACHE BOOL "Compile CUDA version" )
 if( CUDA_BACKEND )
     find_package( CUDA 5.0 )
+    find_package( CUDAToolkit )
     set(CUDA_PROPAGATE_HOST_FLAGS OFF)
     set(CUDA_SEPARABLE_COMPILATION ON CACHE BOOL "" FORCE)
     add_definitions( -DCUDA_BACKEND)
@@ -125,7 +126,6 @@ if( CMAKE_HOST_UNIX AND SHARED_LIBRARY )
     set( CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -fPIC )
 endif()
 
-include(clang-format.cmake)
 # 2. build sources
 add_subdirectory( src )
 

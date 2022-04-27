@@ -1,8 +1,0 @@
-This directory contains scripts for automatically building the DYCORE trunk.
-It is used by jenkins but can also be used to do a automated build by
-the user.
-
-build.sh      -  build script
-test.sh       -  test script
-jenkins.sh    -  Jenkins interface
-

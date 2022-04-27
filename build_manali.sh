@@ -2,9 +2,9 @@
 rm -rf build
 mkdir -p build
 
-module purge
-source modules_kesch.env
-module load CMake
+module use /apps/manali/UES/jenkins/MCH-PE20.08-UP01/NVHPC/22.3/easybuild/modules/all
+module load OpenMPI
+
 module list -t
 echo
 
@@ -13,9 +13,9 @@ export CXX=g++
 
 pushd build &>/dev/null
     cmake .. \
-             -DMPI_VENDOR=mvapich2 \
-             -DCUDA_COMPUTE_CAPABILITY="sm_37" \
+             -DMPI_VENDOR=openmpi \
+             -DCUDA_COMPUTE_CAPABILITY="native" \
              -DCMAKE_BUILD_TYPE=Release \
              -DENABLE_MPI_TIMER=ON
-    make -j 1
+    make -j 4 VERBOSE=1
 

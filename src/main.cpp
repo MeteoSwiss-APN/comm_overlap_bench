@@ -6,6 +6,8 @@
 #include <iostream>
 #include <mpi.h>
 #include <stdexcept>
+#include <sched.h>
+#include <nvml.h>
 
 #include "IJKSize.h"
 
@@ -59,30 +61,6 @@ void readOptions(int argc, char** argv) {
 void setupDevice() {
     const int& rank = Options::getInt("rank");
 
-#ifdef MVAPICH2
-    const char* env_p = std::getenv("SLURM_PROCID");
-    if (!env_p) {
-        std::cout << "SLURM_PROCID not set" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
-    const char* local_rank = std::getenv("MV2_COMM_WORLD_LOCAL_RANK");
-    if (local_rank) {
-        MPIHelper::print("MV2_COMM_WORLD_LOCAL_RANK: ", std::string(local_rank) + ", ", 9999);
-        env_p = local_rank;
-    }
-#elif OPENMPI
-    const char* env_p = std::getenv("OMPI_COMM_WORLD_RANK");
-    if (!env_p) {
-        std::cout << "OMPI_COMM_WORLD_RANK not set" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    MPIHelper::print("OMPI_COMM_WORLD_RANK: ", std::string(env_p) + ", ", 9999);
-
-#else
-    const char* env_p = "0";
-#endif
-
 #ifdef CUDA_BACKEND
     const char* visible_devices = std::getenv("CUDA_VISIBLE_DEVICES");
     if (visible_devices) {
@@ -96,23 +74,21 @@ void setupDevice() {
         exit(EXIT_FAILURE);
     }
 
-#ifdef CUDASETDEVICE
-    error = cudaSetDevice(atoi(env_p) % numGPU);
-    if (error) {
-        std::cout << "Rank: " + std::to_string(rank) + "CUDA ERROR: Could not set device "
-                  << std::to_string(atoi(env_p) % numGPU) << std::endl;
-        exit(EXIT_FAILURE);
-    }
-#endif
+    nvmlInit_v2();
 
-    int device;
-    error = cudaGetDevice(&device);
-    if (error) {
-        std::cout << "Rank: " + std::to_string(rank) + "CUDA ERROR: Could not get configured device." << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    char uuid[NVML_DEVICE_UUID_BUFFER_SIZE];
+    int cudaDevice = std::stoi(std::getenv("CUDA_VISIBLE_DEVICES"));
+
+    nvmlDevice_t device;
+    nvmlDeviceGetHandleByIndex_v2(cudaDevice, &device);
+    nvmlDeviceGetUUID (device, uuid, sizeof(uuid) );  
+
+
+    nvmlShutdown();
+
     MPIHelper::print(
-        "Configured CUDA Devices: ", "[" + std::to_string(rank) + ": " + std::to_string(device) + "] ", 9999);
+        "Configured CUDA Devices: ", "{'rank': " + std::to_string(rank) + ", 'device': " + std::to_string(cudaDevice) + 
+        ", 'GPU_uuid': "+ std::string(uuid) +", 'CPU_id:'"+std::to_string(sched_getcpu()), 9999);
 #else
     if (rank == 0) {
         std::cout << "CUDA Mode Disabled" << std::endl;

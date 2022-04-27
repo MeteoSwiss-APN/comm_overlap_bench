@@ -35,6 +35,7 @@ if( CUDA_BACKEND )
         ${SOURCES}
         ${CUDA_SOURCES}
         OPTIONS ${NVCC_FLAGS})
+target_link_libraries(comm_overlap_benchmark CUDA::nvml) 
 else()
     add_executable(comm_overlap_benchmark
         ${X86_SOURCES}
