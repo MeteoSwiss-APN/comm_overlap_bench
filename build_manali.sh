@@ -14,8 +14,9 @@ export CXX=g++
 pushd build &>/dev/null
     cmake .. \
              -DMPI_VENDOR=openmpi \
-             -DCUDA_COMPUTE_CAPABILITY="native" \
+             -DCUDA_COMPUTE_CAPABILITY="sm_80" \
              -DCMAKE_BUILD_TYPE=Release \
-             -DENABLE_MPI_TIMER=ON
+             -DENABLE_MPI_TIMER=ON \
+             -DVERBOSE=OFF
     make -j 4 VERBOSE=1
 

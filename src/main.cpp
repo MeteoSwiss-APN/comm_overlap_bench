@@ -134,7 +134,6 @@ int main(int argc, char** argv) {
     auto repository = std::shared_ptr< Repository >(new Repository(domain));
 
     const int& rank = Options::getInt("rank");
-#ifdef VERBOSE
     if (rank == 0) {
         std::cout << "\nCONFIGURATION " << std::endl;
         std::cout << "====================================" << std::endl;
@@ -147,7 +146,6 @@ int main(int argc, char** argv) {
         std::cout << "In Order halo exchanges? : " << Options::getBool("inorder") << std::endl;
     }
     MPI_Barrier(MPI_COMM_WORLD);
-#endif
 
 #ifdef CUDA_BACKEND
     int deviceId;

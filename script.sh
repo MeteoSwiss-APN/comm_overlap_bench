@@ -22,12 +22,17 @@ export UCX_TLS=all
 export UCX_MEMTYPE_CACHE=n
 
 echo $SLURM_PROCID : $SLURM_LOCALID, CPU ${CPU_REORDER[$lrank]}, GPU $CUDA_VISIBLE_DEVICES, NET_DEVICE $UCX_NET_DEVICES
+size=256
+ksize=80
 
 nvidia-smi -L
 numactl --physcpubind=${CPUS[$lrank]} ./affinity
-numactl --physcpubind=${CPUS[$lrank]} build/src/comm_overlap_benchmark
+echo "DEFAULT"
+numactl --physcpubind=${CPUS[$lrank]} build/src/comm_overlap_benchmark --ie ${size} --je ${size} --ke ${ksize} --sync --inorder
 
-numactl --physcpubind=${CPUS[$lrank]} build/src/comm_overlap_benchmark --nocomm
+echo "NOCOMM"
+numactl --physcpubind=${CPUS[$lrank]} build/src/comm_overlap_benchmark --nocomm --ie ${size} --je ${size} --ke ${ksize} --sync --inorder
 
-numactl --physcpubind=${CPUS[$lrank]} build/src/comm_overlap_benchmark --nocomp
+echo "NOCOMP"
+numactl --physcpubind=${CPUS[$lrank]} build/src/comm_overlap_benchmark --nocomp --ie ${size} --je ${size} --ke ${ksize} --sync --inorder
 
