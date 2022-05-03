@@ -65,6 +65,14 @@ void setupDevice() {
         exit(EXIT_FAILURE);
     }
 
+    const char* my_device_str = std::getenv("SLURM_LOCALID");
+    
+    int my_device = std::stoi(my_device_str) % numGPU;
+    MPIHelper::print(
+            "set_device: ", "["+std::to_string(rank) + ": " + std::to_string(my_device),9999);
+
+    cudaSetDevice(my_device);
+
     nvmlInit_v2();
 
     char uuid[NVML_DEVICE_UUID_BUFFER_SIZE];
@@ -94,6 +102,10 @@ void printSlurmInfo() {
     const char* jobid = std::getenv("SLURM_JOBID");
     if (jobid != 0 && rank == 0) {
         std::cout << "SLURM_JOBID: " << jobid << std::endl;
+    }
+    const char* localid = std::getenv("SLURM_LOCALID");
+    if (localid != 0) {
+        MPIHelper::print("SLURM_LOCALID: ", std::string(localid) + ", ", 9999);
     }
     const char* procid = std::getenv("SLURM_PROCID");
     if (procid != 0) {
