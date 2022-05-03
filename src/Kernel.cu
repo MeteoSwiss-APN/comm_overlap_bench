@@ -1,11 +1,8 @@
 #include "Kernel.h"
 
-__global__ void cukernel(Real __restrict__* in,
-    Real __restrict__* out,
-    const int kSize,
-    const int iStride,
-    const int jStride,
-    const int kStride) {
+__global__
+void cukernel(Real __restrict__ * in, Real __restrict__* out, const int kSize, const int iStride, const int jStride, const int kStride)
+{
 
     int ipos = blockIdx.x * 32 + threadIdx.x;
     int jpos = blockIdx.y * 8 + threadIdx.y;
@@ -55,7 +52,8 @@ __global__ void cukernel(Real __restrict__* in,
 #endif
 }
 
-void launch_kernel(IJKSize domain, Real __restrict__* in, Real __restrict__* out, cudaStream_t& stream) {
+void launch_kernel(IJKSize domain, Real __restrict__* in, Real __restrict__* out, cudaStream_t& stream)
+{
     dim3 threads, blocks;
     threads.x = 32;
     threads.y = 8;
